@@ -1,3 +1,43 @@
-<h1> Ayyo </h1>
+<UnlTemplateHeader />
 
-{{outlet}}
+<main class="dcf-main" id="dcf-main" role="main" tabindex="-1">
+
+  <!-- TemplateBeginEditable name="hero" -->
+  <div class="dcf-hero dcf-hero-default">
+    <!-- TemplateEndEditable -->
+    <div class="dcf-hero-group-1">
+      <div class="dcf-breadcrumbs-wrapper">
+        <nav class="dcf-breadcrumbs" id="dcf-breadcrumbs" role="navigation" aria-label="breadcrumbs">
+          <!-- TemplateBeginEditable name="breadcrumbs" -->
+          <ol>
+            <li><a href="https://www.unl.edu/">Nebraska</a></li>
+            <li><a href="/">Site Title</a></li>
+            <li><span aria-current="page">Home</span></li>
+          </ol>
+          <!-- TemplateEndEditable -->
+        </nav>
+      </div>
+      <header class="dcf-page-title" id="dcf-page-title">
+        <!-- TemplateBeginEditable name="pagetitle" -->
+        <h1>Please Title Your Page Here</h1>
+        <!-- TemplateEndEditable -->
+      </header>
+      <!-- TemplateBeginEditable name="herogroup1" -->
+      <!-- TemplateEndEditable -->
+    </div>
+    <!-- TemplateBeginEditable name="herogroup2" -->
+    <div class="dcf-hero-group-2">
+    </div>
+    <!-- TemplateEndEditable -->
+  </div>
+
+
+  <div class="dcf-main-content dcf-wrapper">
+
+    <LinkTo @route="about">Ayyo</LinkTo>
+
+  {{outlet}}
+
+  </div>
+
+</main>
