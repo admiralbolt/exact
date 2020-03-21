@@ -1,39 +1,34 @@
 <UnlTemplateHeader />
 
 <main class="dcf-main" id="dcf-main" role="main" tabindex="-1">
-
-  <!-- TemplateBeginEditable name="hero" -->
+  {{!-- TemplateBeginEditable name="hero" --}}
   <div class="dcf-hero dcf-hero-default">
-    <!-- TemplateEndEditable -->
+    {{!-- TemplateEndEditable --}}
     <div class="dcf-hero-group-1">
       <div class="dcf-breadcrumbs-wrapper">
         <nav class="dcf-breadcrumbs" id="dcf-breadcrumbs" role="navigation" aria-label="breadcrumbs">
-          <!-- TemplateBeginEditable name="breadcrumbs" -->
+          {{!-- TemplateBeginEditable name="breadcrumbs" --}}
           <UnlBreadcrumbs />
-          <!-- TemplateEndEditable -->
+          {{!-- TemplateEndEditable --}}
         </nav>
       </div>
       <header class="dcf-page-title" id="dcf-page-title">
-        <!-- TemplateBeginEditable name="pagetitle" -->
+        {{!-- TemplateBeginEditable name="pagetitle" --}}
         <h1>Please Title Your Page Here</h1>
-        <!-- TemplateEndEditable -->
+        {{!-- TemplateEndEditable --}}
       </header>
-      <!-- TemplateBeginEditable name="herogroup1" -->
-      <!-- TemplateEndEditable -->
+      {{!-- TemplateBeginEditable name="herogroup1" --}}
+      {{!-- TemplateEndEditable --}}
     </div>
-    <!-- TemplateBeginEditable name="herogroup2" -->
+    {{!-- TemplateBeginEditable name="herogroup2" --}}
     <div class="dcf-hero-group-2">
     </div>
-    <!-- TemplateEndEditable -->
+    {{!-- TemplateEndEditable --}}
   </div>
-
 
   <div class="dcf-main-content dcf-wrapper">
-
     <LinkTo @route="about">Ayyo</LinkTo>
 
-  {{outlet}}
-
+    {{outlet}}
   </div>
-
 </main>
