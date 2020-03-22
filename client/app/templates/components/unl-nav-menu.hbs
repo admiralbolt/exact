@@ -15,54 +15,40 @@
       <li>
         <LinkTo @route="home">Home</LinkTo>
         <ul>
-          <UnlNavLink @route="home.organization" @text="Organization" />
-          <UnlNavLink @route="home.number-tutorial" @text="Number Tutorial" />
+          <li><LinkTo @route="home.organization">Organization</LinkTo></li>
+          <li><LinkTo @route="home.number-tutorial">Number Tutorial</LinkTo></li>
         </ul>
       </li>
       <li>
         <LinkTo @route="about">About</LinkTo>
         <ul>
-          <UnlNavLink @route="about.project-tasks" @text="Project Tasks" />
-          <UnlNavLink @route="about.personnel" @text="Personnel" />
+          <li><LinkTo @route="about.project-tasks">Project Tasks</LinkTo></li>
+          <li><LinkTo @route="about.personnel">Personnel</LinkTo></li>
         </ul>
       </li>
       <li>
-        <a href="#">Admissions</a>
+        <LinkTo @route="contents">Contents</LinkTo>
         <ul>
-          <li><a href="#">Undergraduate</a></li>
-          <li><a href="#">Graduate</a></li>
-          <li><a href="#">Online &amp; Distance Education</a></li>
-          <li><a href="#">Law</a></li>
-          <li><a href="#">Global</a></li>
+          <li><LinkTo @route="contents.videos-and-animations">Videos & Animations</LinkTo></li>
+          <li><LinkTo @route="contents.notation">Notation</LinkTo></li>
+          <li><LinkTo @route="contents.history">History</LinkTo></li>
         </ul>
       </li>
       <li>
-        <a href="#">Life at Nebraska</a>
+        <LinkTo @route="images">Images</LinkTo>
+      </li>
+      <li>
+        <LinkTo @route="contribute">Contribute</LinkTo>
         <ul>
-          <li><a href="#">Student Involvement</a></li>
-          <li><a href="#">Arts &amp; Culture</a></li>
-          <li><a href="#">Athletics</a></li>
-          <li><a href="#">Life in Lincoln</a></li>
-          <li><a href="#">Campus Photos</a></li>
-          <li><a href="#">Faculty &amp; Staff Resources</a></li>
+          <li><LinkTo @route="contribute.how-to-submit">How to Submit</LinkTo></li>
+          <li><LinkTo @route="contribute.template">Template</LinkTo></li>
         </ul>
       </li>
       <li>
-        <a href="#">Research</a>
+        <LinkTo @route="admin.login">Admin</LinkTo>
         <ul>
-          <li><a href="#">Office of Research &amp; Economic Development</a></li>
-          <li><a href="#">Nebraska Innovation Campus</a></li>
-          <li><a href="#">NUtech Ventures</a></li>
-          <li><a href="#">Industry Relations</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">Outreach &amp; Impact</a>
-        <ul>
-          <li><a href="#">Global Nebraska</a></li>
-          <li><a href="#">Nebraska Extension</a></li>
-          <li><a href="#">Parents Association</a></li>
-          <li><a href="#">Alumni Association</a></li>
+          <li><LinkTo @route="admin.login">Login</LinkTo></li>
+          <li><LinkTo @route="admin.account-recovery">Account Recovery</LinkTo></li>
         </ul>
       </li>
     </ul>

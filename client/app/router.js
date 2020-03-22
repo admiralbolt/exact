@@ -15,6 +15,20 @@ Router.map(function() {
     this.route('organization');
     this.route('number-tutorial');
   });
+  this.route('contents', function() {
+    this.route('videos-and-animations');
+    this.route('notation');
+    this.route('history');
+  });
+  this.route('images');
+  this.route('contribute', function() {
+    this.route('how-to-submit');
+    this.route('template');
+  });
+  this.route('admin', function() {
+    this.route('login');
+    this.route('account-recovery');
+  });
 });
 
 export default Router;
