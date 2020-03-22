@@ -4,7 +4,10 @@
       {{!-- TemplateBeginEditable name="breadcrumbs" --}}
       <ol>
         <li><a href="https://www.unl.edu/">Nebraska</a></li>
-        <li><LinkTo @route="index">Exact</LinkTo></li>
+        <li><LinkTo @route="home">Exact</LinkTo></li>
+        {{#each links as |link|}}
+          <li><LinkTo @route={{link.route}}>{{link.text}}</LinkTo></li>
+        {{/each}}
         <li><span aria-current="page">{{pageTitle}}</span></li>
       </ol>
       {{!-- TemplateEndEditable --}}
