@@ -10,5 +10,6 @@ export default Component.extend({
     if (routeName == 'index') return 'Home';
 
     return `${routeName.charAt(0).toUpperCase()}${routeName.slice(1)}`;
-  })
+  }),
+
 });
