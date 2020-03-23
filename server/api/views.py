@@ -47,3 +47,6 @@ class EquationViewSet(viewsets.ModelViewSet):
   def get_queryset(self):
     equation_types = models.Equation.objects.order_by("number").order_by("name")
     return equation_types if self.request.user.is_authenticated else equation_types.filter(is_live=True)
+
+  def perform_create(self, serializer):
+    serializer.save(user=self.request.user)

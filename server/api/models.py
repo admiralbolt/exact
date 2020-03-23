@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class EquationType(models.Model):
   name = models.CharField(max_length=128, unique=True)
@@ -21,8 +22,9 @@ class Equation(models.Model):
   author = models.CharField(max_length=256)
   date = models.DateField()
   equation_type = models.ForeignKey(EquationType, on_delete=models.PROTECT)
-  is_live = models.BooleanField(default=False)
   geometry = models.ForeignKey(Geometry, on_delete=models.PROTECT)
+  user = models.ForeignKey(User, on_delete=models.PROTECT)
+  is_live = models.BooleanField(default=False)
   # Files!
   source_file = models.FileField(upload_to="sources/", blank=True)
   content_file = models.FileField(upload_to="content/")
