@@ -28,6 +28,8 @@ Router.map(function() {
   this.route('admin', function() {
     this.route('login');
     this.route('account-recovery');
+    this.route('content-management');
+    this.route('account-information');
   });
 });
 
