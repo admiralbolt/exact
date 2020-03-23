@@ -15,3 +15,5 @@ class Equation(models.Model):
   geometry_file = models.FileField(upload_to="geometry/")
   source_file = models.FileField(upload_to="sources/")
   content_file = models.FileField(upload_to="content/")
+
+ADMIN_MODELS = [EquationType, Equation]

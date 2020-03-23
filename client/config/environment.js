@@ -2,6 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
+    host: 'http://192.168.0.198:8000',
     modulePrefix: 'client',
     environment,
     rootURL: '/',
@@ -45,7 +46,17 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.host = 'https://exact.unl.edu:8000';
   }
+
+  ENV['ember-simple-auth-token'] = {
+    serverTokenEndpoint: ENV.host + '/api-auth-token/',
+    identificationField: 'username',
+    passwordField: 'password',
+    tokenPropertyName: 'token',
+    authorizationHeaderName: 'Authorization',
+    authorizationPrefix: 'Bearer ',
+  };
 
   return ENV;
 };
