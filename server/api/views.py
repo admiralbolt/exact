@@ -54,7 +54,7 @@ class EquationViewSet(viewsets.ModelViewSet):
 
 class PageViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
-  resource_name = "geometrys"
+  resource_name = "pages"
   queryset = models.Page.objects.all()
   serializer_class = serializers.PageSerializer
 

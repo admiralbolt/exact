@@ -1,0 +1,25 @@
+{{#if isEditing}}
+  <div class="dcf-grid">
+    <div class="dcf-col-100% edit-action">
+      <button {{action "save"}} class="dcf-btn-primary">Save</button>
+      <button {{action "toggleEditing"}} class="dcf-btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+  <FroalaEditor
+    @content={{content}}
+    @update={{fn (mut content)}}
+    @theme="dark"
+  />
+{{else}}
+  {{#if isLoading}}
+    Some kind of loading indicator...
+  {{else}}
+    {{#if session.isAuthenticated }}
+      <div class="dcf-grid">
+        <button {{action "toggleEditing"}} class="edit">Edit</button>
+      </div>
+    {{/if}}
+    <FroalaContent @content={{content}} />
+  {{/if}}
+{{/if}}

@@ -13,6 +13,7 @@ router = routers.DefaultRouter(trailing_slash=False)  # pylint: disable=invalid-
 router.register(r"geometrys", views.GeometryViewSet)
 router.register(r"equation_types", views.EquationTypeViewSet)
 router.register(r"equations", views.EquationViewSet)
+router.register(r"pages", views.PageViewSet)
 
 urlpatterns = [
   path("api-auth-token/", obtain_auth_token),
