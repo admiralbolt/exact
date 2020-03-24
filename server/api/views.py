@@ -29,7 +29,7 @@ class EquationTypeViewSet(viewsets.ModelViewSet):
 
 class GeometryViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
-  resource_name = "equation_types"
+  resource_name = "geometrys"
   queryset = models.Geometry.objects.all()
   serializer_class = serializers.GeometrySerializer
 
@@ -40,7 +40,7 @@ class GeometryViewSet(viewsets.ModelViewSet):
 
 class EquationViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
-  resource_name = "equation_types"
+  resource_name = "equations"
   queryset = models.Equation.objects.all()
   serializer_class = serializers.EquationSerializer
 

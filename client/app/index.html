@@ -39,25 +39,16 @@
     <script src="{{rootURL}}assets/client.js"></script>
 
     {{content-for "body-footer"}}
-<footer class="dcf-footer" id="dcf-footer" role="contentinfo">
-  <!-- TemplateBeginEditable name="optionalfooter" -->
-  <!-- TemplateEndEditable -->
-  <!--#include virtual="/wdn/templates_5.0/includes/global/footer-global-1.html" -->
-  <!-- TemplateBeginEditable name="contactinfo" -->
-  <!--#include virtual="/wdn/templates_5.0/includes/local/footer-local.html" -->
-  <!-- TemplateEndEditable -->
-  <!--#include virtual="/wdn/templates_5.0/includes/global/footer-global-2.html" -->
-</footer>
-<!--#include virtual="/wdn/templates_5.0/includes/global/noscript.html" -->
 
-<!-- TemplateBeginEditable name="jsbody" -->
-<!-- put your custom javascript here -->
-<script>
-$("#dcf-nav-menu-child a").on("click", function() {
-  document.dispatchEvent(new Event('closeNavigation'));
-  document.getElementById('dcf-menu-toggle').removeAttribute('aria-expanded');
-});
-</script>
-<!-- TemplateEndEditable -->
+
+  <!-- TemplateBeginEditable name="jsbody" -->
+  <!-- put your custom javascript here -->
+  <script>
+  $("#dcf-nav-menu-child a").on("click", function() {
+    document.dispatchEvent(new Event('closeNavigation'));
+    document.getElementById('dcf-menu-toggle').removeAttribute('aria-expanded');
+  });
+  </script>
+  <!-- TemplateEndEditable -->
 </body>
 </html>
