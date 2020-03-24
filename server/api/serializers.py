@@ -27,3 +27,10 @@ class EquationSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.Equation
     fields = "__all__"
+
+class PageSerializer(serializers.ModelSerializer):
+  """Serialize Pages."""
+
+  class Meta:
+    model = models.Page
+    fields = "__all__"

@@ -33,4 +33,13 @@ class Equation(models.Model):
     return self.name
 
 
-ADMIN_MODELS = [EquationType, Equation, Geometry]
+# Used to store html content for a static page.
+class Page(models.Model):
+  name = models.CharField(max_length=128, unique=True)
+  content = models.TextField()
+
+  def __str__(self):
+    return self.name
+
+
+ADMIN_MODELS = [EquationType, Equation, Geometry, Page]

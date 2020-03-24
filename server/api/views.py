@@ -45,8 +45,19 @@ class EquationViewSet(viewsets.ModelViewSet):
   serializer_class = serializers.EquationSerializer
 
   def get_queryset(self):
-    equation_types = models.Equation.objects.order_by("number").order_by("name")
+    equation_types = models.Equation.objects.order_by("name")
     return equation_types if self.request.user.is_authenticated else equation_types.filter(is_live=True)
 
   def perform_create(self, serializer):
     serializer.save(user=self.request.user)
+
+
+class PageViewSet(viewsets.ModelViewSet):
+  """View set for equation types."""
+  resource_name = "geometrys"
+  queryset = models.Page.objects.all()
+  serializer_class = serializers.PageSerializer
+
+  def get_queryset(self):
+    equation_types = models.Page.objects.order_by("name")
+    return equation_types
