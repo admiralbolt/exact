@@ -2,4 +2,9 @@
 
 ember build --environment=development
 
-cp -r dist/* /var/www/html/
+if [ "$(uname)" == "Darwin" ]
+then
+  cp -r dist/* ~/php-server/
+else
+  cp -r dist/* /var/www/html/
+fi

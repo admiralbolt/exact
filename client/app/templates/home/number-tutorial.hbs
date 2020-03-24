@@ -1,1 +1,171 @@
-{{outlet}}
+<h3 style="padding:0px;margin:0px;">Number System</h3>
+The number system is used to categorize solutions of the heat (diffusion) equation to make existing solutions easier to identify, store, and retrieve as part of the EXACT Toolbox. The number system specifies the coordinate system, the type of boundary conditions, and the value of the boundary conditions.  Additional modifiers can be included to specify effects present in the differential equation including transient effects, heat generation, convective effects, etc. The number system is based on the mathematical description of the problem, including the equation and all of the boundary (and initial) conditions needed to uniquely specify the problem.
+<br><br>
+<h3 style="padding:0px;margin:0px;">Background</h3>
+Numbers have long been used to identify the types of boundary conditions, for example Luikov [1], Ozisik [2], and Nowak et al .[3].  The number system for heat conduction was proposed by Beck and Litkouhi [4] and has been adopted by others [5 - 8].      A complete description of the number system is given in Cole et al. [9].
+<br><br>
+<h3 style="padding:0px;margin:0px;">Coordinate System Designation</h3>
+The number system in its present form addresses solutions rectangular, cylindrical, and spherical coordinate systems.  The coordinate system portion of the number system includes the following symbols: ( X, Y, Z ) for Cartesian coordinates; ( R, &lt;math&gt;\Phi&lt;/math&gt;, Z ) for cylindrical coordinates; and ( RS,&lt;math&gt; \Phi &lt;/math&gt; ,&lt;math&gt;\Theta&lt;/math&gt; )  for spherical coordinates.
+<br><br>
+<h3 style="padding:0px;margin:0px;">Boundary Condition Designation</h3>
+Several types of boundary conditions given in Table 1 are identified by numbers zero through five.   Type 1 is the familiar Dirichlet condition and type 2 is the Neumann condition where &lt;math&gt;\partial /\partial n_i&lt;/math&gt; is the (outward) normal derivative on boundary &lt;math&gt;i&lt;/math&gt;. Type 3 is a convective condition called the Robin condition.  Type 4 represents a thin film at the boundary, and type 5 represents a thin film plus convection at the boundary.  The zeroth boundary condition is used to identify a coordinate boundary where no physical boundary exists, for example, far away in a semi-infinite body or at the center of a cylindrical or spherical body. In Table 1 boundary conditions 1 - 5 are shown with causative effect &lt;math&gt;f_i (r_i,t)&lt;/math&gt; associated with each boundary.  If quantity &lt;math&gt;f_i (r_i,t)&lt;/math&gt; is simply zero at a boundary, the boundary condition is said to be homogeneous.
+<br><br>
+<h3 style="padding:0px;margin:0px;">Boundary Condition Modifiers</h3>
+Boundary condition modifiers are used to identify the time and/or spatial variation of the causative effect at a boundary. The boundary condition modi¯ers are prefaced by symbol B, as shown in Table 2.
+<br><br>
+<p style="text-align:center;margin:auto">Table 1: Types of boundary conditions and associated number designation.</p>
+<table class="dcf-table dcf-table-bordered">
+  <tr>
+    <th colspan="1">Name or Description</th>
+    <th colspan="1">Equation</th>
+    <th colspan="1">Number</th>
+  </tr>
+  <tr>
+    <td>No Physical Boundary</td>
+    <td>T is bounded</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>Dirichlet</td>
+    <td>&lt;math&gt;T|_{r_i} = f_i&lt;/math&gt;</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>Neumann</td>
+    <td>&lt;math&gt; \frac{\partial T}{\partial n_i} = f_i&lt;/math&gt;</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>Robin</td>
+    <td>&lt;math&gt; \frac{\partial T}{\partial n_i} + hT |_{r_i} = f_i&lt;/math&gt;</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>Surface film</td>
+    <td>&lt;math&gt; [ k \frac{\partial T}{\partial n_i} + (\rho c b)\frac{\partial T}{\partial t}]_{r_i} = f_i&lt;/math&gt;</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>Surface film with convection</td>
+    <td>&lt;math&gt; [ k \frac{\partial T}{\partial n_i} + (\rho c b)\frac{\partial T}{\partial t} + hT ]_{r_i} = f_i&lt;/math&gt;</td>
+    <td>5</td>
+  </tr>
+</table>
+<br><br>
+<p style="text-align:center;margin:auto">Table 2: Modifiers for time and space variable functions at boundary conditions.</p>
+<table class="dcf-table dcf-table-striped">
+  <tr>
+    <th colspan="1">Notation</th>
+    <th colspan="1">Time Variable Condition</th>
+    <th colspan="1">Notation</th>
+    <th colspan="1">Space Variable Condition</th>
+  </tr>
+  <tr>
+    <td>B-</td>
+    <td>Arbitrary &lt;math&gt;f(t)&lt;/math&gt;</td>
+    <td>Bx-</td>
+    <td>Arbitrary &lt;math&gt;f(x)&lt;/math&gt;</td>
+  </tr>
+  <tr>
+    <td>B0</td>
+    <td>&lt;math&gt;f(t) = 0&lt;/math&gt;</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>B1</td>
+    <td>&lt;math&gt;f(t) = C&lt;/math&gt;</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>B2</td>
+    <td>&lt;math&gt;f(t) = Ct&lt;/math&gt;</td>
+    <td>Bx2</td>
+    <td>&lt;math&gt;f(x) = Cx&lt;/math&gt;</td>
+  </tr>
+  <tr>
+    <td>B3</td>
+    <td>&lt;math&gt;f(t) = Ct^p&lt;/math&gt;,&lt;math&gt;p>1&lt;/math&gt;</td>
+    <td>Bx3</td>
+    <td>&lt;math&gt;f(x) = Cx^p&lt;/math&gt;,&lt;math&gt;p>1&lt;/math&gt;</td>
+  </tr>
+  <tr>
+    <td>B4</td>
+    <td>&lt;math&gt;f(t) = exp(-at)&lt;/math&gt;</td>
+    <td>Bx4</td>
+    <td>&lt;math&gt;f(x) = exp(-ax)&lt;/math&gt;</td>
+  </tr>
+  <tr>
+    <td>B5</td>
+    <td>Step Change(s) in &lt;math&gt;f(t)&lt;/math&gt;</td>
+    <td>Bx5</td>
+    <td>Step Change(s) in &lt;math&gt;f(x)&lt;/math&gt;</td>
+  </tr>
+  <tr>
+    <td>B6</td>
+    <td>Sine or Cosine &lt;math&gt;f(t)&lt;/math&gt;</td>
+    <td>Bx6</td>
+    <td>Sine or Cosine &lt;math&gt;f(x)&lt;/math&gt;</td>
+  </tr>
+</table>
+<br><br>
+<h3 style="padding:0px;margin:0px;">Differential Equation Modifiers</h3>
+<p>There are several modifiers to identify effects that may be present in the differential equation.  These include such examples as a transient term, generation term, fin term, and convective term.</p>
+<p><b>Transient term modifier.</b>  If the differential equation includes a transient term, modifier T is used.  The number(s) following the T-modifier indicate the spatial variation of the initial condition, in a manner similar to the boundary condition modifiers given in Table 2.  If modifier T is not present, the heat conduction number represents a steady-state problem.</p>
+<p><b>Generation term modifier.</b>  If the differential equation contains energy generation, modifier G is used.  The numbers(s) following the G-modifier can be used to indicate the time- and space- variation of the energy generation, in manner similar to the boundary condition modifiers given in Table 2. </p>
+<p><b>Fin term modifier.</b>  If the differential equation contains a loss term proportional to temperature, then modifier F is used to indicate that a fin term is present.  For example, modifier F0 denotes a homogeneous fin term &lt;math&gt; m^2 T &lt;/math&gt; and modifier F1 denotes  non-homogeneous fin term  &lt;math&gt; m^2(T - T_{\infty}) &lt;/math&gt;.  The fin term is also present in the bioheat equation.</p>
+<p><b>Convective term modifier.</b>  If the differential equation contains a convective term then modifier V may be used (to denote velocity).  The convective term appears in moving-body problems such as tube flow as well as certain moving-heat-source problems.</p>
+<h3 style="padding:0px;margin:0px;">Two and Three Dimensions</h3>
+The number system applies to two- and three dimensional cases by including additional coordinate identifiers for each spatial-derivative term present in the differential equation.  In the next section some one-dimensional examples of the number system are given.
+<h3 style="padding:0px;margin:0px;">One-dimensional Examples</h3>
+<h5 style="padding:0px;margin:0px;">X11B10T0</h5>
+As an example, number X11B10T0 denotes the temperature in slab body with a sudden jump in temperature at one boundary and with initial temperature zero.  To break down the number, the X denotes the Cartesian coordinate system andthe 11 denotes type 1 boundaries (Dirichlet) on both sides, representing a slab body.  The next portion of the number, B10, indicates that there is a constant-in-time boundarytemperature at boundary &lt;math&gt;x=0&lt;/math&gt; and there is a zero-temperature boundary at &lt;math&gt;x=L&lt;/math&gt;.  The final portion of the number indicates that the problem is transient and starts from zero (ambient) temperature. The boundary value problem for the this temperature problem is given by
+:&lt;math&gt; \frac{\partial^2 T}{\partial x^2} = \frac{1}{\alpha} \frac{\partial T}{\partial t}; \quad\quad 0&lt;x&lt;L \\
+T(0,t) = T_0; \quad T(L,t) = 0 \quad T(x,0) = 0 &lt;/math&gt;
+<h5 style="padding:0px;margin:0px;">X20B0T5</h5>
+As another Cartesian example, number X20B0T5 denotes the temperature in a semi-infinite body &lt;math&gt;(0&lt;x&lt;\infty)&lt;/math&gt; with an insulated boundary at &lt;math&gt;x = 0&lt;/math&gt; and with an initial condition containing a spatial jump in temperature. In the number X denotes the Cartesian coordinate, 2 denotes the type 2 boundary condition at &lt;math&gt;x=0&lt;/math&gt; and 0 denotes the zeroth type boundary condition (boundedness) at &lt;math&gt;x = \infty&lt;/math&gt;.  Number portion B0 indicates that the boundary effect is zero, in this case zero heat flux (zero slope).  Finally T5 denotes the initial condition containing a temperature jump.  The boundary value problem for the this temperature example is given by
+:&lt;math&gt;
+\frac{\partial^2 T}{\partial x^2} = \frac{1}{\alpha} \frac{\partial T}{\partial t}; \quad\quad 0&lt;x&lt;\infty \\
+\frac{\partial T}{\partial x}|_{x=0} = 0; \quad\quad  T(x\rightarrow \infty,t) \mbox{ is bounded} \\
+&lt;/math&gt;
+<h5 style="padding:0px;margin:0px;">F1T1</h5>
+A body that has no spatial variation in temperature is said to be lumped.  For a lumped body initially at an elevated temperature and suddenly cooled by convection, the describing equations are
+:&lt;math&gt;
+hA(T - T_\infty ) = \rho V c \frac{\partial T}{\partial t}; \quad\quad t &gt; 0 \\
+T(0) = T_1
+&lt;/math&gt;
+In the number F1T1, portion F1 denotes the convection loss and T1 denotes the transient term and the non-zero initial condition. Number F1T1 contains no identifier for a spatial coordinate system because there is no spatial derivative present in the differential equation.
+<h5 style="padding:0px;margin:0px;">R03B0G1T1</h5>
+As an example in the cylindrical coordinate system, number R03B0G1T1 denotes the temperature a solid cylinder (&lt;math&gt;0&lt;r&lt;a&lt;/math&gt;) cooled by convection at &lt;math&gt;r = a&lt;/math&gt;, heated by a uniforminternal source, and starting from a uniform initial temperature. Here letter "R" denotes the cylindrical coordinate system, number "0" denotes the bounded condition at the center of the cylinder (&lt;math&gt;r=0&lt;/math&gt;), and number "3" denotes the convection (Robin) boundary condition at &lt;math&gt;r = a&lt;/math&gt;. Number portion B0 showsthat the convection takes place relative to the ambient temperature (normalized to zero).  Number portion G1 denotes uniform energy generation and T1 denotes a uniform initial condition (above the ambient).  The boundary value problem for this case is given by
+:&lt;math&gt;
+\frac{1}{r} \frac{\partial}{\partial r} (r \frac{\partial T}{\partial r}) + \frac{g_0}{k}= \frac{1}{\alpha} \frac{\partial T}{\partial t}; \quad\quad 0&lt;r&lt;a  \\
+[ k \frac{\partial T}{\partial r} + hT]_{r=a} = 0 \\
+T(0,t) \mbox{ is bounded}; \quad\quad T(r,0) = T_0
+&lt;/math&gt;
+Here &lt;math&gt;h&lt;/math&gt; is the heat transfer coefficient (W/(m&lt;math&gt;^2&lt;/math&gt;K)).
+<h5 style="padding:0px;margin:0px;">R10B1T0</h5>
+Number R10B1T0 represents the temperature in a large body containing a cylindrical void &lt;math&gt;(a &lt; r &lt; \infty )&lt;/math&gt;with a type 1 (Dirichlet) boundary condition at &lt;math&gt;r = a&lt;/math&gt;,and the temperature at the boundary &lt;math&gt;r=a&lt;/math&gt;is suddenly elevated above the uniform initial condition.Here again letter R denotes the cylindrical coordinate system, number 1 denotes the type 1 boundary at &lt;math&gt;r = a&lt;/math&gt;, and number 0 denotes the type zero boundary (boundedness) at large values of &lt;math&gt;r&lt;/math&gt;. Number portion B1 shows that the boundary temperature is uniform andnumber portion T0 shows that the initial condition is zero everywhere in the body. The boundary value problem for this case is given by
+:&lt;math&gt;
+\frac{1}{r} \frac{\partial}{\partial r}(r \frac{\partial T}{\partial r}) = \frac{1}{\alpha} \frac{\partial T}{\partial t}; \quad\quad a&lt;r&lt; \infty \\
+T(a,t) = T_0; \quad\quad T(r\rightarrow \infty,t) \mbox{ is bounded}; \quad\quad T(r,0) = 0
+&lt;/math&gt;
+<h5 style="padding:0px;margin:0px;">RS02B0G(r4)T0</h5>
+As an example in the spherical coordinate system, number RS02B0G(r4)T0 represents thetemperature in a solid sphere (&lt;math&gt;0&lt;r&lt;a&lt;/math&gt;) with an insulated boundary condition at &lt;math&gt;r = a&lt;/math&gt;,with steady internal heating that varies spatially according to an exponential function,and with a zero initial temperature.Here letters RS denote the radial-spherical coordinate system, number 0 denotes the zeroth boundary condition (boundedness) at &lt;math&gt;r=0&lt;/math&gt;, and number 2 denotes the type 2 boundary (Neumann) at &lt;math&gt;r = a&lt;/math&gt;. Number portion B0 shows that heat flux at the boundary is zero (insulated),Number portion G(r4) denotes spatially-varying internal heating according to an exponential,and T0 denotes a zero initial condition. One realization of case RS02B0G(r4)T0 is given by
+:&lt;math&gt;
+\frac{1}{r^2} \frac{\partial}{\partial r}(r^2 \frac{\partial T}{\partial r}) + \frac{g_0}{k} \exp[-(a-r)/b]= \frac{1}{\alpha} \frac{\partial T}{\partial t}; \quad\quad 0&lt;r&lt; a  \\
+T(0,t) \mbox{ is bounded}; \quad\quad \frac{\partial T}{\partial r}|_{r=a} = 0; \quad\quad T(r,0) = 0
+&lt;/math&gt;
+Here &lt;math&gt;b&lt;/math&gt; (meters) is a parameter defining the spatial penetration of the internal heating.
+<h3 style="padding:0px;margin:0px;">References</h3>
+<ol>
+  <li> Luikov, A. V. (1968) Analytical Heat Diffusion Theory, Academic Press, ISBN 0124597564. </li>
+  <li> Ozisik, M. N. (1980) Heat Conduction, John Wiley, p. 13, ISBN 047105481X. </li>
+  <li> Nowak, A., Bialecki R., and Kurpisz, K. (1987) Evaluating eigenvalues for boundary value problems of heat conduction in rectangular and cylindrical coordinates, Int. J for Numerical Methods in Engineering, 24, 419 - 445.</li>
+  <li> Beck, J. V. and Litkouhi, B, (1988) Heat conduction number system, International Journal of Heat and Mass Transfer, 31, 505-515. </li>
+  <li> Al-Nimr, M. A. and Alkam, M. K. (1997) A generalized thermal boundary condition, Heat and Mass Transfer, v. 33, pp. 157 - 161. </li>
+  <li> De Monte, F. (2006) Multi-layer transient heat conduction using transition time scales, Int. Journal Thermal Sciences, v. 45, pp. 882 - 892. </li>
+  <li> Lefebvre, G. (2010) A general modal-based numerical simulation of transient heat conduction in a one dimensional homogeneous slab, Energy and Buildings, v. 42, no. 12, pp. 2309 - 2322. </li>
+  <li> Sarkar, D. and Haji-Sheikh, A. (2012) A view of the thermal wave behaviors in thin plates, International Communications in Heat and Mass Transfer, v. 39, No. 8, pp. 1009-1017. </li>
+  <li> Cole, K.D., Beck, J. V., Haji-Sheikh, A., and Litkouhi, B. (2011), Chapter 2, Numbering System in Heat Conduction, Heat Conduction Using Green"s Functions, Taylor and Francis, (2nd ed.) ISBN-13: 978-1439813546. </li>
+</ol>
