@@ -8,6 +8,13 @@ module.exports = function(defaults) {
       languages: ['es'],
       plugins: true,
       themes: 'dark'
+    },
+    'derequire': {
+      patterns: [
+        { from: 'require', to: 'eriuqer' },
+        { from: 'define', to: 'enifed' },
+        { from: 'requirejs', to: 'eequirejs' }
+      ]
     }
   });
 

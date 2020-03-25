@@ -30,16 +30,14 @@
 </head>
 <body class="@@(_document['class'])@@ unl" data-version="5.0">
 
-  <!-- UNL JS needs to be loaded first so that ember loader doesn't destroy requirejs -->
+  {{content-for "body"}}
+
+  <script src="{{rootURL}}assets/vendor.js"></script>
+  <script src="{{rootURL}}assets/client.js"></script>
+
+  {{content-for "body-footer"}}
+
   <!--#include virtual="/wdn/templates_5.0/includes/global/js-body-local.html" -->
-
-    {{content-for "body"}}
-
-    <script src="{{rootURL}}assets/vendor.js"></script>
-    <script src="{{rootURL}}assets/client.js"></script>
-
-    {{content-for "body-footer"}}
-
 
   <!-- TemplateBeginEditable name="jsbody" -->
   <!-- put your custom javascript here -->
