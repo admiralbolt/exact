@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
 
 export default Component.extend({
-  store: service(),
+  api_data: service(),
   session: service(),
   page: null,
   content: '',
@@ -13,14 +13,17 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this.get('store').query('page', {
-      filter: {
-        name: this.name
+    console.log(this.api_data.getAllRecords('page'));
+    this.api_data.getAllRecords('page').then(function(pages) {
+      for (let i = 0; i < pages.length; ++i) {
+        let page = pages.objectAt(i);
+        if (page.name != this.name) continue;
+
+        this.set('page', page);
+        this.set('content', htmlSafe(this.get('page').get('content')));
+        this.set('isLoading', false);
+        return;
       }
-    }).then(function(pages) {
-      this.set('page', pages.get('firstObject'));
-      this.set('content', htmlSafe(this.get('page').get('content')));
-      this.set('isLoading', false);
     }.bind(this));
   },
 
