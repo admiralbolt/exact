@@ -1,5 +1,10 @@
 <div class="equation-detail">
   <h3 class="equation-title">{{equation.name}} -- {{equation.author}}</h3>
   <h4 class="equation-sub-title">{{equation.date}}, {{equation.equation_type.name}}, {{equation.geometry.number}}</h4>
+  <img class="geometry" src={{equation.geometry.geometry_file}} />
+  {{#if showSource}}
+    Download source file:
+    <a class="source-file" target="_blank" href={{equation.source_file}} download>{{sourceFileName}}</a>
+  {{/if}}
   <iframe src={{contentUrl}} type="application/pdf"></iframe>
 </div>
