@@ -1,6 +1,5 @@
 <h1>DEBUG</h1>
 
 {{#each equations as |equation|}}
-  <h1>{{equation.name}}</h1>
-  <h1>{{equation.equation_type.name}}</h1>
+  <EquationDetail @equation={{equation}} />
 {{/each}}
