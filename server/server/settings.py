@@ -29,12 +29,12 @@ ALLOWED_HOSTS = [
   '*'
 ]
 
-MEDIA_ROOT = '/home/admiralbolt/git/exact/server/uploads'
+MEDIA_ROOT = 'uploads'
 MEDIA_URL = '/uploads/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-STATIC_ROOT = '/home/admiralbolt/git/exact/server/static'
+STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 
 JSON_API_PLURALIZE_RELATION_TYPE = True

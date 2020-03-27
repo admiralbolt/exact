@@ -1,12 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+COORDINATE_TYPES = (
+  ('cartesian', 'Cartesian'),
+  ('cylindrical', 'Cylindrical'),
+  ('spherical', 'Spherical'),
+  ('other', 'Other')
+ )
+
 class EquationType(models.Model):
-  name = models.CharField(max_length=128, unique=True)
+  coordinate_system = models.CharField(max_length=32, choices=COORDINATE_TYPES, default="cartesian")
+  category = models.CharField(max_length=128, unique=True)
   ordinal = models.FloatField()
 
   def __str__(self):
-    return self.name
+    return f"{self.coordinate_system} - {self.category}"
 
 
 class Geometry(models.Model):

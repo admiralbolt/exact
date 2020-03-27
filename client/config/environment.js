@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    host: 'http://192.168.0.198:8000',
+    host: 'http://localhost:8000',
     modulePrefix: 'client',
     environment,
     rootURL: '/',
