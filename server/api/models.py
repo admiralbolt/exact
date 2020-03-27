@@ -10,11 +10,14 @@ COORDINATE_TYPES = (
 
 class EquationType(models.Model):
   coordinate_system = models.CharField(max_length=32, choices=COORDINATE_TYPES, default="cartesian")
-  category = models.CharField(max_length=128, unique=True)
+  category = models.CharField(max_length=128)
   ordinal = models.FloatField()
 
   def __str__(self):
     return f"{self.coordinate_system} - {self.category}"
+
+  class Meta:
+    unique_together = ("coordinate_system", "category")
 
 
 class Geometry(models.Model):
