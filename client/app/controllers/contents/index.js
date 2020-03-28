@@ -29,8 +29,8 @@ export default Controller.extend({
     let category = equation.get('equation_type.category');
 
     return !isNone(coord) && !isNone(category)
-      && coord.toLowerCase() == this.coord
-      && category.toLowerCase() == this.category;
+      && coord.toLowerCase() == this.coord.toLowerCase()
+      && category.toLowerCase() == this.category.toLowerCase();
   }),
 
   init() {
