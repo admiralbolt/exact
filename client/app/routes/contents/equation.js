@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 // If we make promies calls in the router setup they are blocking, which
 // prevents the html from rendering and screws with the unl template js.
 export default Route.extend({
+  equation_id: null,
 
   setupController(controller, model) {
     this._super(controller, model);

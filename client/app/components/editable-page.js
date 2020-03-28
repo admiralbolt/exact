@@ -13,7 +13,6 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    console.log(this.api_data.getAllRecords('page'));
     this.api_data.getAllRecords('page').then(function(pages) {
       for (let i = 0; i < pages.length; ++i) {
         let page = pages.objectAt(i);

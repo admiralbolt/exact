@@ -15,5 +15,5 @@
 </div>
 
 {{#each activeEquations as |equation|}}
-  <LinkTo @route="contents.equation" @model={{equation}}>{{equation.name}}</LinkTo>
+  <LinkTo @route="contents.equation" @model={{equation.id}}>{{equation.name}}</LinkTo>
 {{/each}}
