@@ -1,5 +1,20 @@
-<h1>DEBUG</h1>
+<div class="tab-set">
+  {{#each coordinateSystems as |name|}}
+    <div class="tab" {{action "setSelectedCoord" name}} role="button">
+      {{name}}
+    </div>
+  {{/each}}
+</div>
 
-{{#each equations as |equation|}}
-  <EquationDetail @equation={{equation}} />
+<div class="tab-set">
+  {{#each activeCategories as |category|}}
+    <div class="tab" {{action "setSelectedCategory" category}} role="button">
+      {{category}}
+    </div>
+  {{/each}}
+</div>
+
+{{#each activeEquations as |equation|}}
+  <p>{{equation.name}}</p>
+  {{!-- <EquationDetail @equation={{equation}} /> --}}
 {{/each}}
