@@ -1,15 +1,15 @@
 <div class="tab-set">
   {{#each coordinateSystems as |name|}}
-    <div class="tab {{is-active name selectedCoord}}" {{action "setSelectedCoord" name}} role="button">
+    <div class="tab {{is-active name coord}}" {{action "setSelectedCoord" name}} role="button">
       {{name}}
     </div>
   {{/each}}
 </div>
 
 <div class="tab-set">
-  {{#each activeCategories as |category|}}
-    <div class="tab {{is-active category selectedCategory}}" {{action "setSelectedCategory" category}} role="button">
-      {{category}}
+  {{#each activeCategories as |name|}}
+    <div class="tab {{is-active name category}}" {{action "setSelectedCategory" name}} role="button">
+      {{name}}
     </div>
   {{/each}}
 </div>

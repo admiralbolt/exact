@@ -1,5 +1,4 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
 
 // All of this setup is to asynchronously load the equation from the server.
 // If we make promies calls in the router setup they are blocking, which
