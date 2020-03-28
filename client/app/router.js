@@ -19,6 +19,9 @@ Router.map(function() {
     this.route('videos-and-animations');
     this.route('notation');
     this.route('history');
+    this.route('equation', {
+      path: '/equation/:id'
+    });
   });
   this.route('images');
   this.route('contribute', function() {

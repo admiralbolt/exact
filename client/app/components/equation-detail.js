@@ -7,7 +7,6 @@ import { isNone } from '@ember/utils';
 export default Component.extend({
   // The equation to display
   equation: null,
-
   session: service(),
 
   contentUrl: computed('equation.content_file', function() {

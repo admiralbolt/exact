@@ -10,5 +10,11 @@ export default Service.extend({
     return records.length === 0 ?
       this.get('store').findAll(modelName) :
       new Promise(function(resolve) { resolve(records); });
+  },
+
+  getRecord(modelName, id) {
+    let store = this.get('store');
+    let record = store.peekRecord(modelName, id);
+    return record === null ? store.findRecord(modelName, id) : record;
   }
 });
