@@ -60,7 +60,7 @@ export default Controller.extend({
       // If this is an inital load nothing is selected yet, default to the first.
       if (isEmpty(this.get('selectedCoord'))) {
         this.set('selectedCoord', systems[0]);
-        this.set('selectedCategory', categories[this.get('selectedCoord')]);
+        this.set('selectedCategory', categories[this.get('selectedCoord')][0]);
       }
     }.bind(this));
   },

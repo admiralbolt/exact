@@ -12,3 +12,10 @@
     }
   }
 }
+
+// Remove that annoying focus.
+main {
+  &:focus {
+    outline: none;
+  }
+}
