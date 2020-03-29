@@ -16,6 +16,14 @@ from api import serializers
 
 # pylint: disable=too-many-ancestors
 
+class UserViewSet(viewsets.ModelViewSet):
+  resource_name = "users"
+  queryset = models.ExactUser.objects.all()
+  serializer_class = serializers.UserSerializer
+
+  def get_queryset(self):
+    return models.ExactUser.objects.all()
+
 class EquationTypeViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
   resource_name = "equation_types"
@@ -29,7 +37,7 @@ class EquationTypeViewSet(viewsets.ModelViewSet):
 
 class GeometryViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
-  resource_name = "geometrys"
+  resource_name = "geometries"
   queryset = models.Geometry.objects.all()
   serializer_class = serializers.GeometrySerializer
 

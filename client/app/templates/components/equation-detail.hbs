@@ -1,10 +1,46 @@
-<div class="equation-detail">
-  <h3 class="equation-title">{{equation.name}} -- {{equation.author}}</h3>
-  <h4 class="equation-sub-title">{{equation.date}}, {{equation.equation_type.category}}, {{equation.geometry.number}}</h4>
-  <img class="geometry" src={{equation.geometry.geometry_file}} />
-  {{#if showSource}}
-    Download source file:
-    <a class="source-file" target="_blank" href={{equation.source_file}} download>{{sourceFileName}}</a>
-  {{/if}}
-  <iframe src={{contentUrl}} type="application/pdf"></iframe>
-</div>
+{{#if displayForm}}
+  <form class="dcf-form equation-form">
+    <legend>Edit {{equation.name}}</legend>
+    <div class="dcf-form-group">
+      <label for="name">
+        Name
+        <small class="dcf-required">Required</small>
+      </label>
+      {{input type="text" value=modelCopy.name}}
+    </div>
+  </form>
+  <div class="dcf-grid">
+    {{#if isEditing}}
+      <div class="dcf-col-100% flex-center">
+        <button {{action "cancel"}} class="action-button">Cancel</button>
+      </div>
+      <div class="dcf-col-100% flex-center">
+        <button {{action "save"}} class="action-button">Save</button>
+      </div>
+    {{/if}}
+    {{#if isNew}}
+      <div class="width-100 center-text">
+        <button {{action "create"}} class="action-button">Create {{formattedModelName}}</button>
+      </div>
+    {{/if}}
+  </div>
+{{else}}
+  <div class="equation-detail">
+    {{#if session.isAuthenticated}}
+      <div {{action "edit"}} role="button">Edit</div>
+    {{/if}}
+    <LinkTo @route="contents"
+            @query={{hash coord=equation.equation_type.coordinate_system
+                          category=equation.equation_type.category}}>
+      Back to Equations
+    </LinkTo>
+    <h3 class="equation-title">{{equation.name}} -- {{equation.author}}</h3>
+    <h4 class="equation-sub-title">{{equation.date}}, {{equation.equation_type.category}}, {{equation.geometry.number}}</h4>
+    <img class="geometry" src={{equation.geometry.geometry_file}} />
+    {{#if showSource}}
+      Download source file:
+      <a class="source-file" target="_blank" href={{equation.source_file}} download>{{sourceFileName}}</a>
+    {{/if}}
+    <iframe src={{contentUrl}} type="application/pdf"></iframe>
+  </div>
+{{/if}}

@@ -14,6 +14,7 @@ router.register(r"geometrys", views.GeometryViewSet)
 router.register(r"equation_types", views.EquationTypeViewSet)
 router.register(r"equations", views.EquationViewSet)
 router.register(r"pages", views.PageViewSet)
+router.register(r"users", views.UserViewSet)
 
 urlpatterns = [
   path("api-auth-token/", obtain_auth_token),

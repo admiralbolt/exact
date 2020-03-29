@@ -2,9 +2,15 @@
 
 Manipulate data to make it easier for the client to use.
 """
-from rest_framework import serializers
+from rest_framework_json_api import serializers
 from api import models
 
+class UserSerializer(serializers.ModelSerializer):
+  """Serialize django users."""
+
+  class Meta:
+    model = models.ExactUser
+    fields = ["username"]
 
 class EquationTypeSerializer(serializers.ModelSerializer):
   """Serialize EquationTypes."""
@@ -27,6 +33,9 @@ class EquationSerializer(serializers.ModelSerializer):
   class Meta:
     model = models.Equation
     fields = "__all__"
+
+  class JSONAPIMETA:
+    included_resources = ['users']
 
 class PageSerializer(serializers.ModelSerializer):
   """Serialize Pages."""

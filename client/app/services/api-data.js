@@ -15,6 +15,8 @@ export default Service.extend({
   getRecord(modelName, id) {
     let store = this.get('store');
     let record = store.peekRecord(modelName, id);
-    return record === null ? store.findRecord(modelName, id) : record;
+    return record === null ?
+      store.findRecord(modelName, id) :
+      new Promise(function(resolve) { resolve(record); });
   }
 });

@@ -17,6 +17,9 @@ export default DS.JSONAPISerializer.extend({
     },
     content_file: {
       serialize: false
+    },
+    equation_type: {
+      serialize: true
     }
   }
 });

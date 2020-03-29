@@ -1,8 +1,3 @@
 {{#if equation}}
-  <LinkTo @route="contents"
-          @query={{hash coord=equation.equation_type.coordinate_system
-                        category=equation.equation_type.category}}>
-    Back to Equations
-  </LinkTo>
   <EquationDetail @equation={{equation}} />
 {{/if}}

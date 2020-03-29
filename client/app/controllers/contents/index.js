@@ -7,11 +7,11 @@ import { filter } from '@ember/object/computed';
 export default Controller.extend({
   // Url params.
   queryParams: ['coord', 'category'],
-  coord: null,
-  category: null,
+  coord: 'cartesian',
+  category: '1d infinite body',
 
   api_data: service(),
-  isLoading: true,
+  doneLoading: false,
   equations: null,
 
   // Two levels of navigation, coordinate system and category.
@@ -28,7 +28,7 @@ export default Controller.extend({
     let coord = equation.get('equation_type.coordinate_system');
     let category = equation.get('equation_type.category');
 
-    return !isNone(coord) && !isNone(category)
+    return !isNone(coord) && !isNone(category) && !isNone(this.coord) && !isNone(this.category)
       && coord.toLowerCase() == this.coord.toLowerCase()
       && category.toLowerCase() == this.category.toLowerCase();
   }),
@@ -63,19 +63,7 @@ export default Controller.extend({
       });
       this.set('coordinateSystems', systems);
       this.set('categories', categories);
-
-      // If this is an inital load nothing is selected yet, default to the first.
-      if (isEmpty(this.get('coord'))) {
-        this.set('coord', systems[0]);
-        this.set('category', categories[this.get('coord')][0]);
-      } else {
-        this.set('coord', this.get('coord'));
-        if (isEmpty(this.get('category')) || !categories[this.get('coord')].includes(this.get('category'))) {
-          this.set('category', categories[this.get('coord')][0]);
-        } else {
-          this.set('category', this.get('category'));
-        }
-      }
+      this.set('doneLoading', true);
     }.bind(this));
   },
 
