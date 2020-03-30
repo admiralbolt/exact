@@ -1,13 +1,44 @@
 {{#if displayForm}}
   <form class="dcf-form equation-form">
-    <legend>Edit {{equation.name}}</legend>
-    <div class="dcf-form-group">
-      <label for="name">
-        Name
-        <small class="dcf-required">Required</small>
-      </label>
-      {{input type="text" value=modelCopy.name}}
-    </div>
+    <fieldset>
+      <legend>Edit {{equation.name}}</legend>
+      <div class="dcf-form-group">
+        <label for="name">
+          Name
+          <small class="dcf-required">Required</small>
+        </label>
+        {{input type="text" value=modelCopy.name}}
+      </div>
+      <div class="dcf-form-group">
+        <label for="author">
+          Author(s)
+          <small class="dcf-required">Required</small>
+        </label>
+        {{input type="text" value=modelCopy.author}}
+      </div>
+      <div class="dcf-form-group">
+        <label for="is_live">
+          Page is Live
+          <small class="dcf-required">Required</small>
+        </label>
+        <ToggleButton @value={{modelCopy.is_live}} />
+      </div>
+      <div class="dcf-form-group">
+        <label for="date">
+          Date
+          <small class="dcf-required">Required</small>
+        </label>
+        {{input type="text" value=modelCopy.date}}
+        <p class="dcf-form-help">Date should be in YYYY-MM-DD format.</p>
+      </div>
+      <div class="dcf-form-group">
+        <label for="equation_type">
+          Equation Type
+          <small class="dcf-required">Required</small>
+        </label>
+        <RelationshipSelect @modelName="equation_type" @displayKey="display" @value={{modelCopy.equation_type}} />
+      </div>
+    </fieldset>
   </form>
   <div class="dcf-grid">
     {{#if isEditing}}
