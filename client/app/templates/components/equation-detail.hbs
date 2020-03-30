@@ -38,6 +38,13 @@
         </label>
         <RelationshipSelect @modelName="equation_type" @displayKey="display" @value={{modelCopy.equation_type}} />
       </div>
+      <div class="dcf-form-group">
+        <label for="geometry">
+          Geometry
+          <small class="dcf-required">Geometry</small>
+        </label>
+        <RelationshipSelect @modelName="geometry" @displayKey="number" @value={{modelCopy.geometry}} />
+      </div>
     </fieldset>
   </form>
   <div class="dcf-grid">

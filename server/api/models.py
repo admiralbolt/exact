@@ -2,14 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 
 COORDINATE_TYPES = (
-  ('cartesian', 'Cartesian'),
-  ('cylindrical', 'Cylindrical'),
-  ('spherical', 'Spherical'),
-  ('other', 'Other')
+  ('Cartesian', 'Cartesian'),
+  ('Cylindrical', 'Cylindrical'),
+  ('Spherical', 'Spherical'),
+  ('Other', 'Other')
  )
 
 class EquationType(models.Model):
-  coordinate_system = models.CharField(max_length=32, choices=COORDINATE_TYPES, default="cartesian")
+  coordinate_system = models.CharField(max_length=32, choices=COORDINATE_TYPES, default="Cartesian")
   category = models.CharField(max_length=128)
   ordinal = models.FloatField()
 

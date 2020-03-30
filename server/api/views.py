@@ -31,7 +31,7 @@ class EquationTypeViewSet(viewsets.ModelViewSet):
   serializer_class = serializers.EquationTypeSerializer
 
   def get_queryset(self):
-    equation_types = models.EquationType.objects.order_by("-ordinal")
+    equation_types = models.EquationType.objects.order_by("coordinate_system", "category")
     return equation_types
 
 
