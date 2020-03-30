@@ -7,7 +7,7 @@ export default Component.extend({
   displayKey: '',
   doneLoading: false,
   value: '',
-  choices: [],
+  choices: null,
 
   api_data: service(),
 

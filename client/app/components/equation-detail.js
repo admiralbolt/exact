@@ -66,8 +66,6 @@ export default Component.extend({
     save() {
       let equation = this.get('equation');
       let newData = this.get('modelCopy');
-      console.log(equation);
-      console.log(newData);
       BASIC_FIELDS.forEach(prop => {
         equation.set(prop, newData[prop]);
       });

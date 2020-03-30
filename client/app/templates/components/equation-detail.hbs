@@ -67,10 +67,10 @@
     </LinkTo>
     <h3 class="equation-title">{{equation.name}} -- {{equation.author}}</h3>
     <h4 class="equation-sub-title">{{equation.date}}, {{equation.equation_type.category}}, {{equation.geometry.number}}</h4>
-    <img class="geometry" src={{equation.geometry.geometry_file}} />
+    <img alt="{{equation.geometry.number}} Geometry" class="geometry" src={{equation.geometry.geometry_file}}>
     {{#if showSource}}
       Download source file:
-      <a class="source-file" target="_blank" href={{equation.source_file}} download>{{sourceFileName}}</a>
+      <a class="source-file" target="_blank" rel="noopener" href={{equation.source_file}} download>{{sourceFileName}}</a>
     {{/if}}
     <iframe src={{contentUrl}} type="application/pdf"></iframe>
   </div>

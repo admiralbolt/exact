@@ -9,6 +9,7 @@ export default Route.extend({
   setupController(controller, model) {
     this._super(controller, model);
     controller.set('equation_id', this.get('equation_id'));
+    controller.loadEquation();
   },
 
   model(route_params) {
