@@ -1,0 +1,7 @@
+{{#each model as |geometry|}}
+  <LinkTo @route="contents.geometries.detail" @model={{geometry.number}}>{{geometry.number}}</LinkTo>
+{{/each}}
+
+<hr>
+
+{{outlet}}

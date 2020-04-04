@@ -37,16 +37,5 @@
 
   {{content-for "body-footer"}}
 
-  <!--#include virtual="/wdn/templates_5.0/includes/global/js-body-local.html" -->
-
-  <!-- TemplateBeginEditable name="jsbody" -->
-  <!-- put your custom javascript here -->
-  <script>
-  $("#dcf-nav-menu-child a").on("click", function() {
-    document.dispatchEvent(new Event('closeNavigation'));
-    document.getElementById('dcf-menu-toggle').removeAttribute('aria-expanded');
-  });
-  </script>
-  <!-- TemplateEndEditable -->
 </body>
 </html>

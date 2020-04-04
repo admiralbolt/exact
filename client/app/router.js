@@ -22,6 +22,15 @@ Router.map(function() {
     this.route('equation', {
       path: '/equation/:id'
     });
+    this.route('equation-types');
+    this.route('equation-type', {
+      path: '/equation-types/:id'
+    });
+    this.route('geometries', function() {
+      this.route('detail', {
+        path: '/:number'
+      });
+    });
   });
   this.route('images');
   this.route('contribute', function() {

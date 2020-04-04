@@ -20,7 +20,7 @@ class EquationType(models.Model):
 
 
 class Geometry(models.Model):
-  number = models.CharField(max_length=32)
+  number = models.CharField(max_length=32, unique=True)
   geometry_file = models.FileField(upload_to="geometry/", blank=True)
 
   def __str__(self):

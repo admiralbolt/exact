@@ -31,7 +31,9 @@ export default Component.extend({
       let part = routeParts[i];
       if (part == 'home') continue;
 
-      links.push({route: part, text: this.titleize(part)});
+      // Need to make sure we link to the FULL subroute, so we include all the
+      // route parts up to this point.
+      links.push({route: routeParts.slice(0, i + 1).join('.'), text: this.titleize(part)});
     }
     return links;
   }),

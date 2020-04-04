@@ -43,6 +43,9 @@ class GeometryViewSet(viewsets.ModelViewSet):
 
   def get_queryset(self):
     equation_types = models.Geometry.objects.order_by("number")
+    number = self.request.query_params.get("number")
+    if number is not None:
+      equation_types = equation_types.filter(number=number)
     return equation_types
 
 
