@@ -7,8 +7,8 @@ export default Service.extend({
   getAllRecords(modelName) {
     let records = this.get('store').peekAll(modelName);
 
-    return records.length === 0 ?
-      this.get('store').findAll(modelName) :
+    return records.length < 2 ?
+      this.get('store').findAll(modelName, {reload: true}) :
       new Promise(function(resolve) { resolve(records); });
   },
 
