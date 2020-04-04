@@ -20,10 +20,14 @@ export default Component.extend({
   isEditing: false,
   isNew: false,
   displayForm: or('isEditing', 'isNew'),
+  equationTypeLoaded: false,
 
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('modelCopy', this.get('equation').toJSON());
+    this.get('equation').get('equation_type').then(function() {
+      this.set('equationTypeLoaded', true);
+    }.bind(this));
   },
 
   contentUrl: computed('equation.content_file', function() {

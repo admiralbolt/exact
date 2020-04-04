@@ -69,11 +69,13 @@
     {{#if session.isAuthenticated}}
       <div {{action "edit"}} role="button">Edit</div>
     {{/if}}
-    <LinkTo @route="contents"
-            @query={{hash coord=equation.equation_type.coordinate_system
-                          category=equation.equation_type.category}}>
-      Back to Equations
-    </LinkTo>
+    {{#if equationTypeLoaded}}
+      <LinkTo @route="contents"
+              @query={{hash coord=equation.equation_type.coordinate_system
+                            category=equation.equation_type.category}}>
+        Back to Equations
+      </LinkTo>
+    {{/if}}
     <h3 class="equation-title">{{equation.name}} -- {{equation.author}}</h3>
     <h4 class="equation-sub-title">{{equation.date}}, {{equation.equation_type.category}}, {{equation.geometry.number}}</h4>
 
