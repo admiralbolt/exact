@@ -1,15 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-COORDINATE_TYPES = (
-  ('Cartesian', 'Cartesian'),
-  ('Cylindrical', 'Cylindrical'),
-  ('Spherical', 'Spherical'),
-  ('Other', 'Other')
- )
-
 class EquationType(models.Model):
-  coordinate_system = models.CharField(max_length=32, choices=COORDINATE_TYPES, default="Cartesian")
+  coordinate_system = models.CharField(max_length=32, default="Cartesian")
   category = models.CharField(max_length=128)
   ordinal = models.FloatField()
 
@@ -18,6 +11,9 @@ class EquationType(models.Model):
 
   class Meta:
     unique_together = ("coordinate_system", "category")
+    indexes = [
+      models.Index(fields=["coordinate_system"])
+    ]
 
   class JSONAPIMeta:
     resource_name = "equation-types"
@@ -25,13 +21,18 @@ class EquationType(models.Model):
 
 class Geometry(models.Model):
   number = models.CharField(max_length=32)
-  geometry_file = models.FileField(upload_to="geometry/")
+  geometry_file = models.FileField(upload_to="geometry/", blank=True)
 
   def __str__(self):
     return self.number
 
   class JSONAPIMeta:
     resource_name = "geometries"
+
+  class Meta:
+    indexes = [
+      models.Index(fields=["number"])
+    ]
 
 class ExactUser(User):
 
@@ -71,6 +72,11 @@ class Page(models.Model):
 
   class JSONAPIMeta:
     resource_name = "pages"
+
+  class Meta:
+    indexes = [
+      models.Index(fields=["name"])
+    ]
 
 
 ADMIN_MODELS = [EquationType, Equation, Geometry, Page]

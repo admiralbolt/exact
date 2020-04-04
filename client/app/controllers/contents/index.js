@@ -7,7 +7,7 @@ import { filter } from '@ember/object/computed';
 export default Controller.extend({
   // Url params.
   queryParams: ['coord', 'category'],
-  coord: 'cartesian',
+  coord: 'Cartesian',
   category: '1d infinite body',
 
   api_data: service(),
