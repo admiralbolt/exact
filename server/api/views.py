@@ -26,7 +26,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class EquationTypeViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
-  resource_name = "equation_types"
+  resource_name = "equation-types"
   queryset = models.EquationType.objects.all()
   serializer_class = serializers.EquationTypeSerializer
 

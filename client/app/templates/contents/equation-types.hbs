@@ -1,1 +1,7 @@
-{{outlet}}
+{{#if session.isAuthenticated}}
+  <button {{action "new"}}>Create New Equation Type</button>
+{{/if}}
+
+{{#each model as |equation_type|}}
+  <EquationTypeDetail @equation_type={{equation_type}} />
+{{/each}}

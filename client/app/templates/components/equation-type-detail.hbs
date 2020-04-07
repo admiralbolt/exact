@@ -1,0 +1,42 @@
+<div class="dcf-grid-fourths">
+
+  <div class="dcf-col-33%">
+    {{#if isEditing}}
+      {{input type="text" value=category}}
+      {{input type="text" value=coordinate_system}}
+
+    {{else}}
+      {{equation_type.category}} -- {{equation_type.coordinate_system}}
+    {{/if}}
+  </div>
+
+
+  <div class="dcf-col-33%">
+    {{#if isEditing}}
+      <button {{action "cancel"}}>Cancel</button>
+      <button {{action "save"}}>Save</button>
+    {{else}}
+      <LinkTo @route="contents"
+              @query={{hash coord=equation_type.coordinate_system
+                            category=equation_type.category}}>
+        Equations
+      </LinkTo>
+      <button {{action "edit"}}>Edit</button>
+      <button {{action "toggleConfirmation"}} class="primary-light-color negative-background action-button">Delete</button>
+
+      {{#if showConfirmation}}
+        <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay=true @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
+          <div class="row">
+            <p class="overlay-title">Are you sure?</p>
+          </div>
+          <div class="row button-row">
+            <button {{action "toggleConfirmation"}} class="action-button">Cancel</button>
+            <button {{action "delete" model}} class="primary-light-color action-button negative-background">I'm sure</button>
+          </div>
+        </ModalDialog>
+      {{/if}}
+    {{/if}}
+
+  </div>
+
+</div>

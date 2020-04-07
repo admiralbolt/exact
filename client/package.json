@@ -49,13 +49,15 @@
     "ember-simple-auth": "^3.0.0",
     "ember-simple-auth-token": "^5.0.0",
     "ember-source": "~3.13.0",
+    "ember-toastr": "^2.0.1",
     "ember-truth-helpers": "^2.1.0",
     "ember-welcome-page": "^4.0.0",
     "eslint-plugin-ember": "^7.1.0",
     "eslint-plugin-node": "^10.0.0",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.9.0",
-    "sass": "^1.26.3"
+    "sass": "^1.26.3",
+    "toastr": "^2.1.4"
   },
   "engines": {
     "node": "8.* || >= 10.*"
