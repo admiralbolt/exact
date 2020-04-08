@@ -23,6 +23,7 @@ Router.map(function() {
       path: '/equation/:id'
     });
     this.route('equation-types', function() {});
+    this.route('geometries');
   });
   this.route('images');
   this.route('contribute', function() {

@@ -8,6 +8,7 @@ export default Component.extend({
   equation_type: null,
   category: '',
   coordinate_system: '',
+
   isEditing: false,
   tagName: '',
   showConfirmation: false,
@@ -45,7 +46,7 @@ export default Component.extend({
       let modelName = model.name;
       model.deleteRecord();
       model.save().then(function() {
-        this.toast.success(`${this.get('formattedModelName')} '${modelName}' Deleted.`);
+        this.toast.success(`Equation Type '${modelName}' Deleted.`);
       }.bind(this));
     }
   }

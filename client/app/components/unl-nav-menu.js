@@ -1,9 +1,11 @@
 import Component from '@ember/component';
+import { inject as service } from '@ember/service';
 import { closeNavMenu } from 'client/utils/utils';
 import $ from 'jquery';
 
 export default Component.extend({
   tagName: '',
+  session: service(),
 
   actions: {
     closeNavMenu() {

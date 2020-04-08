@@ -1,25 +1,30 @@
-<div class="dcf-grid-fourths">
+<div class="dcf-grid-fouths">
 
   <div class="dcf-col-33%">
     {{#if isEditing}}
-      {{input type="text" value=coordinate_system}}
-      {{input type="text" value=category}}
+      {{input type="text" value=number}}
+      <FileUpload @name="geometry_file" @for="geometry_file" @accept="image/*" @onfileadd={{action "addImageFile"}} as |queue|>
+        <a class="upload-button">
+          {{#if queue.files.length}}
+            {{queue.files.0.name}}
+          {{else}}
+            {{imageFileName}}
+          {{/if}}
+        </a>
+      </FileUpload>
     {{else}}
-      {{equation_type.coordinate_system}} -- {{equation_type.category}}
+      {{geometry.number}}
+      {{#if geometry.geometry_file}}
+        <img alt={{geometry.number}} src={{geometry.geometry_file}}>
+      {{/if}}
     {{/if}}
   </div>
-
 
   <div class="dcf-col-33%">
     {{#if isEditing}}
       <button {{action "cancel"}}>Cancel</button>
       <button {{action "save"}}>Save</button>
     {{else}}
-      <LinkTo @route="contents"
-              @query={{hash coord=equation_type.coordinate_system
-                            category=equation_type.category}}>
-        Equations
-      </LinkTo>
       {{#if session.isAuthenticated}}
         <button {{action "edit"}}>Edit</button>
         <button {{action "toggleConfirmation"}} class="primary-light-color negative-background action-button">Delete</button>
@@ -37,7 +42,5 @@
         </ModalDialog>
       {{/if}}
     {{/if}}
-
   </div>
-
 </div>

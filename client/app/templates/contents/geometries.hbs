@@ -1,0 +1,18 @@
+{{#if session.isAuthenticated}}
+  {{#if creatingNew}}
+    <div class="dcf-grid-fourths">
+      {{input type="text" value=coordinate_system}}
+      {{input type="text" value=category}}
+    </div>
+    <div class="dcf-grid-fourths">
+      <button {{action "cancel"}}>Cancel</button>
+      <button {{action "save"}}>Save</button>
+    </div>
+  {{else}}
+    <button {{action "new"}}>Create New Geometry</button>
+  {{/if}}
+{{/if}}
+
+{{#each model as |geometry|}}
+  <GeometryDetail @geometry={{geometry}} />
+{{/each}}
