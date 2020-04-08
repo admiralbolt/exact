@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 class EquationType(models.Model):
   coordinate_system = models.CharField(max_length=32, default="Cartesian")
   category = models.CharField(max_length=128)
-  ordinal = models.FloatField()
 
   def __str__(self):
     return f"{self.coordinate_system} - {self.category}"

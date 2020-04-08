@@ -3,15 +3,14 @@ import { inject as service } from '@ember/service';
 import { formatErrors } from 'client/utils/utils';
 
 export default Component.extend({
+  toast: service(),
+
   equation_type: null,
   category: '',
   coordinate_system: '',
   isEditing: false,
   tagName: '',
   showConfirmation: false,
-
-
-  toast: service(),
 
   actions: {
     edit() {
@@ -32,7 +31,6 @@ export default Component.extend({
       equation_type.save().then(function() {
         this.set('isEditing', false);
       }.bind(this), function(reason) {
-        console.log(reason);
         this.toast.error(formatErrors(reason.errors));
         equation_type.rollbackAttributes();
       }.bind(this));

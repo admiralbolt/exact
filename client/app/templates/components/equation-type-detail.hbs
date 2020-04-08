@@ -2,11 +2,10 @@
 
   <div class="dcf-col-33%">
     {{#if isEditing}}
-      {{input type="text" value=category}}
       {{input type="text" value=coordinate_system}}
-
+      {{input type="text" value=category}}
     {{else}}
-      {{equation_type.category}} -- {{equation_type.coordinate_system}}
+      {{equation_type.coordinate_system}} -- {{equation_type.category}}
     {{/if}}
   </div>
 
