@@ -72,3 +72,19 @@ class PageViewSet(viewsets.ModelViewSet):
   def get_queryset(self):
     equation_types = models.Page.objects.order_by("name")
     return equation_types
+
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def upload_geometry_file(request):
+  """Save a geometry schematic file to a geometry."""
+  try:
+    geometry = models.Geometry.objects.get(id=request.GET.get("id"))
+  except ObjectDoesNotExist:
+    return JsonResponse({
+      "status": "failure",
+      "message": f"Could not find geometry with id = {request.GET.get('id')}"
+    })
+  f = request.data["file"]
+  geometry.geometry_file.save(f.name, f, save=True)
+  return JsonResponse({"status": "success", "message": "", "url": geometry.geometry_file})

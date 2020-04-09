@@ -18,5 +18,6 @@ router.register(r"users", views.UserViewSet)
 
 urlpatterns = [
   path("api-auth-token/", obtain_auth_token),
+  path("geometries/upload/", views.upload_geometry_file),
   url(r"^", include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

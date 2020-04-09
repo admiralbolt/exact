@@ -31,7 +31,7 @@
       {{/if}}
 
       {{#if showConfirmation}}
-        <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay=true @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
+        <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
           <div class="row">
             <p class="overlay-title">Are you sure?</p>
           </div>
