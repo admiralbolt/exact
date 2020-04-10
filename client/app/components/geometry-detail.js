@@ -62,13 +62,12 @@ export default Component.extend({
 
       geometry.set('number', this.get('number'));
       geometry.save().then(function(response) {
-        console.log(this.get('geometry_file'));
         if (this.get('geometry_file') == null) {
           this.set('isEditing', false);
           return;
         }
 
-        this.uploadFile(response.id).then(function(response) {
+        this.uploadFile(response.id).then(function() {
           geometry.reload();
           this.set('isEditing', false);
           if (this.get('isNew')) {

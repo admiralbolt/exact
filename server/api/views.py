@@ -88,3 +88,35 @@ def upload_geometry_file(request):
   f = request.data["file"]
   geometry.geometry_file.save(f.name, f, save=True)
   return JsonResponse({"status": "success", "message": ""})
+
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def upload_source_file(request):
+  """Save a source file to an equation."""
+  try:
+    equation = models.Equation.objects.get(id=request.GET.get("id"))
+  except ObjectDoesNotExist:
+    return JsonResponse({
+      "status": "failure",
+      "message": f"Could not find equation with id = {request.GET.get('id')}"
+    })
+  f = request.data["file"]
+  equation.source_file.save(f.name, f, save=True)
+  return JsonResponse({"status": "success", "message": ""})
+
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def upload_content_file(request):
+  """Save a content file to an equation."""
+  try:
+    equation = models.Equation.objects.get(id=request.GET.get("id"))
+  except ObjectDoesNotExist:
+    return JsonResponse({
+      "status": "failure",
+      "message": f"Could not find equation with id = {request.GET.get('id')}"
+    })
+  f = request.data["file"]
+  equation.content_file.save(f.name, f, save=True)
+  return JsonResponse({"status": "success", "message": ""})

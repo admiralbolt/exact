@@ -1,4 +1,4 @@
-{{#if displayForm}}
+{{#if (or isEditing isNew)}}
   <form class="dcf-form equation-form">
     <fieldset>
       <legend>Edit {{equation.name}}</legend>
@@ -45,23 +45,54 @@
         </label>
         <RelationshipSelect @modelName="geometry" @displayKey="number" @value={{modelCopy.geometry}} />
       </div>
+      <div class="dcf-form-group">
+        <label for="source_file">
+          Source File
+          <small>Accepts docx, pdf</small>
+        </label>
+        <FileUpload @name="source_file" @for="source_file" @accept="*" @onfileadd={{action "addSourceFile"}} as |queue|>
+          <a class="upload-button">
+            {{#if queue.files.length}}
+              {{queue.files.0.name}}
+            {{else}}
+              {{sourceFileName}}
+            {{/if}}
+          </a>
+        </FileUpload>
+      </div>
+      <div class="dcf-form-group">
+        <label for="content_file">
+          Content File
+          <small>pdf only</small>
+        </label>
+        <FileUpload @name="content_file" @for="content_file" @accept="*" @onfileadd={{action "addContentFile"}} as |queue|>
+          <a class="upload-button">
+            {{#if queue.files.length}}
+              {{queue.files.0.name}}
+            {{else}}
+              {{contentFileName}}
+            {{/if}}
+          </a>
+        </FileUpload>
+      </div>
     </fieldset>
   </form>
   <div class="dcf-grid">
-    {{#if isEditing}}
+    {{#if (or isEditing isNew)}}
       <div class="dcf-col-20%"></div>
       <div class="dcf-col-40% flex-center">
         <button {{action "cancel"}} class="action-button">Cancel</button>
       </div>
       <div class="dcf-col-40% flex-center">
-        <button {{action "save"}} class="action-button">Save</button>
+        <button {{action "save"}} class="action-button">
+          {{#if isEditing}}
+            Save
+          {{else}}
+            Create
+          {{/if}}
+        </button>
       </div>
       <div class="dcf-col-20%"></div>
-    {{/if}}
-    {{#if isNew}}
-      <div class="width-100 center-text">
-        <button {{action "create"}} class="action-button">Create {{formattedModelName}}</button>
-      </div>
     {{/if}}
   </div>
 {{else}}

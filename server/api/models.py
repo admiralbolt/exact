@@ -52,7 +52,7 @@ class Equation(models.Model):
   is_live = models.BooleanField(default=False)
   # Files!
   source_file = models.FileField(upload_to="sources/", blank=True)
-  content_file = models.FileField(upload_to="content/")
+  content_file = models.FileField(upload_to="content/", blank=True)
 
   def __str__(self):
     return self.name
