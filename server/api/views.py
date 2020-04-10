@@ -87,4 +87,4 @@ def upload_geometry_file(request):
     })
   f = request.data["file"]
   geometry.geometry_file.save(f.name, f, save=True)
-  return JsonResponse({"status": "success", "message": "", "url": geometry.geometry_file})
+  return JsonResponse({"status": "success", "message": ""})

@@ -8,19 +8,23 @@ import config from '../config/environment';
 export default Component.extend({
   toast: service(),
   session: service(),
+  store: service(),
 
   geometry: null,
   number: '',
   geometry_file: null,
 
   isEditing: false,
+  isNew: false,
+  createCallback: null,
+  cancelCallback: null,
+
   tagName: '',
   showConfirmation: false,
 
   imageFileName: computed('geometry.geometry_file', function() {
     return isNone(this.get('geometry.geometry_file')) ? 'No file selected' : this.get('geometry.geometry_file').split(/(\\|\/)/g).pop();
   }),
-
 
   uploadFile(id) {
     let fileForUpload = this.get('geometry_file');
@@ -43,7 +47,6 @@ export default Component.extend({
     edit() {
       let geometry = this.get('geometry');
       this.set('number', geometry.number);
-      this.set('geometry_file', geometry.geometry_file);
       this.set('isEditing', true);
     },
 
@@ -53,16 +56,27 @@ export default Component.extend({
 
     save() {
       let geometry = this.get('geometry');
+      if (geometry == null) {
+        geometry = this.get('store').createRecord('geometry');
+      }
+
       geometry.set('number', this.get('number'));
       geometry.save().then(function(response) {
+        console.log(this.get('geometry_file'));
         if (this.get('geometry_file') == null) {
           this.set('isEditing', false);
           return;
         }
+
         this.uploadFile(response.id).then(function(response) {
-          geometry.set('geometry_file', response.url);
+          geometry.reload();
           this.set('isEditing', false);
-          return;
+          if (this.get('isNew')) {
+            this.toast.success('Geometry created successfully!');
+            this.get('createCallback')();
+            return;
+          }
+          this.toast.success('Geometry edited successfully!');
         }.bind(this), function(reason) {
           this.toast.warning(`Could not upload geometry_file: ${formatErrors(reason.errors)}`);
         }.bind(this));
@@ -73,6 +87,7 @@ export default Component.extend({
     },
 
     cancel() {
+      if (this.get('isNew')) this.get('cancelCallback')();
       this.set('isEditing', false);
     },
 

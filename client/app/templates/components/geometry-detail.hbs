@@ -1,7 +1,7 @@
 <div class="dcf-grid-fouths">
 
   <div class="dcf-col-33%">
-    {{#if isEditing}}
+    {{#if (or isEditing isNew)}}
       {{input type="text" value=number}}
       <FileUpload @name="geometry_file" @for="geometry_file" @accept="image/*" @onfileadd={{action "addImageFile"}} as |queue|>
         <a class="upload-button">
@@ -20,12 +20,15 @@
     {{/if}}
   </div>
 
-  <div class="dcf-col-33%">
-    {{#if isEditing}}
-      <button {{action "cancel"}}>Cancel</button>
-      <button {{action "save"}}>Save</button>
-    {{else}}
-      {{#if session.isAuthenticated}}
+  {{#if session.isAuthenticated}}
+    <div class="dcf-col-33%">
+      {{#if isNew}}
+        <button {{action "cancel"}}>Cancel</button>
+        <button {{action "save"}}>Create</button>
+      {{else if isEditing}}
+        <button {{action "cancel"}}>Cancel</button>
+        <button {{action "save"}}>Save</button>
+      {{else}}
         <button {{action "edit"}}>Edit</button>
         <button {{action "toggleConfirmation"}} class="primary-light-color negative-background action-button">Delete</button>
       {{/if}}
@@ -41,6 +44,6 @@
           </div>
         </ModalDialog>
       {{/if}}
-    {{/if}}
-  </div>
+    </div>
+  {{/if}}
 </div>
