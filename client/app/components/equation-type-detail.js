@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { formatErrors } from 'client/utils/utils';
 
 export default Component.extend({
+  session: service(),
   store: service(),
   toast: service(),
 

@@ -1,21 +1,19 @@
-{{#if doneLoading}}
-  <div class="tab-set">
-    {{#each coordinateSystems as |name|}}
-      <div class="tab {{is-active name coord}}" {{action "setSelectedCoord" name}} role="button">
-        {{name}}
-      </div>
-    {{/each}}
-  </div>
-
-  <div class="tab-set">
-    {{#each activeCategories as |name|}}
-      <div class="tab {{is-active name category}}" {{action "setSelectedCategory" name}} role="button">
-        {{name}}
-      </div>
-    {{/each}}
-  </div>
-
-  {{#each activeEquations as |equation|}}
-    <LinkTo @route="contents.equation" @model={{equation.id}}>{{equation.name}}</LinkTo>
+<div class="tab-set">
+  {{#each coordinateSystems as |name|}}
+    <div class="tab {{is-active name coord}}" {{action "setSelectedCoord" name}} role="button">
+      {{name}}
+    </div>
   {{/each}}
-{{/if}}
+</div>
+
+<div class="tab-set">
+  {{#each activeCategories as |name|}}
+    <div class="tab {{is-active name category}}" {{action "setSelectedCategory" name}} role="button">
+      {{name}}
+    </div>
+  {{/each}}
+</div>
+
+{{#each activeEquations as |equation|}}
+  <LinkTo @route="contents.equation" @model={{equation.id}}>{{equation.name}}</LinkTo>
+{{/each}}

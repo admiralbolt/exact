@@ -15,16 +15,42 @@ export default Controller.extend({
   equations: null,
 
   // Two levels of navigation, coordinate system and category.
-  coordinateSystems: null,
+  coordinateSystems: computed('model.equation_types', function() {
+    let systems = [];
+    let equation_types = this.get('model.equation_types');
+    equation_types.forEach((eq_type) => {
+      if (systems.includes(eq_type.coordinate_system)) return;
+
+      systems.push(eq_type.coordinate_system);
+    });
+    systems.sort();
+    return systems;
+  }),
+
   // A dictionary mapping coordinate system -> a list of categories.
-  categories: null,
+  categories: computed('model.equation_types', function() {
+    let categories = {};
+    let equation_types = this.get('model.equation_types');
+    equation_types.forEach((eq_type) => {
+      if (!(categories.hasOwnProperty(eq_type.coordinate_system))) {
+        categories[eq_type.coordinate_system] = [];
+      }
+
+      categories[eq_type.coordinate_system].push(eq_type.category.toLowerCase());
+    });
+    Object.keys(categories).forEach(function(key) {
+      categories[key].sort();
+    });
+    return categories;
+  }),
+
   activeCategories: computed('categories', 'coord', function() {
     if (this.get('categories') == null) return [];
 
     return this.get('categories')[this.get('coord')];
   }),
   // The equations that match the coord and category.
-  activeEquations: filter('equations', ['coord', 'category'], function(equation) {
+  activeEquations: filter('model.equations', ['coord', 'category'], function(equation) {
     let coord = equation.get('equation_type.coordinate_system');
     let category = equation.get('equation_type.category');
 
@@ -32,40 +58,6 @@ export default Controller.extend({
       && coord.toLowerCase() == this.coord.toLowerCase()
       && category.toLowerCase() == this.category.toLowerCase();
   }),
-
-  init() {
-    this._super(...arguments);
-    this.set('equations', []);
-    this.api_data.getAllRecords('equation').then(function(equations) {
-      this.set('equations', equations);
-      this.loadMenuData();
-    }.bind(this));
-  },
-
-  // Loads all the menu items necessary for
-  loadMenuData() {
-    this.api_data.getAllRecords('equation_type').then(function(equation_types) {
-      let systems = [];
-      let categories = {};
-      equation_types.forEach((eq_type) => {
-        if (!systems.includes(eq_type.coordinate_system)) {
-          systems.push(eq_type.coordinate_system);
-          categories[eq_type.coordinate_system] = [];
-        }
-
-        categories[eq_type.coordinate_system].push(eq_type.category.toLowerCase());
-      });
-
-      // Sort our menu items.
-      systems.sort();
-      Object.keys(categories).forEach(function(key) {
-        categories[key].sort();
-      });
-      this.set('coordinateSystems', systems);
-      this.set('categories', categories);
-      this.set('doneLoading', true);
-    }.bind(this));
-  },
 
   actions: {
     setSelectedCoord(name) {
