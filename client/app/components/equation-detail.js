@@ -138,6 +138,15 @@ export default Component.extend({
       this.set('showGeometryModal', false);
     },
 
+    equationTypeCreated() {
+      this.get('children')['equation_type'].loadChoices(/*forceReload=*/true);
+      this.set('showEquationTypeModal', false);
+    },
+
+    equationTypeCanceled() {
+      this.set('showEquationTypeModal', false);
+    },
+
     addSourceFile(file) {
       this.set('source_file', file);
     },

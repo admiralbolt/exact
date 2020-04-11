@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { formatErrors } from 'client/utils/utils';
 
 export default Component.extend({
+  store: service(),
   toast: service(),
 
   equation_type: null,
@@ -10,8 +11,12 @@ export default Component.extend({
   coordinate_system: '',
 
   isEditing: false,
+  isNew: false,
   tagName: '',
   showConfirmation: false,
+
+  createCallback: null,
+  cancelCallback: null,
 
   actions: {
     edit() {
@@ -27,9 +32,17 @@ export default Component.extend({
 
     save() {
       let equation_type = this.get('equation_type');
+      if (equation_type == null) {
+        equation_type = this.get('store').createRecord('equation_type');
+      }
+
       equation_type.set('category', this.get('category'));
       equation_type.set('coordinate_system', this.get('coordinate_system'));
       equation_type.save().then(function() {
+        if (this.get('isNew')) {
+          this.toast.success('Equation Type created successfully');
+          this.get('createCallback')();
+        }
         this.set('isEditing', false);
       }.bind(this), function(reason) {
         this.toast.error(formatErrors(reason.errors));
@@ -38,6 +51,7 @@ export default Component.extend({
     },
 
     cancel() {
+      if (this.get('isNew')) this.get('cancelCallback')();
       this.set('isEditing', false);
     },
 

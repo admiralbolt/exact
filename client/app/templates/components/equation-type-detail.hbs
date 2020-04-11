@@ -1,7 +1,7 @@
 <div class="dcf-grid-fourths">
 
   <div class="dcf-col-33%">
-    {{#if isEditing}}
+    {{#if (or isEditing isNew)}}
       {{input type="text" value=coordinate_system}}
       {{input type="text" value=category}}
     {{else}}
@@ -11,7 +11,7 @@
 
 
   <div class="dcf-col-33%">
-    {{#if isEditing}}
+    {{#if (or isEditing isNew)}}
       <button {{action "cancel"}}>Cancel</button>
       <button {{action "save"}}>Save</button>
     {{else}}

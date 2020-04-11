@@ -34,7 +34,7 @@
       <div class="dcf-form-group">
         <label for="equation_type">
           Equation Type
-          <small class="dcf-required">Required</small>
+          <small {{action "toggleModal" "EquationType"}} role="button" class="define-new">Define New Equation Type</small>
         </label>
         <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="equation_type" @displayKey="display" @value={{modelCopy.equation_type}} />
       </div>
@@ -139,5 +139,11 @@
 {{#if showGeometryModal}}
   <ModalDialog @onClose={{action "toggleModal" "Geometry"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="geometry-overlay-container" @overlayClass="geometry-overlay">
     <GeometryDetail @isNew="true" @createCallback={{action "geometryCreated"}} @cancelCallback={{action "geometryCanceled"}} />
+  </ModalDialog>
+{{/if}}
+
+{{#if showEquationTypeModal}}
+  <ModalDialog @onClose={{action "toggleModal" "EquationType"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="equation-type-overlay-container" @overlayClass="equation-type-overlay">
+    <EquationTypeDetail @isNew="true" @createCallback={{action "equationTypeCreated"}} @cancelCallback={{action "equationTypeCanceled"}} />
   </ModalDialog>
 {{/if}}
