@@ -1,13 +1,6 @@
 {{#if session.isAuthenticated}}
   {{#if creatingNew}}
-    <div class="dcf-grid-fourths">
-      {{input type="text" value=coordinate_system}}
-      {{input type="text" value=category}}
-    </div>
-    <div class="dcf-grid-fourths">
-      <button {{action "cancel"}}>Cancel</button>
-      <button {{action "save"}}>Save</button>
-    </div>
+    <EquationTypeDetail @isNew="true" @createCallback={{action "createCallback"}} @cancelCallback={{action "createCallback"}} />
   {{else}}
     <button {{action "new"}}>Create New Equation Type</button>
   {{/if}}
