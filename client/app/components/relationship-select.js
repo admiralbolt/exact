@@ -9,13 +9,25 @@ export default Component.extend({
   value: '',
   choices: null,
 
+  // A callback function for registering component in a parent.
+  registerCallback: null,
+
   api_data: service(),
 
-  didReceiveAttrs() {
+  init() {
     this._super(...arguments);
     if (isEmpty(this.get('modelName'))) return;
 
-    this.api_data.getAllRecords(this.get('modelName')).then(function(records) {
+    if (!isEmpty(this.get('registerCallback')))
+      this.get('registerCallback')(this.get('modelName'), this);
+
+    this.loadChoices();
+  },
+
+  loadChoices(forceReload) {
+    this.set('doneLoading', false);
+    let reload = forceReload || false;
+    this.api_data.getAllRecords(this.get('modelName'), reload).then(function(records) {
       let choices = [];
       records.forEach(record => {
         choices.push({

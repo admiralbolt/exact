@@ -1,8 +1,9 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
 import { isNone } from '@ember/utils';
+import { A } from '@ember/array';
 import { formatErrors } from 'client/utils/utils';
 import config from '../config/environment';
 
@@ -14,6 +15,7 @@ export default Component.extend({
   session: service(),
   api_data: service(),
   toast: service(),
+  queue: service('file-queue'),
 
   equation: null,
   modelCopy: null,
@@ -27,10 +29,22 @@ export default Component.extend({
 
   actionCallback: null,
 
+  // Three different modals:
+  //  * Delete Confirmation
+  //  * Define New Equation Type
+  //  * Define New Geometry
+  showDeleteModal: false,
+  showGeometryModal: false,
+  showEquationTypeModal: false,
+
+  // When data is live created, child relationship selects need to be update.
+  // To do this, we'll register children relationship selects and notify them
+  // when data gets updated. Children will be an object mapping name -> component.
+  children: null,
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.set('modelCopy', this.get('equation').toJSON());
+    this.set('children', {});
     this.get('equation').get('equation_type').then(function() {
       this.set('equationTypeLoaded', true);
     }.bind(this));
@@ -104,6 +118,26 @@ export default Component.extend({
 
 
   actions: {
+    // Relationship select registration.
+    registerChild(name, child) {
+      set(this.get('children'), name, child);
+    },
+
+    // Modal action callbacks.
+    toggleModal(name) {
+      let modalName = `show${name}Modal`;
+      this.set(modalName, !this.get(modalName));
+    },
+
+    geometryCreated() {
+      this.get('children')['geometry'].loadChoices(/*forceReload=*/true);
+      this.set('showGeometryModal', false);
+    },
+
+    geometryCanceled() {
+      this.set('showGeometryModal', false);
+    },
+
     addSourceFile(file) {
       this.set('source_file', file);
     },
@@ -113,13 +147,17 @@ export default Component.extend({
     },
 
     edit() {
+      this.set('modelCopy', this.get('equation').toJSON());
       this.set('isEditing', true);
     },
 
     // Don't save edits reset views.
     cancel() {
+      this.queue.find('source_file').set('files', A());
+      this.queue.find('content_file').set('files', A());
+      this.set('source_file', null);
+      this.set('content_file', null);
       this.set('isEditing', false);
-      this.set('modelCopy', this.get('equation'));
     },
 
     save() {

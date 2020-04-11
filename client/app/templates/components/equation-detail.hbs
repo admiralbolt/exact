@@ -36,14 +36,14 @@
           Equation Type
           <small class="dcf-required">Required</small>
         </label>
-        <RelationshipSelect @modelName="equation_type" @displayKey="display" @value={{modelCopy.equation_type}} />
+        <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="equation_type" @displayKey="display" @value={{modelCopy.equation_type}} />
       </div>
       <div class="dcf-form-group">
         <label for="geometry">
           Geometry
-          <small class="dcf-required">Required</small>
+          <small {{action "toggleModal" "Geometry"}} role="button" class="define-new">Define New Geometry</small>
         </label>
-        <RelationshipSelect @modelName="geometry" @displayKey="number" @value={{modelCopy.geometry}} />
+        <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="geometry" @displayKey="number" @value={{modelCopy.geometry}} />
       </div>
       <div class="dcf-form-group">
         <label for="source_file">
@@ -121,4 +121,23 @@
 
     <iframe src={{contentUrl}} type="application/pdf"></iframe>
   </div>
+{{/if}}
+
+{{!-- Modalsssss --}}
+{{#if showDeleteModal}}
+  <ModalDialog @onClose={{action "toggleModal" "Delete"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
+    <div class="row">
+      <p class="overlay-title">Are you sure?</p>
+    </div>
+    <div class="row button-row">
+      <button {{action "toggleDeleteModal"}} class="action-button">Cancel</button>
+      <button {{action "delete" model}} class="primary-light-color action-button negative-background">I'm sure</button>
+    </div>
+  </ModalDialog>
+{{/if}}
+
+{{#if showGeometryModal}}
+  <ModalDialog @onClose={{action "toggleModal" "Geometry"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="geometry-overlay-container" @overlayClass="geometry-overlay">
+    <GeometryDetail @isNew="true" @createCallback={{action "geometryCreated"}} @cancelCallback={{action "geometryCanceled"}} />
+  </ModalDialog>
 {{/if}}

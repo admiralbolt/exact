@@ -3,12 +3,14 @@ import { inject as service } from '@ember/service';
 import { formatErrors } from 'client/utils/utils';
 import { computed } from '@ember/object';
 import { isNone } from '@ember/utils';
+import { A } from '@ember/array';
 import config from '../config/environment';
 
 export default Component.extend({
   toast: service(),
   session: service(),
   store: service(),
+  queue: service('file-queue'),
 
   geometry: null,
   number: '',
@@ -63,6 +65,7 @@ export default Component.extend({
       geometry.set('number', this.get('number'));
       geometry.save().then(function(response) {
         if (this.get('geometry_file') == null) {
+          this.get('createCallback')();
           this.set('isEditing', false);
           return;
         }
@@ -86,6 +89,8 @@ export default Component.extend({
     },
 
     cancel() {
+      this.queue.find('geometry_file').set('files', A());
+      this.set('geometry_file', null);
       if (this.get('isNew')) this.get('cancelCallback')();
       this.set('isEditing', false);
     },
