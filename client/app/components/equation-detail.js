@@ -59,7 +59,7 @@ export default Component.extend({
       }.bind(this));
 
       set(modelCopy, 'is_live', false);
-      set(modelCopy, 'user', this.currentUser.user);
+      set(modelCopy, 'user', this.get('currentUser.user.id'));
       this.set('equationTypeLoaded', true);
       return;
     }

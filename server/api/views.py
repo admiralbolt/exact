@@ -10,6 +10,7 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.renderers import JSONRenderer
 
 from api import models
 from api import serializers
@@ -72,6 +73,20 @@ class PageViewSet(viewsets.ModelViewSet):
   def get_queryset(self):
     equation_types = models.Page.objects.order_by("name")
     return equation_types
+
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_current_user(request):
+  s = serializers.UserSerializer(request.user)
+  return JsonResponse({
+    "data": {
+      "type": "users",
+      "id": request.user.id,
+      "attributes": s.data
+    }
+  })
+
 
 @api_view(["POST"])
 @authentication_classes([TokenAuthentication])

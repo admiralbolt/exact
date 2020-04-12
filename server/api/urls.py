@@ -21,5 +21,6 @@ urlpatterns = [
   path("geometries/upload/", views.upload_geometry_file),
   path("equations/upload/source/", views.upload_source_file),
   path("equations/upload/content/", views.upload_content_file),
+  path("users/me/", views.get_current_user),
   url(r"^", include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
