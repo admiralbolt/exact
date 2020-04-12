@@ -11,8 +11,11 @@ export default Controller.extend({
   category: '1d infinite body',
 
   api_data: service(),
+  session: service(),
   doneLoading: false,
   equations: null,
+
+  creatingNew: false,
 
   // Two levels of navigation, coordinate system and category.
   coordinateSystems: computed('model.equation_types', function() {
@@ -71,6 +74,14 @@ export default Controller.extend({
       if (this.get('category') == name) return;
 
       this.set('category', name);
+    },
+
+    createNew() {
+      this.set('creatingNew', true);
+    },
+
+    createCallback() {
+      this.set('creatingNew', false);
     }
   }
 

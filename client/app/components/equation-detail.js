@@ -13,6 +13,7 @@ let FILE_FIELDS = ['source_file', 'content_file'];
 
 export default Component.extend({
   session: service(),
+  currentUser: service(),
   api_data: service(),
   toast: service(),
   queue: service('file-queue'),
@@ -27,7 +28,8 @@ export default Component.extend({
   source_file: null,
   content_file: null,
 
-  actionCallback: null,
+  createCallback: null,
+  cancelCallback: null,
 
   // Three different modals:
   //  * Delete Confirmation
@@ -45,7 +47,24 @@ export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('children', {});
-    this.get('equation').get('equation_type').then(function() {
+    this.set('modelCopy', {});
+    let equation = this.get('equation');
+    if (equation == null) {
+      let modelCopy = this.get('modelCopy');
+      this.api_data.getAllRecords('equation_type', function(equation_types) {
+        set(modelCopy, 'equation_type', equation_types.get('firstObject'));
+      }.bind(this));
+      this.api_data.getAllRecords('geometry', function(geometrys) {
+        set(modelCopy, 'geometry', geometrys.get('firstObject'));
+      }.bind(this));
+
+      set(modelCopy, 'is_live', false);
+      set(modelCopy, 'user', this.currentUser.user);
+      this.set('equationTypeLoaded', true);
+      return;
+    }
+
+    equation.get('equation_type').then(function() {
       this.set('equationTypeLoaded', true);
     }.bind(this));
   },
@@ -167,6 +186,7 @@ export default Component.extend({
       this.set('source_file', null);
       this.set('content_file', null);
       this.set('isEditing', false);
+      if (this.get('isNew')) this.get('cancelCallback')();
     },
 
     save() {
@@ -183,6 +203,7 @@ export default Component.extend({
           if (isNone(this.get('source_file')) && isNone(this.get('content_file'))) {
             this.set('isEditing', false);
             this.toast.success('Equation edited successfully!');
+            if (this.get('isNew')) this.get('createCallback')();
             return;
           }
           this.uploadFiles(response.id).then(function(statuses) {
@@ -198,7 +219,7 @@ export default Component.extend({
 
             this.set('isEditing', false);
             equation.reload();
-            if (this.get('isNew')) this.get('actionCallback')();
+            if (this.get('isNew')) this.get('createCallback')();
           }.bind(this));
         }.bind(this), function(reason) {
           this.toast.error(formatErrors(reason.errors));
