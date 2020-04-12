@@ -31,10 +31,8 @@ Router.map(function() {
     this.route('template');
   });
   this.route('admin', function() {
-    this.route('login');
+    this.route('account');
     this.route('account-recovery');
-    this.route('content-management');
-    this.route('account-information');
   });
 });
 

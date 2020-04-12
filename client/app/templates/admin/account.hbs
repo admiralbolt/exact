@@ -1,0 +1,64 @@
+<div class="login">
+  {{#if session.isAuthenticated}}
+    <button class="btn btn-primary login-button" {{action "invalidateSession"}} role="button">Logout</button>
+  {{else}}
+    {{#each errors as |error|}}
+      <p>{{error}}</p>
+    {{/each}}
+    <form {{action "authenticate" on="submit"}}>
+      {{input id="username" placeholder="Username" class="form-control login-input" value=username}}
+      {{input id="password" placeholder="Password" class="form-control login-input" type="password" value=password}}
+      <button type="submit" class="btn btn-primary login-button">Login</button>
+      {{#if errorMessage}}
+        <p>{{errorMessage}}</p>
+      {{/if}}
+    </form>
+  {{/if}}
+</div>
+
+{{#if session.isAuthenticated}}
+  <form class="dcf-form account-form">
+    <fieldset>
+      <legend> Account Information </legend>
+      <div class="dcf-form-group">
+        <label for="username">
+          Username
+          <small class="dcf-required">Required</small>
+        </label>
+        {{input type="text" value=accountInfo.username}}
+      </div>
+
+      <div class="dcf-form-group">
+        <label for="email">
+          Email
+          <small class="dcf-required">Email</small>
+        </label>
+        {{input type="text" value=accountInfo.email}}
+      </div>
+
+      <div class="dcf-form-group">
+        <label for="first_name">First Name</label>
+        {{input type="text" value=accountInfo.first_name}}
+      </div>
+
+      <div class="dcf-form-group">
+        <label for="last_name">Last Name</label>
+        {{input type="text" value=accountInfo.last_name}}
+      </div>
+
+      <div class="dcf-form-group">
+        <label for="password">New Password</label>
+        {{input type="text" value=accountInfo.password}}
+      </div>
+
+      <div class="dcf-form-group">
+        <label for="password_retype">Retype Password</label>
+        {{input type="text" value=accountInfo.passwordRetype}}
+      </div>
+
+    </fieldset>
+
+    <button class="btn btn-primary" {{action "save"}}>Save</button>
+  </form>
+
+{{/if}}
