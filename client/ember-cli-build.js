@@ -31,5 +31,20 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
+  // Maffs
+  app.import('vendor/katex/katex.js', {
+    using: [
+      { transformation: 'amd', as: 'katex' }
+    ]
+  });
+
+  app.import('vendor/katex/auto-render.min.js', {
+    using: [
+      { transformation: 'amd', as: 'katex' }
+    ]
+  });
+  
+  app.import('vendor/katex/katex.css');
+
   return app.toTree();
 };

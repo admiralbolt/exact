@@ -26,9 +26,8 @@ export default Controller.extend({
       info[prop] = isNone(user) ? '' : user.get(prop);
     }.bind(this));
 
-    this.password = '';
-    this.passwordRetype = '';
-
+    this.set('newPassword', '');
+    this.set('newPasswordRetype', '');
     this.set('accountInfo', info);
   },
 

@@ -1,15 +1,33 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
+import { computed } from '@ember/object';
+// import renderMathInElement from 'katex';
 
 export default Component.extend({
   api_data: service(),
   session: service(),
+  currentUser: service(),
   page: null,
   content: '',
   name: null,
   isLoading: true,
   isEditing: false,
+
+  safeContent: computed('page.content', function() {
+    return htmlSafe(this.get('page').get('content'));
+  }),
+
+  renderMath() {
+    let froalaViews = this.element.getElementsByClassName('fr-view');
+    if (froalaViews.length == 0) return;
+
+    renderMathInElement(froalaViews[0]);
+  },
+
+  didRender() {
+    this.renderMath();
+  },
 
   init() {
     this._super(...arguments);

@@ -15,11 +15,13 @@
   {{#if isLoading}}
     Some kind of loading indicator...
   {{else}}
-    {{#if session.isAuthenticated }}
+    {{#if (and session.isAuthenticated currentUser.user.is_staff)}}
       <div class="dcf-grid">
         <button {{action "toggleEditing"}} class="edit">Edit</button>
       </div>
     {{/if}}
-    <FroalaContent @content={{content}} />
+    <div class="fr-view">
+      {{safeContent}}
+    </div>
   {{/if}}
 {{/if}}
