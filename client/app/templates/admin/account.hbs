@@ -24,6 +24,9 @@
         <label for="username">
           Username
           <small class="dcf-required">Required</small>
+          {{#if validationErrors.username}}
+            <p class="error">{{validationErrors.username}}</p>
+          {{/if}}
         </label>
         {{input type="text" value=accountInfo.username}}
       </div>
@@ -31,8 +34,11 @@
       <div class="dcf-form-group">
         <label for="email">
           Email
-          <small class="dcf-required">Email</small>
+          <small class="dcf-required">Required</small>
         </label>
+        {{#if validationErrors.email}}
+          <p class="error">{{validationErrors.email}}</p>
+        {{/if}}
         {{input type="text" value=accountInfo.email}}
       </div>
 
@@ -46,19 +52,29 @@
         {{input type="text" value=accountInfo.last_name}}
       </div>
 
+    </fieldset>
+    <button class="btn btn-primary" {{action "save"}}>Save</button>
+  </form>
+
+  <form class="dcf-form password-form">
+    <fieldset>
+      <legend>New Password</legend>
       <div class="dcf-form-group">
         <label for="password">New Password</label>
-        {{input type="text" value=accountInfo.password}}
+        {{#if passwordError}}
+          <p class="error">{{passwordError}}</p>
+        {{/if}}
+        {{input type="password" value=newPassword}}
       </div>
 
       <div class="dcf-form-group">
         <label for="password_retype">Retype Password</label>
-        {{input type="text" value=accountInfo.passwordRetype}}
+        {{input type="password" value=newPasswordRetype}}
       </div>
 
     </fieldset>
 
-    <button class="btn btn-primary" {{action "save"}}>Save</button>
+    <button class="btn btn-primary" {{action "newPassword"}}>Save</button>
   </form>
 
 {{/if}}

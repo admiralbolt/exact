@@ -6,21 +6,41 @@ detail, edit, and delete views.
 """
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 
 from api import models
 from api import serializers
+from api.permissions import IsSameUserOrAdmin
 
 # pylint: disable=too-many-ancestors
 
-class UserViewSet(viewsets.ModelViewSet):
+class DetailViewSet(
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet):
+  pass
+
+class ListViewSet(
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet):
+  pass
+
+class UserDetailViewSet(DetailViewSet):
+  queryset = models.ExactUser.objects.all()
+  serializer_class = serializers.UserSerializer
+  permission_classes = (IsSameUserOrAdmin,)
+
+class UserViewSet(ListViewSet):
   resource_name = "users"
   queryset = models.ExactUser.objects.all()
   serializer_class = serializers.UserSerializer
+  permission_classes = (IsAdminUser,)
 
   def get_queryset(self):
     return models.ExactUser.objects.all()
@@ -87,6 +107,14 @@ def get_current_user(request):
     }
   })
 
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def new_password(request):
+  password = request.GET.get("password")
+  request.user.set_password(password)
+  request.user.save()
+  return JsonResponse({"status": "success", "message": ""})
 
 @api_view(["POST"])
 @authentication_classes([TokenAuthentication])

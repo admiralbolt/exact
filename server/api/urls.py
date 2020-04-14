@@ -15,6 +15,7 @@ router.register(r"equation_types", views.EquationTypeViewSet)
 router.register(r"equations", views.EquationViewSet)
 router.register(r"pages", views.PageViewSet)
 router.register(r"users", views.UserViewSet)
+router.register(r"users", views.UserDetailViewSet)
 
 urlpatterns = [
   path("api-auth-token/", obtain_auth_token),
@@ -22,5 +23,6 @@ urlpatterns = [
   path("equations/upload/source/", views.upload_source_file),
   path("equations/upload/content/", views.upload_content_file),
   path("users/me/", views.get_current_user),
+  path("new_password/", views.new_password),
   url(r"^", include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

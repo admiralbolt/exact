@@ -7,6 +7,7 @@ export default Model.extend({
   email: DS.attr('string'),
   first_name: DS.attr('string'),
   last_name: DS.attr('string'),
+  is_staff: DS.attr('boolean'),
 
   fullName: computed('first_name', 'last_name', function() {
     return `${this.get('first_name')} ${this.get('last_name')}`;

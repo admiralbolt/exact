@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = models.ExactUser
-    fields = ["username", "email", "first_name", "last_name"]
+    fields = ["username", "email", "first_name", "last_name", "is_staff"]
 
 class EquationTypeSerializer(serializers.ModelSerializer):
   """Serialize EquationTypes."""
