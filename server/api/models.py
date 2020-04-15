@@ -77,5 +77,7 @@ class Page(models.Model):
       models.Index(fields=["name"])
     ]
 
+class FroalaImage(models.Model):
+  image_file = models.ImageField(upload_to="images/")
 
-ADMIN_MODELS = [EquationType, Equation, Geometry, Page]
+ADMIN_MODELS = [EquationType, Equation, FroalaImage, Geometry, Page]

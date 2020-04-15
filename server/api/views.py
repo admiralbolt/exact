@@ -163,3 +163,12 @@ def upload_content_file(request):
   f = request.data["file"]
   equation.content_file.save(f.name, f, save=True)
   return JsonResponse({"status": "success", "message": ""})
+
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAdminUser])
+def upload_froala_image(request):
+  f = request.data["file"]
+  image = models.FroalaImage(image_file=f)
+  image.save()
+  return JsonResponse({"link": f"http://{request.get_host()}/uploads/{image.image_file.name}"})

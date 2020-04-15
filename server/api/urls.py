@@ -22,6 +22,7 @@ urlpatterns = [
   path("geometries/upload/", views.upload_geometry_file),
   path("equations/upload/source/", views.upload_source_file),
   path("equations/upload/content/", views.upload_content_file),
+  path("froala/upload/", views.upload_froala_image),
   path("users/me/", views.get_current_user),
   path("new_password/", views.new_password),
   url(r"^", include(router.urls)),

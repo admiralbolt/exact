@@ -43,7 +43,7 @@ module.exports = function(defaults) {
       { transformation: 'amd', as: 'katex' }
     ]
   });
-  
+
   app.import('vendor/katex/katex.css');
 
   return app.toTree();
