@@ -1,4 +1,4 @@
-<div class="dcf-grid-fourths">
+<div class="equation-type-detail">
 
   <div class="dcf-col-33%">
     {{#if (or isEditing isNew)}}
@@ -12,8 +12,8 @@
 
   <div class="dcf-col-33%">
     {{#if (or isEditing isNew)}}
-      <button {{action "cancel"}}>Cancel</button>
-      <button {{action "save"}}>Save</button>
+      <button class="btn" {{action "cancel"}}>Cancel</button>
+      <button class="btn" {{action "save"}}>Save</button>
     {{else}}
       <LinkTo @route="contents"
               @query={{hash coord=equation_type.coordinate_system
@@ -21,8 +21,8 @@
         Equations
       </LinkTo>
       {{#if session.isAuthenticated}}
-        <button {{action "edit"}}>Edit</button>
-        <button {{action "toggleConfirmation"}} class="primary-light-color negative-background action-button">Delete</button>
+        <button class="btn" {{action "edit"}}>Edit</button>
+        <button class="btn" {{action "toggleConfirmation"}}>Delete</button>
       {{/if}}
 
       {{#if showConfirmation}}
@@ -31,8 +31,8 @@
             <p class="overlay-title">Are you sure?</p>
           </div>
           <div class="row button-row">
-            <button {{action "toggleConfirmation"}} class="action-button">Cancel</button>
-            <button {{action "delete" model}} class="primary-light-color action-button negative-background">I'm sure</button>
+            <button class="btn" {{action "toggleConfirmation"}}>Cancel</button>
+            <button class="btn" {{action "delete" model}}>I'm sure</button>
           </div>
         </ModalDialog>
       {{/if}}
