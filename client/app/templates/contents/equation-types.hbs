@@ -2,7 +2,7 @@
   {{#if creatingNew}}
     <EquationTypeDetail @isNew="true" @createCallback={{action "createCallback"}} @cancelCallback={{action "createCallback"}} />
   {{else}}
-    <button {{action "new"}}>Create New Equation Type</button>
+    <button class="btn" {{action "new"}}>Create New Equation Type</button>
   {{/if}}
 {{/if}}
 
