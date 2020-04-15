@@ -7,7 +7,7 @@
   </div>
 
   <FroalaEditor
-    @content={{content}}
+    @content={{safeContent}}
     @update={{fn (mut content)}}
     @theme="dark"
   />

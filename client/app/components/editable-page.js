@@ -37,7 +37,6 @@ export default Component.extend({
         if (page.name != this.name) continue;
 
         this.set('page', page);
-        this.set('content', htmlSafe(this.get('page').get('content')));
         this.set('isLoading', false);
         return;
       }
