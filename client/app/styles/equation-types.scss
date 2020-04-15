@@ -9,9 +9,9 @@
       .equation-type-link {
 
         a {
+          color: $unl-red;
           font-size: 1.2rem;
           text-decoration: none;
-          color: $unl-red;
 
           &:hover {
             filter: brightness(80%);

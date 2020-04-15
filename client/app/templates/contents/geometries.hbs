@@ -2,9 +2,12 @@
   {{#if creatingNew}}
     <GeometryDetail @isNew="true" @createCallback={{action "createCallback"}} @cancelCallback={{action "createCallback"}} />
   {{else}}
-    <button {{action "new"}}>Create New Geometry</button>
+    <button class="btn" {{action "new"}}>Create New Geometry</button>
   {{/if}}
 {{/if}}
+
+<br>
+<br>
 
 {{#each model as |geometry|}}
   <GeometryDetail @geometry={{geometry}} />

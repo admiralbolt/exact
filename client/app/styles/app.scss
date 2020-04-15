@@ -1,5 +1,6 @@
 @import 'contents.scss';
 @import 'equation-types.scss';
+@import 'geometries.scss';
 @import 'ember-modal-dialog/ember-modal-structure';
 @import 'ember-modal-dialog/ember-modal-appearance';
 
@@ -56,4 +57,8 @@ main {
 
 .overlay-title {
   text-align: center;
+}
+
+a.upload-button {
+  cursor: pointer;
 }

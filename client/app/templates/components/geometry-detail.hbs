@@ -1,49 +1,66 @@
-<div class="dcf-grid-fouths">
+<div class="geometry-detail">
 
-  <div class="dcf-col-33%">
-    {{#if (or isEditing isNew)}}
-      {{input type="text" value=number}}
-      <FileUpload @name="geometry_file" @for="geometry_file" @accept="image/*" @onfileadd={{action "addImageFile"}} as |queue|>
-        <a class="upload-button">
-          {{#if queue.files.length}}
-            {{queue.files.0.name}}
-          {{else}}
-            {{imageFileName}}
-          {{/if}}
-        </a>
-      </FileUpload>
-    {{else}}
-      {{geometry.number}}
-      {{#if geometry.geometry_file}}
-        <img alt={{geometry.number}} src={{geometry.geometry_file}}>
-      {{/if}}
-    {{/if}}
-  </div>
-
-  {{#if session.isAuthenticated}}
-    <div class="dcf-col-33%">
-      {{#if isNew}}
-        <button {{action "cancel"}}>Cancel</button>
-        <button {{action "save"}}>Create</button>
-      {{else if isEditing}}
-        <button {{action "cancel"}}>Cancel</button>
-        <button {{action "save"}}>Save</button>
-      {{else}}
-        <button {{action "edit"}}>Edit</button>
-        <button {{action "toggleConfirmation"}} class="primary-light-color negative-background action-button">Delete</button>
-      {{/if}}
-
-      {{#if showConfirmation}}
-        <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
-          <div class="row">
-            <p class="overlay-title">Are you sure?</p>
+  {{#if (or isEditing isNew)}}
+    <form class="dcf-form geometry-form">
+      <fieldset>
+        <legend>{{#if isEditing}}Editing{{else}}New{{/if}} Geometry</legend>
+        <div class="dcf-form-group">
+          <label for="number">
+            Number
+            <small class="dcf-required">Required</small>
+          </label>
+          {{input type="text" value=number}}
+        </div>
+        <div class="dcf-form-group">
+          <label for="geometry_file">
+            Image Schematic File
+          </label>
+          <FileUpload @name="geometry_file" @for="geometry_file" @accept="image/*" @onfileadd={{action "addImageFile"}} as |queue|>
+            <a class="upload-button">
+              {{#if queue.files.length}}
+                {{queue.files.0.name}}
+              {{else}}
+                {{imageFileName}}
+              {{/if}}
+            </a>
+          </FileUpload>
+        </div>
+        <div class="dcf-form-group">
+          <div class="form-actions">
+            <button class="btn" {{action "cancel"}}>Cancel</button>
+            <button class="btn" {{action "save"}}>Save</button>
           </div>
-          <div class="row button-row">
-            <button {{action "toggleConfirmation"}} class="action-button">Cancel</button>
-            <button {{action "delete" model}} class="primary-light-color action-button negative-background">I'm sure</button>
+        </div>
+      </fieldset>
+    </form>
+  {{else}}
+    <div class="geometry-display">
+      <div class="geometry-info">
+        <p>{{geometry.number}}</p>
+        {{#if geometry.geometry_file}}
+          <div class="image-container">
+            <img alt={{geometry.number}} src={{geometry.geometry_file}}>
           </div>
-        </ModalDialog>
-      {{/if}}
+        {{/if}}
+      </div>
+
+      <div class="geometry-actions">
+        <button class="btn btn-small" {{action "edit"}}>Edit</button>
+        <button class="btn btn-small" {{action "toggleConfirmation"}} class="primary-light-color negative-background action-button">Delete</button>
+
+        {{#if showConfirmation}}
+          <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
+            <div class="row">
+              <p class="overlay-title">Are you sure?</p>
+            </div>
+            <div class="row button-row">
+              <button class="btn" {{action "toggleConfirmation"}}>Cancel</button>
+              <button class="btn" {{action "delete" model}}>I'm sure</button>
+            </div>
+          </ModalDialog>
+        {{/if}}
+      </div>
     </div>
   {{/if}}
+
 </div>
