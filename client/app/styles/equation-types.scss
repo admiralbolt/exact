@@ -1,6 +1,23 @@
+@import "_colors.scss";
+
 .equation-type-detail {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
+    margin-bottom: 1rem;
+    max-width: 30rem;
+
+    .equation-type-display {
+
+      .equation-type-link {
+
+        a {
+          font-size: 1.2rem;
+          text-decoration: none;
+          color: $unl-red;
+
+          &:hover {
+            filter: brightness(80%);
+          }
+        }
+      }
+    }
+
 }

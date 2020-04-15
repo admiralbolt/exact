@@ -35,7 +35,7 @@ main {
 }
 
 .btn {
-    background-color: #eee;
+    background-color: #f8f8f8;
     border-radius: 5px;
 
     &:hover {
@@ -43,8 +43,17 @@ main {
     }
 }
 
+.btn-small {
+  font-size: 1rem;
+  padding: .28rem .5rem;
+}
+
 .flex-center {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.overlay-title {
+  text-align: center;
 }

@@ -1,43 +1,62 @@
 <div class="equation-type-detail">
 
-  <div class="dcf-col-33%">
-    {{#if (or isEditing isNew)}}
-      {{input type="text" value=coordinate_system}}
-      {{input type="text" value=category}}
-    {{else}}
-      {{equation_type.coordinate_system}} -- {{equation_type.category}}
-    {{/if}}
-  </div>
-
-
-  <div class="dcf-col-33%">
-    {{#if (or isEditing isNew)}}
-      <button class="btn" {{action "cancel"}}>Cancel</button>
-      <button class="btn" {{action "save"}}>Save</button>
-    {{else}}
-      <LinkTo @route="contents"
-              @query={{hash coord=equation_type.coordinate_system
-                            category=equation_type.category}}>
-        Equations
-      </LinkTo>
-      {{#if session.isAuthenticated}}
-        <button class="btn" {{action "edit"}}>Edit</button>
-        <button class="btn" {{action "toggleConfirmation"}}>Delete</button>
-      {{/if}}
-
-      {{#if showConfirmation}}
-        <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
-          <div class="row">
-            <p class="overlay-title">Are you sure?</p>
+  {{#if (or isEditing isNew)}}
+    <form class="dcf-form equation-type-form">
+      <fieldset>
+        <legend>{{#if isEditing}}Editing{{else}}New{{/if}} Equation Type</legend>
+        <div class="dcf-form-group">
+          <label for="coordinate_system">
+            Coordinate System
+            <small class="dcf-required">Required</small>
+          </label>
+          {{input type="text" value=coordinate_system}}
+        </div>
+        <div class="dcf-form-group">
+          <label for="category">
+            Category
+            <small class="dcf-required">Required</small>
+          </label>
+          {{input type="text" value=category}}
+        </div>
+        <div class="dcf-form-group">
+          <div class="form-actions">
+            <button class="btn" {{action "cancel"}}>Cancel</button>
+            <button class="btn" {{action "save"}}>Save</button>
           </div>
-          <div class="row button-row">
-            <button class="btn" {{action "toggleConfirmation"}}>Cancel</button>
-            <button class="btn" {{action "delete" model}}>I'm sure</button>
-          </div>
-        </ModalDialog>
-      {{/if}}
-    {{/if}}
+        </div>
+      </fieldset>
+    </form>
+  {{else}}
 
-  </div>
+    <div class="equation-type-display">
+      <div class="equation-type-link">
+        <LinkTo @route="contents"
+                @query={{hash coord=equation_type.coordinate_system
+                              category=equation_type.category}}>
+          {{equation_type.coordinate_system}}, {{equation_type.category}}
+        </LinkTo>
+      </div>
+
+      <div class="equation-type-actions">
+        {{#if session.isAuthenticated}}
+          <button class="btn btn-small" {{action "edit"}}>Edit</button>
+          <button class="btn btn-small" {{action "toggleConfirmation"}}>Delete</button>
+        {{/if}}
+
+        {{#if showConfirmation}}
+          <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
+            <div class="row">
+              <p class="overlay-title">Are you sure?</p>
+            </div>
+            <div class="row button-row">
+              <button class="btn" {{action "toggleConfirmation"}}>Cancel</button>
+              <button class="btn" {{action "delete" model}}>I'm sure</button>
+            </div>
+          </ModalDialog>
+        {{/if}}
+      </div>
+    </div>
+
+  {{/if}}
 
 </div>
