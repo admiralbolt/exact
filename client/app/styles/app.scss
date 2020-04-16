@@ -1,6 +1,8 @@
 @import 'contents.scss';
 @import 'equation-types.scss';
 @import 'geometries.scss';
+@import 'toggle-button.scss';
+@import 'unl-overrides.scss';
 @import 'ember-modal-dialog/ember-modal-structure';
 @import 'ember-modal-dialog/ember-modal-appearance';
 
@@ -42,6 +44,11 @@ main {
     &:hover {
         filter: brightness(90%);
     }
+
+    ion-icon {
+      font-size: 1.2rem;
+      vertical-align: middle;
+    }
 }
 
 .btn-small {
@@ -50,15 +57,44 @@ main {
 }
 
 .flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.flex-row {
+  align-items: center;
+  display: flex;
+  justify-content: start;
 }
 
 .overlay-title {
   text-align: center;
 }
 
-a.upload-button {
+.file-help {
+  font-size: 0.9rem;
+}
+
+
+.upload-button {
+  background-color:#f8f8f8;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
   cursor: pointer;
+  display: block;
+  font-size: 1.3rem;
+  overflow-wrap: break-word;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  width: 100%;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+  }
+
+  @media (max-width: 500px) {
+    max-width: 100%;
+  }
 }

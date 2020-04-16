@@ -51,3 +51,42 @@
   margin-bottom: 0.8rem;
   width: 8rem;
 }
+
+.equation-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+
+  button {
+    margin-right: 2rem;
+  }
+}
+
+.equation-detail {
+
+  .define-new {
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-left: 3rem;
+    color: $unl-red;
+
+    &:hover {
+      border-bottom: 1px solid $unl-red;
+      filter: brightness(80%);
+    }
+  }
+
+  .equation-display {
+
+    .equation-title {
+      max-width: 55rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .equation-author {
+      max-width: 55rem;
+      margin-bottom: 0.75rem;
+    }
+  }
+}

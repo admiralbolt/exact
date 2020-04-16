@@ -1,149 +1,153 @@
-{{#if (or isEditing isNew)}}
-  <form class="dcf-form equation-form">
-    <fieldset>
-      <legend>Edit {{equation.name}}</legend>
-      <div class="dcf-form-group">
-        <label for="name">
-          Name
-          <small class="dcf-required">Required</small>
-        </label>
-        {{input type="text" value=modelCopy.name}}
-      </div>
-      <div class="dcf-form-group">
-        <label for="author">
-          Author(s)
-          <small class="dcf-required">Required</small>
-        </label>
-        {{input type="text" value=modelCopy.author}}
-      </div>
-      <div class="dcf-form-group">
-        <label for="is_live">
-          Page is Live
-          <small class="dcf-required">Required</small>
-        </label>
-        <ToggleButton @value={{modelCopy.is_live}} />
-      </div>
-      <div class="dcf-form-group">
-        <label for="date">
-          Date
-          <small class="dcf-required">Required</small>
-        </label>
-        {{input type="text" value=modelCopy.date}}
-        <p class="dcf-form-help">Date should be in YYYY-MM-DD format.</p>
-      </div>
-      <div class="dcf-form-group">
-        <label for="equation_type">
-          Equation Type
-          <small {{action "toggleModal" "EquationType"}} role="button" class="define-new">Define New Equation Type</small>
-        </label>
-        <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="equation_type" @displayKey="display" @value={{modelCopy.equation_type}} />
-      </div>
-      <div class="dcf-form-group">
-        <label for="geometry">
-          Geometry
-          <small {{action "toggleModal" "Geometry"}} role="button" class="define-new">Define New Geometry</small>
-        </label>
-        <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="geometry" @displayKey="number" @value={{modelCopy.geometry}} />
-      </div>
-      <div class="dcf-form-group">
-        <label for="source_file">
-          Source File
-          <small>Accepts docx, pdf</small>
-        </label>
-        <FileUpload @name="source_file" @for="source_file" @accept="*" @onfileadd={{action "addSourceFile"}} as |queue|>
-          <a class="upload-button">
-            {{#if queue.files.length}}
-              {{queue.files.0.name}}
-            {{else}}
-              {{sourceFileName}}
-            {{/if}}
-          </a>
-        </FileUpload>
-      </div>
-      <div class="dcf-form-group">
-        <label for="content_file">
-          Content File
-          <small>pdf only</small>
-        </label>
-        <FileUpload @name="content_file" @for="content_file" @accept="*" @onfileadd={{action "addContentFile"}} as |queue|>
-          <a class="upload-button">
-            {{#if queue.files.length}}
-              {{queue.files.0.name}}
-            {{else}}
-              {{contentFileName}}
-            {{/if}}
-          </a>
-        </FileUpload>
-      </div>
-    </fieldset>
-  </form>
-  <div class="dcf-grid">
-    {{#if (or isEditing isNew)}}
-      <div class="dcf-col-20%"></div>
-      <div class="dcf-col-40% flex-center">
-        <button {{action "cancel"}} class="action-button">Cancel</button>
-      </div>
-      <div class="dcf-col-40% flex-center">
-        <button {{action "save"}} class="action-button">
-          {{#if isEditing}}
-            Save
-          {{else}}
-            Create
-          {{/if}}
-        </button>
-      </div>
-      <div class="dcf-col-20%"></div>
-    {{/if}}
-  </div>
-{{else}}
-  <div class="equation-detail">
-    {{#if session.isAuthenticated}}
-      <div {{action "edit"}} role="button">Edit</div>
-    {{/if}}
-    {{#if equationTypeLoaded}}
-      <LinkTo @route="contents"
-              @query={{hash coord=equation.equation_type.coordinate_system
-                            category=equation.equation_type.category}}>
-        Back to Equations
-      </LinkTo>
-    {{/if}}
-    <h3 class="equation-title">{{equation.name}} -- {{equation.author}}</h3>
-    <h4 class="equation-sub-title">{{equation.date}}, {{equation.equation_type.category}}, {{equation.geometry.number}}</h4>
+<div class="equation-detail">
 
-    {{#if equation.geometry.geometry_file}}
-      <img alt="{{equation.geometry.number}} Geometry" class="geometry" src={{equation.geometry.geometry_file}}>
-    {{/if}}
+  {{#if (or isEditing isNew)}}
+    <form class="dcf-form equation-form">
+      <fieldset>
+        <legend>Edit {{equation.name}}</legend>
+        <div class="dcf-form-group">
+          <label for="name">
+            Name
+            <small class="dcf-required">Required</small>
+          </label>
+          {{input type="text" value=modelCopy.name}}
+        </div>
+        <div class="dcf-form-group">
+          <label for="author">
+            Author(s)
+            <small class="dcf-required">Required</small>
+          </label>
+          {{input type="text" value=modelCopy.author}}
+        </div>
+        <div class="dcf-form-group">
+          <label for="is_live">
+            Page is Live
+            <small class="dcf-required">Required</small>
+          </label>
+          <ToggleButton @value={{modelCopy.is_live}} />
+        </div>
+        <div class="dcf-form-group">
+          <label for="date">
+            Date
+            <small class="dcf-required">Required</small>
+          </label>
+          {{input type="text" value=modelCopy.date}}
+          <p class="dcf-form-help">Date should be in YYYY-MM-DD format.</p>
+        </div>
+        <div class="dcf-form-group">
+          <label for="equation_type">
+            Equation Type
+            <small {{action "toggleModal" "EquationType"}} role="button" class="define-new">Define New Equation Type</small>
+          </label>
+          <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="equation_type" @displayKey="display" @value={{modelCopy.equation_type}} />
+        </div>
+        <div class="dcf-form-group">
+          <label for="geometry">
+            Geometry
+            <small {{action "toggleModal" "Geometry"}} role="button" class="define-new">Define New Geometry</small>
+          </label>
+          <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="geometry" @displayKey="number" @value={{modelCopy.geometry}} />
+        </div>
+        <div class="dcf-form-group">
+          <label for="source_file">
+            Source File
+            <small class="file-help">Accepts docx, pdf</small>
+          </label>
+          <br>
+          <FileUpload @name="source_file" @for="source_file" @accept="*" @onfileadd={{action "addSourceFile"}} as |queue|>
+            <a class="upload-button">
+              {{#if queue.files.length}}
+                {{queue.files.0.name}}
+              {{else}}
+                {{sourceFileName}}
+              {{/if}}
+            </a>
+          </FileUpload>
+        </div>
+        <div class="dcf-form-group">
+          <label for="content_file">
+            Content File
+            <small class="file-help">pdf only</small>
+          </label>
+          <br>
+          <FileUpload @name="content_file" @for="content_file" @accept="*" @onfileadd={{action "addContentFile"}} as |queue|>
+            <a class="upload-button">
+              {{#if queue.files.length}}
+                {{queue.files.0.name}}
+              {{else}}
+                {{contentFileName}}
+              {{/if}}
+            </a>
+          </FileUpload>
+        </div>
 
-    {{#if showSource}}
-      Download source file:
-      <a class="source-file" target="_blank" rel="noopener" href={{equation.source_file}} download>{{sourceFileName}}</a>
-    {{/if}}
+        <div class="dcf-form-group">
+          <div class="form-actions">
+            <button class="btn" {{action "cancel"}}>Cancel</button>
+            <button class="btn" {{action "save"}}>{{#if isEditing}}Save{{else}}Create{{/if}}</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  {{else}}
+    <div class="equation-display">
+      <div class="equation-actions">
+        {{#if equationTypeLoaded}}
+          <LinkTo @route="contents"
+                  @query={{hash coord=equation.equation_type.coordinate_system
+                                category=equation.equation_type.category}}>
+            <IconButton @iconName="caret-back" @text="Back to Equations" />
+          </LinkTo>
+        {{/if}}
+        {{#if session.isAuthenticated}}
+          <button class="btn" {{action "edit"}}>Edit</button>
+        {{/if}}
+      </div>
 
-    <iframe src={{contentUrl}} type="application/pdf"></iframe>
-  </div>
-{{/if}}
+      <br>
+      <br>
 
-{{!-- Modalsssss --}}
-{{#if showDeleteModal}}
-  <ModalDialog @onClose={{action "toggleModal" "Delete"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
-    <div class="row">
-      <p class="overlay-title">Are you sure?</p>
+      <h3 class="equation-title">{{equation.name}}</h3>
+      <h4 class="equation-author">{{equation.author}}</h4>
+      <h5 class="equation-sub-title">{{equation.date}}, {{equation.equation_type.category}}, {{equation.geometry.number}}</h5>
+
+      {{#if equation.geometry.geometry_file}}
+        <div class="image-container">
+          <img alt="{{equation.geometry.number}} Geometry" src={{equation.geometry.geometry_file}}>
+        </div>
+      {{/if}}
+
+      {{#if showSource}}
+        Download source file:
+        <a class="source-file" target="_blank" rel="noopener" href={{equation.source_file}} download>{{sourceFileName}}</a>
+      {{/if}}
+
+      <iframe src={{contentUrl}} type="application/pdf"></iframe>
     </div>
-    <div class="row button-row">
-      <button {{action "toggleDeleteModal"}} class="action-button">Cancel</button>
-      <button {{action "delete" model}} class="primary-light-color action-button negative-background">I'm sure</button>
-    </div>
-  </ModalDialog>
-{{/if}}
+  {{/if}}
 
-{{#if showGeometryModal}}
-  <ModalDialog @onClose={{action "toggleModal" "Geometry"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="geometry-overlay-container" @overlayClass="geometry-overlay">
-    <GeometryDetail @isNew="true" @createCallback={{action "geometryCreated"}} @cancelCallback={{action "geometryCanceled"}} />
-  </ModalDialog>
-{{/if}}
+  {{!-- Modalsssss --}}
+  {{#if showDeleteModal}}
+    <ModalDialog @onClose={{action "toggleModal" "Delete"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
+      <div class="row">
+        <p class="overlay-title">Are you sure?</p>
+      </div>
+      <div class="row button-row">
+        <button {{action "toggleDeleteModal"}} class="action-button">Cancel</button>
+        <button {{action "delete" model}} class="primary-light-color action-button negative-background">I'm sure</button>
+      </div>
+    </ModalDialog>
+  {{/if}}
 
-{{#if showEquationTypeModal}}
-  <ModalDialog @onClose={{action "toggleModal" "EquationType"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="equation-type-overlay-container" @overlayClass="equation-type-overlay">
-    <EquationTypeDetail @isNew="true" @createCallback={{action "equationTypeCreated"}} @cancelCallback={{action "equationTypeCanceled"}} />
-  </ModalDialog>
-{{/if}}
+  {{#if showGeometryModal}}
+    <ModalDialog @onClose={{action "toggleModal" "Geometry"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="geometry-overlay-container" @overlayClass="geometry-overlay">
+      <GeometryDetail @isNew="true" @createCallback={{action "geometryCreated"}} @cancelCallback={{action "geometryCanceled"}} />
+    </ModalDialog>
+  {{/if}}
+
+  {{#if showEquationTypeModal}}
+    <ModalDialog @onClose={{action "toggleModal" "EquationType"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="equation-type-overlay-container" @overlayClass="equation-type-overlay">
+      <EquationTypeDetail @isNew="true" @createCallback={{action "equationTypeCreated"}} @cancelCallback={{action "equationTypeCanceled"}} />
+    </ModalDialog>
+  {{/if}}
+
+</div>
