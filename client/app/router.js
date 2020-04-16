@@ -25,7 +25,6 @@ Router.map(function() {
     this.route('equation-types', function() {});
     this.route('geometries');
   });
-  this.route('images');
   this.route('contribute', function() {
     this.route('how-to-submit');
     this.route('template');

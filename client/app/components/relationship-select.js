@@ -28,13 +28,15 @@ export default Component.extend({
     this.set('doneLoading', false);
     let reload = forceReload || false;
     this.api_data.getAllRecords(this.get('modelName'), reload).then(function(records) {
+      let displayKey = this.get('displayKey');
       let choices = [];
       records.forEach(record => {
         choices.push({
           value: record.get('id'),
-          display: record.get(this.get('displayKey'))
+          display: record.get(displayKey)
         });
       });
+      choices.sort((a, b) => (a.display > b.display) ? 1 : -1);
       this.set('choices', choices);
       this.set('doneLoading', true);
     }.bind(this));
