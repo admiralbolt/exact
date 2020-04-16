@@ -101,6 +101,9 @@
         {{#if session.isAuthenticated}}
           <button class="btn" {{action "edit"}}>Edit</button>
         {{/if}}
+        {{#if hasAccess}}
+          <button class="btn" {{action "toggleModal" "Delete"}}>Delete</button>
+        {{/if}}
       </div>
 
       <br>
@@ -132,8 +135,8 @@
         <p class="overlay-title">Are you sure?</p>
       </div>
       <div class="row button-row">
-        <button {{action "toggleDeleteModal"}} class="action-button">Cancel</button>
-        <button {{action "delete" model}} class="primary-light-color action-button negative-background">I'm sure</button>
+        <button class="btn" {{action "toggleModal" "Delete"}}>Cancel</button>
+        <button class="btn" {{action "delete" model}}>I'm sure</button>
       </div>
     </ModalDialog>
   {{/if}}

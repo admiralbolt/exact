@@ -17,6 +17,7 @@ export default Component.extend({
   api_data: service(),
   toast: service(),
   queue: service('file-queue'),
+  router: service(),
 
   equation: null,
   modelCopy: null,
@@ -68,6 +69,10 @@ export default Component.extend({
       this.set('equationTypeLoaded', true);
     }.bind(this));
   },
+
+  hasAccess: computed('currentUser.{user,user.is_staff}', 'equation.user', function() {
+    return this.get('currentUser.user.is_staff') || this.get('currentUser.user') == this.get('equation.user');
+  }),
 
   contentUrl: computed('equation.content_file', function() {
     return htmlSafe(`${this.get('equation.content_file')}`);
@@ -224,6 +229,16 @@ export default Component.extend({
         }.bind(this), function(reason) {
           this.toast.error(formatErrors(reason.errors));
         }.bind(this));
+      }.bind(this));
+    },
+
+    delete() {
+      let model = this.get('equation');
+      let modelName = model.name;
+      model.deleteRecord();
+      model.save().then(function() {
+        this.toast.success(`Equation '${modelName}' Deleted.`);
+        this.get('router').transitionTo('contents.index');
       }.bind(this));
     }
   }
