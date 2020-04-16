@@ -1,10 +1,12 @@
 {{#if isEditing}}
   <div class="dcf-grid">
     <div class="dcf-col-100% edit-action">
-      <button {{action "save"}} class="dcf-btn-primary">Save</button>
-      <button {{action "toggleEditing"}} class="dcf-btn-secondary">Cancel</button>
+      <button {{action "toggleEditing"}} class="btn dcf-btn-secondary">Cancel</button>
+      <button {{action "save"}} class="btn dcf-btn-primary">Save</button>
     </div>
   </div>
+
+  <br>
 
   <FroalaEditor
     @content={{safeContent}}
@@ -13,11 +15,11 @@
   />
 {{else}}
   {{#if isLoading}}
-    Some kind of loading indicator...
+    Content loading...
   {{else}}
     {{#if (and session.isAuthenticated currentUser.user.is_staff)}}
       <div class="dcf-grid">
-        <button {{action "toggleEditing"}} class="edit">Edit</button>
+        <button class="btn" {{action "toggleEditing"}} class="edit">Edit</button>
       </div>
     {{/if}}
     <div class="fr-view">
