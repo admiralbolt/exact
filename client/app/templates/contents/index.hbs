@@ -2,9 +2,12 @@
   {{#if creatingNew}}
     <EquationDetail @isNew="true" @createCallback={{action "createCallback"}} @cancelCallback={{action "createCallback"}} />
   {{else}}
-    <button {{action "createNew"}}>Create New Equation</button>
+    <button class="btn" {{action "createNew"}}>Create New Equation</button>
   {{/if}}
 {{/if}}
+
+<br>
+<br>
 
 {{#if (not creatingNew)}}
   <div class="tab-set">
@@ -18,12 +21,17 @@
   <div class="tab-set">
     {{#each activeCategories as |name|}}
       <div class="tab {{is-active name category}}" {{action "setSelectedCategory" name}} role="button">
-        {{name}}
+        {{titleize name}}
       </div>
     {{/each}}
   </div>
 
+  <br>
+
   {{#each activeEquations as |equation|}}
-    <LinkTo @route="contents.equation" @model={{equation.id}}>{{equation.name}}</LinkTo>
+    <LinkTo @route="contents.equation" @model={{equation.id}} class="equation-link">{{equation.geometry.number}} - {{equation.name}}</LinkTo>
   {{/each}}
 {{/if}}
+
+<br>
+<br>

@@ -46,7 +46,7 @@
 
       <div class="geometry-actions">
         <button class="btn btn-small" {{action "edit"}}>Edit</button>
-        <button class="btn btn-small" {{action "toggleConfirmation"}} class="primary-light-color negative-background action-button">Delete</button>
+        <button class="btn btn-small" {{action "toggleConfirmation"}}>Delete</button>
 
         {{#if showConfirmation}}
           <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
