@@ -30,6 +30,7 @@
 
   {{#each activeEquations as |equation|}}
     <LinkTo @route="contents.equation" @model={{equation.id}} class="equation-link">{{equation.geometry.number}} - {{equation.name}}</LinkTo>
+    <div class="equation-spacer"></div>
   {{/each}}
 {{/if}}
 

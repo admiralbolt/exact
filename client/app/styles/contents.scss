@@ -1,40 +1,53 @@
 @import "_colors.scss";
 
 .tab-set {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
   margin-bottom: 0.3rem;
 
   .tab {
-    display: flex;
     align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-size: 1.3rem;
+    height: 2.4rem;
     justify-content: center;
-    height: 2rem;
     margin-right: 0.5rem;
     padding: 0.5rem;
-    cursor: pointer;
 
     &.is-active {
-      color: $unl-red;
       border-bottom: 1px solid $unl-red;
+      color: $unl-red;
     }
   }
 }
 
 .equation-detail {
   iframe {
-    width: 100%;
     height: 70vh;
+    width: 100%;
   }
 }
 
 .equation-link {
-  text-decoration: none;
-  font-size: 1.1rem;
   color: $unl-red;
+  display: block;
+  font-size: 1.2rem;
+  text-decoration: none;
 
   &:hover {
     filter: brightness(80%);
   }
+
+  &:visited {
+    color: $unl-red;
+  }
+}
+
+.equation-spacer {
+  height: 0.1rem;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 0.8rem;
+  width: 8rem;
 }
