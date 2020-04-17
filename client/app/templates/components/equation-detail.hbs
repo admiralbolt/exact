@@ -98,10 +98,8 @@
             <IconButton @iconName="caret-back" @text="Back to Equations" />
           </LinkTo>
         {{/if}}
-        {{#if session.isAuthenticated}}
-          <button class="btn" {{action "edit"}}>Edit</button>
-        {{/if}}
         {{#if hasAccess}}
+          <button class="btn" {{action "edit"}}>Edit</button>
           <button class="btn" {{action "toggleModal" "Delete"}}>Delete</button>
         {{/if}}
       </div>

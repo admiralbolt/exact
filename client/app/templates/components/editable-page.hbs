@@ -19,7 +19,7 @@
   {{else}}
     {{#if (and session.isAuthenticated currentUser.user.is_staff)}}
       <div class="dcf-grid">
-        <button class="btn" {{action "toggleEditing"}} class="edit">Edit</button>
+        <button class="btn" {{action "toggleEditing"}}>Edit</button>
       </div>
     {{/if}}
     <div class="fr-view">

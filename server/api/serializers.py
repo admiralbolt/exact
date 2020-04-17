@@ -5,8 +5,36 @@ Manipulate data to make it easier for the client to use.
 from rest_framework_json_api import serializers
 from api import models
 
+class PrivateField(serializers.Field):
+
+  field_name = ""
+
+  def __init__(self, *args, **kwargs):
+    self.field_name = kwargs["field_name"]
+    kwargs.pop("field_name")
+    super().__init__(*args, **kwargs)
+
+  def get_attribute(self, obj):
+    return obj
+
+  def to_representation(self, obj):
+    if not self.context:
+      return ""
+
+    request = self.context["request"]
+    if request.user.is_staff or request.user.id == obj.id:
+      return getattr(obj, self.field_name)
+
+  def to_internal_value(self, data):
+    return data
+
+
 class UserSerializer(serializers.ModelSerializer):
   """Serialize django users."""
+  username = PrivateField(field_name="username")
+  email = PrivateField(field_name="email")
+  first_name = PrivateField(field_name="first_name")
+  last_name = PrivateField(field_name="last_name")
 
   class Meta:
     model = models.ExactUser

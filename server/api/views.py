@@ -14,33 +14,15 @@ from rest_framework.renderers import JSONRenderer
 
 from api import models
 from api import serializers
-from api.permissions import IsSameUserOrAdmin
+from api.permissions import EquationPermission, IsSameUserOrAdmin, UserPermission
 
 # pylint: disable=too-many-ancestors
 
-class DetailViewSet(
-    mixins.CreateModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.GenericViewSet):
-  pass
-
-class ListViewSet(
-    mixins.ListModelMixin,
-    viewsets.GenericViewSet):
-  pass
-
-class UserDetailViewSet(DetailViewSet):
-  queryset = models.ExactUser.objects.all()
-  serializer_class = serializers.UserSerializer
-  permission_classes = (IsSameUserOrAdmin,)
-
-class UserViewSet(ListViewSet):
+class UserViewSet(viewsets.ModelViewSet):
   resource_name = "users"
   queryset = models.ExactUser.objects.all()
+  permission_classes = (UserPermission,)
   serializer_class = serializers.UserSerializer
-  permission_classes = (IsAdminUser,)
 
   def get_queryset(self):
     return models.ExactUser.objects.all()
@@ -75,6 +57,7 @@ class EquationViewSet(viewsets.ModelViewSet):
   resource_name = "equations"
   queryset = models.Equation.objects.all()
   serializer_class = serializers.EquationSerializer
+  permission_classes = (EquationPermission,)
 
   def get_queryset(self):
     equation_types = models.Equation.objects.order_by("name")
@@ -98,7 +81,7 @@ class PageViewSet(viewsets.ModelViewSet):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_current_user(request):
-  s = serializers.UserSerializer(request.user)
+  s = serializers.UserSerializer(request.user, context={"request": request})
   return JsonResponse({
     "data": {
       "type": "users",

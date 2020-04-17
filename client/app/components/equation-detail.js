@@ -71,7 +71,7 @@ export default Component.extend({
   },
 
   hasAccess: computed('currentUser.{user,user.is_staff}', 'equation.user', function() {
-    return this.get('currentUser.user.is_staff') || this.get('currentUser.user') == this.get('equation.user');
+    return this.get('currentUser.user.is_staff') || this.get('currentUser.user.id') == this.get('equation.user.id');
   }),
 
   contentUrl: computed('equation.content_file', function() {
