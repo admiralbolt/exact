@@ -23,6 +23,10 @@ export default Controller.extend({
   newPasswordRetype: '',
   passwordError: '',
 
+  targetUser: '',
+  editNewPassword: '',
+  editNewPasswordRetype: '',
+
   selectedTab: 'accountInfo',
 
   init() {
@@ -94,13 +98,13 @@ export default Controller.extend({
       }.bind(this));
     },
 
-    newPassword() {
-      if (isEmpty(this.get('newPassword'))) {
+    newPassword(passwordKey, retypeKey, currentPasswordKey, userIdKey) {
+      if (isEmpty(this.get(passwordKey))) {
         this.toast.error('No password entered.');
         return;
       }
 
-      if (this.get('newPassword') != this.get('newPasswordRetype')) {
+      if (this.get(passwordKey) != this.get(retypeKey)) {
         this.toast.error('Passwords do not match.');
         return;
       }
@@ -113,7 +117,11 @@ export default Controller.extend({
         headers.authorization = `Token ${this.session.data.authenticated.token}`;
       }
       headers['Content-Type'] = 'application/vnd.api+json';
-      fetch(`${config.host}/new_password/?current_password=${this.get('currentPassword')}&password=${this.get('newPassword')}`, {
+      let url = `${config.host}/new_password/?password=${this.get(passwordKey)}&current_password=${this.get(currentPasswordKey)}`;
+      if (!isNone(userIdKey)) {
+        url = url + `&user_id=${this.get(userIdKey)}`;
+      }
+      fetch(url, {
         headers: headers,
         method: 'post',
       }).then(function(response) {
@@ -125,9 +133,9 @@ export default Controller.extend({
         }
 
         this.toast.success('Password updated successfully!');
-        this.set('currentPassword', '');
-        this.set('newPassword', '');
-        this.set('newPasswordRetype', '');
+        this.set(currentPasswordKey, '');
+        this.set(passwordKey, '');
+        this.set(retypeKey, '');
       }.bind(this));
     },
 

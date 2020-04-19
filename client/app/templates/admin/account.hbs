@@ -101,7 +101,7 @@
           </div>
 
           <div class="dcf-form-group">
-            <button class="btn btn-primary" {{action "newPassword"}}>Save</button>
+            <button class="btn btn-primary" {{action "newPassword" "newPassword" "newPasswordRetype" "currentPassword"}}>Save</button>
           </div>
         </fieldset>
       </form>
@@ -158,7 +158,26 @@
       <form class="dcf-form account-form">
         <fieldset>
           <legend>Edit Existing User</legend>
+          <div class="dcf-form-group">
+            <label for="user">
+              User
+            </label>
+            <RelationshipSelect @modelName="user" @displayKey="username" @value={{targetUser}} />
+          </div>
 
+          <div class="dcf-form-group">
+            <label for="password">New Password</label>
+            {{input type="password" value=editNewPassword}}
+          </div>
+
+          <div class="dcf-form-group">
+            <label for="password_retype">Retype Password</label>
+            {{input type="password" value=editNewPasswordRetype}}
+          </div>
+
+          <div class="dcf-form-group">
+            <button class="btn" {{action "newPassword" "editNewPassword" "editNewPasswordRetype" "currentPassword" "targetUser"}}>Reset Password</button>
+          </div>
         </fieldset>
       </form>
     {{/if}}
