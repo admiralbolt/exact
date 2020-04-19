@@ -35,21 +35,21 @@ class UserSerializer(serializers.ModelSerializer):
   email = PrivateField(field_name="email")
   first_name = PrivateField(field_name="first_name")
   last_name = PrivateField(field_name="last_name")
-  password = serializers.SerializerMethodField("get_password")
+
+  def to_representation(self, obj):
+    request = self.context.get("request", None)
+    rep = super().to_representation(obj)
+    if request.method == "GET":
+      rep.pop("password")
+    return rep
 
   def create(self, validated_data):
     user = models.User.objects.create_user(**validated_data)
     return user
 
-  def get_password(self, obj):
-    return getattr(obj, "password", None)
-
   class Meta:
     model = models.ExactUser
     fields = ["username", "password", "email", "first_name", "last_name", "is_staff"]
-    extra_kwargs = {
-      "password": {"write_only": True}
-    }
 
 class EquationTypeSerializer(serializers.ModelSerializer):
   """Serialize EquationTypes."""
@@ -74,7 +74,7 @@ class EquationSerializer(serializers.ModelSerializer):
     fields = "__all__"
 
   class JSONAPIMETA:
-    included_resources = ['users']
+    included_resources = ["users"]
 
 class PageSerializer(serializers.ModelSerializer):
   """Serialize Pages."""
