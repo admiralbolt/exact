@@ -16,65 +16,149 @@
   {{/if}}
 </div>
 
+<br>
+
 {{#if session.isAuthenticated}}
-  <form class="dcf-form account-form">
-    <fieldset>
-      <legend> Account Information </legend>
-      <div class="dcf-form-group">
-        <label for="username">
-          Username
-          <small class="dcf-required">Required</small>
-          {{#if validationErrors.username}}
-            <p class="error">{{validationErrors.username}}</p>
-          {{/if}}
-        </label>
-        {{input type="text" value=accountInfo.username}}
+  <div class="tab-set">
+    <div class="tab {{is-active selectedTab "accountInfo"}}" {{action "setSelectedTab" "accountInfo"}} role="button">
+      Account Information
+    </div>
+    <div class="tab {{is-active selectedTab "password"}}" {{action "setSelectedTab" "password"}} role="button">
+      Password Reset
+    </div>
+    {{#if currentUser.user.is_staff}}
+      <div class="tab {{is-active selectedTab "newUser"}}" {{action "setSelectedTab" "newUser"}} role="button">
+        Create New User
       </div>
-
-      <div class="dcf-form-group">
-        <label for="email">
-          Email
-          <small class="dcf-required">Required</small>
-        </label>
-        {{#if validationErrors.email}}
-          <p class="error">{{validationErrors.email}}</p>
-        {{/if}}
-        {{input type="text" value=accountInfo.email}}
+      <div class="tab {{is-active selectedTab "editUser"}}" {{action "setSelectedTab" "editUser"}} role="button">
+        Edit Existing User
       </div>
+    {{/if}}
+  </div>
 
-      <div class="dcf-form-group">
-        <label for="first_name">First Name</label>
-        {{input type="text" value=accountInfo.first_name}}
-      </div>
+  <br>
+  <br>
 
-      <div class="dcf-form-group">
-        <label for="last_name">Last Name</label>
-        {{input type="text" value=accountInfo.last_name}}
-      </div>
+  <div class="tab-content">
+    {{#if (eq selectedTab "accountInfo")}}
+      <form class="dcf-form account-form">
+        <fieldset>
+          <legend> Account Information </legend>
+          <div class="dcf-form-group">
+            <label for="username">
+              Username
+              <small class="dcf-required">Required</small>
+              {{#if validationErrors.username}}
+                <p class="error">{{validationErrors.username}}</p>
+              {{/if}}
+            </label>
+            {{input type="text" value=accountInfo.username}}
+          </div>
 
-    </fieldset>
-    <button class="btn btn-primary" {{action "save"}}>Save</button>
-  </form>
+          <div class="dcf-form-group">
+            <label for="email">
+              Email
+              <small class="dcf-required">Required</small>
+            </label>
+            {{#if validationErrors.email}}
+              <p class="error">{{validationErrors.email}}</p>
+            {{/if}}
+            {{input type="text" value=accountInfo.email}}
+          </div>
 
-  <form class="dcf-form password-form">
-    <fieldset>
-      <legend>New Password</legend>
-      <div class="dcf-form-group">
-        <label for="password">New Password</label>
-        {{#if passwordError}}
-          <p class="error">{{passwordError}}</p>
-        {{/if}}
-        {{input type="password" value=newPassword}}
-      </div>
+          <div class="dcf-form-group">
+            <label for="first_name">First Name</label>
+            {{input type="text" value=accountInfo.first_name}}
+          </div>
 
-      <div class="dcf-form-group">
-        <label for="password_retype">Retype Password</label>
-        {{input type="password" value=newPasswordRetype}}
-      </div>
+          <div class="dcf-form-group">
+            <label for="last_name">Last Name</label>
+            {{input type="text" value=accountInfo.last_name}}
+          </div>
 
-    </fieldset>
+          <div class="dcf-form-group">
+            <button class="btn btn-primary" {{action "save"}}>Save</button>
+          </div>
+        </fieldset>
+      </form>
+    {{else if (eq selectedTab "password")}}
+      <form class="dcf-form account-form">
+        <fieldset>
+          <legend>Password Reset</legend>
+          <div class="dcf-form-group">
+            <label for="password">New Password</label>
+            {{#if passwordError}}
+              <p class="error">{{passwordError}}</p>
+            {{/if}}
+            {{input type="password" value=newPassword}}
+          </div>
 
-    <button class="btn btn-primary" {{action "newPassword"}}>Save</button>
-  </form>
+          <div class="dcf-form-group">
+            <label for="password_retype">Retype Password</label>
+            {{input type="password" value=newPasswordRetype}}
+          </div>
 
+          <div class="dcf-form-group">
+            <button class="btn btn-primary" {{action "newPassword"}}>Save</button>
+          </div>
+        </fieldset>
+      </form>
+    {{else if (eq selectedTab "newUser")}}
+      <form class="dcf-form account-form">
+        <fieldset>
+          <legend>Create New User</legend>
+          <div class="dcf-form-group">
+            <label for="username">
+              Username
+              <small class="dcf-required">Required</small>
+              {{#if newUserValidationErrors.username}}
+                <p class="error">{{newUserValidationErrors.username}}</p>
+              {{/if}}
+            </label>
+            {{input type="text" value=newUserInfo.username}}
+          </div>
+
+          <div class="dcf-form-group">
+            <label for="email">
+              Email
+              <small class="dcf-required">Required</small>
+            </label>
+            {{#if newUserValidationErrors.email}}
+              <p class="error">{{newUserValidationErrors.email}}</p>
+            {{/if}}
+            {{input type="text" value=newUserInfo.email}}
+          </div>
+
+          <div class="dcf-form-group">
+            <label for="password">
+              Password
+              <small class="dcf-required">Required</small>
+            </label>
+            {{input type="password" value=newUserInfo.password}}
+          </div>
+
+          <div class="dcf-form-group">
+            <label for="first_name">First Name</label>
+            {{input type="text" value=newUserInfo.first_name}}
+          </div>
+
+          <div class="dcf-form-group">
+            <label for="last_name">Last Name</label>
+            {{input type="text" value=newUserInfo.last_name}}
+          </div>
+
+          <div class="dcf-form-group">
+            <button class="btn" {{action "createNewUser"}}>Create User</button>
+          </div>
+        </fieldset>
+      </form>
+    {{else if (eq selectedTab "editUser")}}
+      <form class="dcf-form account-form">
+        <fieldset>
+          <legend>Edit Existing User</legend>
+
+        </fieldset>
+      </form>
+    {{/if}}
+  </div>
 {{/if}}

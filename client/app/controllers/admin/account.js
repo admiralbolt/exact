@@ -7,6 +7,7 @@ import config from '../../config/environment';
 let USER_PROPS = ['username', 'email', 'first_name', 'last_name'];
 
 export default Controller.extend({
+  api_data: service(),
   currentUser: service(),
   session: service(),
   toast: service(),
@@ -15,9 +16,19 @@ export default Controller.extend({
   accountInfo: null,
   validationErrors: null,
 
+  newUserInfo: null,
+  newUserValidationErrors: null,
+
   newPassword: '',
   newPasswordRetype: '',
   passwordError: '',
+
+  selectedTab: 'accountInfo',
+
+  init() {
+    this._super(...arguments);
+    this.set('newUserInfo', {});
+  },
 
   initializeAccountInfo() {
     let user = this.get('currentUser.user');
@@ -31,9 +42,9 @@ export default Controller.extend({
     this.set('accountInfo', info);
   },
 
-  validate() {
+  validate(infoKey, errorKey) {
     let validationErrors = {};
-    let accountInfo = this.get('accountInfo');
+    let accountInfo = this.get(infoKey);
     if (isEmpty(accountInfo.username) || isNone(accountInfo.username)) {
       validationErrors['username'] = 'Username is required.';
     }
@@ -44,7 +55,7 @@ export default Controller.extend({
       validationErrors['email'] = 'Please enter a valid email address.';
     }
 
-    this.set('validationErrors', validationErrors);
+    this.set(errorKey, validationErrors);
     return Object.keys(validationErrors).length == 0;
   },
 
@@ -67,7 +78,7 @@ export default Controller.extend({
     },
 
     save() {
-      if (!this.validate()) return;
+      if (!this.validate('accountInfo', 'validationErrors')) return;
 
       let user = this.get('currentUser.user');
       USER_PROPS.forEach(function(prop) {
@@ -111,8 +122,37 @@ export default Controller.extend({
         this.set('newPassword', '');
         this.set('newPasswordRetype', '');
       }.bind(this));
+    },
 
+    setSelectedTab(tab) {
+      this.set('selectedTab', tab);
+    },
 
+    createNewUser() {
+      if (!this.validate('newUserInfo', 'newUserValidationErrors')) return;
+
+      let newUserInfo = this.get('newUserInfo');
+      let user = this.get('api_data.store').createRecord('user', {
+        username: newUserInfo.username,
+        password: newUserInfo.password,
+        email: newUserInfo.email,
+      });
+      if (!isEmpty(newUserInfo.first_name)) {
+        user.set('first_name', newUserInfo.first_name);
+      }
+
+      if (!isEmpty(newUserInfo.last_name)) {
+        user.set('last_name', newUserInfo.last_name);
+      }
+
+      console.log(user);
+
+      user.save().then(function() {
+        this.toast.success('User created successfully!');
+        this.set('newUserInfo', {});
+      }.bind(this), function(reason) {
+        this.toast.error(`Error creating user: ${formatErrors(reason)}`);
+      }.bind(this));
     }
 
   }
