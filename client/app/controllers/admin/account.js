@@ -136,22 +136,15 @@ export default Controller.extend({
         username: newUserInfo.username,
         password: newUserInfo.password,
         email: newUserInfo.email,
+        first_name: newUserInfo.first_name || "",
+        last_name: newUserInfo.last_name || ""
       });
-      if (!isEmpty(newUserInfo.first_name)) {
-        user.set('first_name', newUserInfo.first_name);
-      }
-
-      if (!isEmpty(newUserInfo.last_name)) {
-        user.set('last_name', newUserInfo.last_name);
-      }
-
-      console.log(user);
 
       user.save().then(function() {
         this.toast.success('User created successfully!');
         this.set('newUserInfo', {});
       }.bind(this), function(reason) {
-        this.toast.error(`Error creating user: ${formatErrors(reason)}`);
+        this.toast.error(`Error creating user: ${formatErrors(reason.errors)}`);
       }.bind(this));
     }
 
