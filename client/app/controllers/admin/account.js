@@ -19,7 +19,7 @@ export default Controller.extend({
   newUserInfo: null,
   newUserValidationErrors: null,
 
-  newPassword: '',
+  currentPassword: '',
   newPasswordRetype: '',
   passwordError: '',
 
@@ -96,16 +96,15 @@ export default Controller.extend({
 
     newPassword() {
       if (isEmpty(this.get('newPassword'))) {
-        this.set('newPasswordError', 'No password entered.');
+        this.toast.error('No password entered.');
         return;
       }
 
       if (this.get('newPassword') != this.get('newPasswordRetype')) {
-        this.set('newPasswordError', 'Passwords do not match.');
+        this.toast.error('Passwords do not match.');
         return;
       }
 
-      this.set('passwordError', '');
       let headers = {
         Accept: 'application/vnd.api+json'
       };
@@ -114,11 +113,19 @@ export default Controller.extend({
         headers.authorization = `Token ${this.session.data.authenticated.token}`;
       }
       headers['Content-Type'] = 'application/vnd.api+json';
-      fetch(`${config.host}/new_password/?password=${this.get('newPassword')}`, {
+      fetch(`${config.host}/new_password/?current_password=${this.get('currentPassword')}&password=${this.get('newPassword')}`, {
         headers: headers,
         method: 'post',
-      }).then(function() {
+      }).then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        if (data.status == "failure") {
+          this.toast.error(data.message);
+          return;
+        }
+
         this.toast.success('Password updated successfully!');
+        this.set('currentPassword', '');
         this.set('newPassword', '');
         this.set('newPasswordRetype', '');
       }.bind(this));

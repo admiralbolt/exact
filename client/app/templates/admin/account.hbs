@@ -86,10 +86,12 @@
         <fieldset>
           <legend>Password Reset</legend>
           <div class="dcf-form-group">
+            <label>Current Password</label>
+            {{input type="password" value=currentPassword}}
+          </div>
+
+          <div class="dcf-form-group">
             <label for="password">New Password</label>
-            {{#if passwordError}}
-              <p class="error">{{passwordError}}</p>
-            {{/if}}
             {{input type="password" value=newPassword}}
           </div>
 

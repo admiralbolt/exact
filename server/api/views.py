@@ -94,9 +94,20 @@ def get_current_user(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def new_password(request):
+  if request.GET.get("user_id"):
+    user = models.ExactUser.objects.get(id=request.GET.get("user_id"))
+  else:
+    user = request.user
+
+  current_password = request.GET.get("current_password")
+  if request.user.is_staff and user.id != request.user.id:
+    pass
+  elif not user.check_password(current_password):
+    return JsonResponse({"status": "failure", "message": "Current password is incorrect."})
+
   password = request.GET.get("password")
-  request.user.set_password(password)
-  request.user.save()
+  user.set_password(password)
+  user.save()
   return JsonResponse({"status": "success", "message": ""})
 
 @api_view(["POST"])
