@@ -24,5 +24,6 @@ urlpatterns = [
   path("froala/upload/", views.upload_froala_image),
   path("users/me/", views.get_current_user),
   path("new_password/", views.new_password),
+  url(r"password_reset/", include("django_rest_passwordreset.urls", namespace="password_reset")),
   url(r"^", include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
