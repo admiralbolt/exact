@@ -1,1 +1,18 @@
-{{outlet}}
+{{#if message}}
+  <div class="error">
+    {{message}}
+  </div>
+{{/if}}
+
+<form class="dcf-form account-recovery-form">
+  <fieldset>
+    <legend>Account Recovery</legend>
+    <div class="dcf-form-group">
+      <label for="email">Email</label>
+      {{input type="text" value=email}}
+    </div>
+    <div class="dcf-form-group">
+      <button {{action "submit"}} class="btn">Send Reset Email</button>
+    </div>
+  </fieldset>
+</form>

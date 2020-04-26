@@ -38,6 +38,12 @@ STATIC_URL = '/static/'
 
 JSON_API_PLURALIZE_RELATION_TYPE = True
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'exact'
+EMAIL_HOST_PASSWORD = 'exact'
+EMAIL_USE_TLS = True
+
 # Application definition
 
 INSTALLED_APPS = [
