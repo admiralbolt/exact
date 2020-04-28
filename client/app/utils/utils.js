@@ -1,3 +1,5 @@
+import Promise from 'rsvp';
+
 export function closeNavMenu() {
   // Close the nav menu by sending the 'closeNavigation' event.
   document.dispatchEvent(new Event('closeNavigation'));
@@ -48,4 +50,12 @@ export function copyObject(d) {
 export function validateEmail(email) {
   let re = /\S+@\S+\.\S+/;
   return re.test(email);
+}
+
+export function handleFetchErrors(response) {
+  return new Promise(function(resolve, reject) {
+    if (!response.ok) reject(response);
+
+    resolve(response);
+  });
 }

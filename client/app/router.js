@@ -32,6 +32,7 @@ Router.map(function() {
   this.route('admin', function() {
     this.route('account');
     this.route('account-recovery');
+    this.route('password-reset');
   });
 });
 
