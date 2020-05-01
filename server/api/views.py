@@ -15,6 +15,7 @@ from rest_framework.renderers import JSONRenderer
 from api import models
 from api import serializers
 from api.permissions import EquationPermission, IsSameUserOrAdmin, UserPermission
+from api.search import run_search
 
 # pylint: disable=too-many-ancestors
 
@@ -76,6 +77,20 @@ class PageViewSet(viewsets.ModelViewSet):
   def get_queryset(self):
     equation_types = models.Page.objects.order_by("name")
     return equation_types
+
+
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([AllowAny])
+def search(request):
+  keyword = request.GET.get("keyword")
+  if not keyword:
+    return JsonResponse({
+      "status": "error",
+      "message": "No keyword supplied"
+    })
+  results = run_search(keyword)
+  return JsonResponse(results[:5], safe=False)
 
 @api_view(["GET"])
 @authentication_classes([TokenAuthentication])

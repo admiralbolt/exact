@@ -23,6 +23,7 @@ urlpatterns = [
   path("equations/upload/content/", views.upload_content_file),
   path("froala/upload/", views.upload_froala_image),
   path("users/me/", views.get_current_user),
+  path("search/", views.search),
   path("new_password/", views.new_password),
   url(r"password_reset/", include("django_rest_passwordreset.urls", namespace="password_reset")),
   url(r"^", include(router.urls)),
