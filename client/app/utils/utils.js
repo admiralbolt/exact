@@ -1,4 +1,4 @@
-import Promise from 'rsvp';
+import { Promise } from 'rsvp';
 
 export function closeNavMenu() {
   // Close the nav menu by sending the 'closeNavigation' event.

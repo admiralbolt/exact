@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { next } from '@ember/runloop';
+import { later, next } from '@ember/runloop';
 import config from '../../config/environment';
-import { handleFetchErrors } from 'client/utils/utils';
+import { handleFetchErrors, formatErrors } from 'client/utils/utils';
 
 export default Controller.extend({
   router: service(),
@@ -51,7 +51,7 @@ export default Controller.extend({
       method: 'post',
       body: JSON.stringify({
         data: {
-          type: 'ResetPasswordConfirmation',
+          type: 'ResetPasswordConfirm',
           attributes: {
             token: this.get('token'),
             password: this.get('password')
@@ -89,8 +89,10 @@ export default Controller.extend({
           this.get('router').transitionTo('admin.account')
         }, 3000);
       }.bind(this), function(reason) {
-        this.toast.warning(`Error updating password: ${formatErrors(reason.errors)}`);
-      });
+        reason.json().then(function(reasonJson) {
+          this.toast.warning(`Error updating password: ${formatErrors(reasonJson.errors)}`);
+        }.bind(this));
+      }.bind(this));
     }
   }
 
