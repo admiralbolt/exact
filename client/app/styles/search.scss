@@ -1,0 +1,75 @@
+@import "_colors.scss";
+
+.search {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: flex-end;
+    position: absolute;
+    right: 0;
+    width: 50%;
+    z-index: 100;
+
+    @media(max-width: 500px) {
+      width: 100%;
+    }
+
+    .search-button {
+      cursor: pointer;
+      height: 100%;
+      right: 0;
+    }
+
+    // Since it's a flex column, align items / justify content are swapped.
+    // We don't want to justify-content since that'll vertically align the items.
+    // Instead we center it using a rem margin, that way the results div is
+    // appropriately positioned.
+    .search-input {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 50%;
+      margin-left: 10px;
+      width: 100%;
+      position: relative;
+
+      input {
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+        width: 80%;
+      }
+
+      .search-results {
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        z-index: 10000000;
+        margin-top: 1px;
+
+        .search-result a {
+          border-radius: 5px;
+          background-color: rgb(15, 23, 35);
+          border-bottom: 1px solid rgb(90, 90, 90);
+          color: $unl-red;
+          display: flex;
+          justify-content: space-between;
+          text-decoration: none;
+          align-items: center;
+          padding: 0px 10px;
+          height: 4.2rem;
+
+          @media (max-width: 500px) {
+            height: 2.8rem;
+          }
+
+          &:hover {
+            background-color: rgb(5, 10, 15);
+          }
+        }
+      }
+
+    }
+  }
