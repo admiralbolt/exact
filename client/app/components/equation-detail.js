@@ -95,6 +95,14 @@ export default Component.extend({
     return isNone(this.get('equation.content_file')) ? 'No file selected' : this.get('equation.content_file').split(/(\\|\/)/g).pop();
   }),
 
+  nameErrorClass: computed('errors.name', function() {
+    return isNone(this.get('errors.name')) ? '' : 'input-error';
+  }),
+
+  authorErrorClass: computed('errors.author', function() {
+    return isNone(this.get('errors.author')) ? '' : 'input-error';
+  }),
+
   dateErrorClass: computed('errors.date', function() {
     return isNone(this.get('errors.date')) ? '' : 'input-error';
   }),
@@ -153,9 +161,21 @@ export default Component.extend({
     let data = this.get('modelCopy');
     let errors = {};
 
+    if (isNone(data.name)) {
+      errors.name = 'Please enter an equation title.';
+    }
+
+    if (isNone(data.author)) {
+      errors.author = 'Please enter one or more authors.';
+    }
+
     // Basic date check:
     if (!DATE_REGEX.test(data.date)) {
       errors.date = 'Date is not valid.';
+    }
+
+    if (isNone(this.get('content_file'))) {
+      errors.contentFile = 'Please choose a content file for upload.';
     }
 
     this.set('errors', errors);

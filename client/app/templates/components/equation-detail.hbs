@@ -9,14 +9,20 @@
             Name
             <small class="dcf-required">Required</small>
           </label>
-          {{input type="text" value=modelCopy.name}}
+          {{input type="text" class=nameErrorClass value=modelCopy.name}}
+          {{#if errors.name}}
+            <p class="dcf-form-help form-error">{{errors.name}}</p>
+          {{/if}}
         </div>
         <div class="dcf-form-group">
           <label for="author">
             Author(s)
             <small class="dcf-required">Required</small>
           </label>
-          {{input type="text" value=modelCopy.author}}
+          {{input type="text" class=authorErrorClass value=modelCopy.author}}
+          {{#if errors.author}}
+            <p class="dcf-form-help form-error">{{errors.author}}</p>
+          {{/if}}
         </div>
         <div class="dcf-form-group">
           <label for="is_live">
@@ -81,6 +87,9 @@
               {{/if}}
             </a>
           </FileUpload>
+          {{#if errors.contentFile}}
+            <p class="dcf-form-help form-error">{{errors.contentFile}}</p>
+          {{/if}}
         </div>
 
         <div class="dcf-form-group">
