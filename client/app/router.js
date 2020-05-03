@@ -7,6 +7,7 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('not-found', { path: '/*path' });
   this.route('about', function() {
     this.route('project-tasks');
     this.route('personnel');
