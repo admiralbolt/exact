@@ -6,20 +6,12 @@
     flex-direction: row;
     height: 100%;
     justify-content: flex-end;
+    margin-right: 20rem;
     position: absolute;
     right: 0;
-    width: 50%;
-    z-index: 100;
-
-    @media(max-width: 500px) {
-      width: 100%;
-    }
-
-    .search-button {
-      cursor: pointer;
-      height: 100%;
-      right: 0;
-    }
+    top: 0;
+    width: 30rem;
+    z-index: 1000;
 
     // Since it's a flex column, align items / justify content are swapped.
     // We don't want to justify-content since that'll vertically align the items.
@@ -29,47 +21,45 @@
       align-items: center;
       display: flex;
       flex-direction: column;
-      height: 50%;
-      margin-left: 10px;
-      width: 100%;
+      height: 100%;
+      margin: auto;
       position: relative;
+      width: 100%;
+      z-index: 1000;
 
       input {
-        border: none;
+        border: 1px solid #dddddd;
         border-radius: 5px;
+        display: flex;
+        min-height: 100%;
         padding: 5px;
-        width: 80%;
+        width: 90%;
       }
 
       .search-results {
-        border-radius: 5px;
         display: flex;
         flex-direction: column;
-        width: 80%;
-        z-index: 10000000;
-        margin-top: 1px;
+        width: 90%;
+        z-index: 1000;
 
-        .search-result a {
-          border-radius: 5px;
-          background-color: rgb(15, 23, 35);
-          border-bottom: 1px solid rgb(90, 90, 90);
-          color: $unl-red;
-          display: flex;
-          justify-content: space-between;
-          text-decoration: none;
-          align-items: center;
-          padding: 0px 10px;
-          height: 4.2rem;
+        .search-result {
+          background-color: rgb(252, 252, 252);
+          border-bottom: 1px solid rgb(210, 210, 210);
+          padding: 0.2rem 0.1rem;
+          width: 100%;
+          z-index: 1000;
 
-          @media (max-width: 500px) {
-            height: 2.8rem;
-          }
+          a {
+            color: $unl-red;
+            padding: 0px 10px;
+            text-decoration: none;
 
-          &:hover {
-            background-color: rgb(5, 10, 15);
+            @media (max-width: 500px) {
+              height: 2.8rem;
+            }
+
           }
         }
       }
-
     }
   }

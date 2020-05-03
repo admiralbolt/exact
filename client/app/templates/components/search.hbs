@@ -1,12 +1,13 @@
 <div class="search">
   <div class="search-input">
-    {{input class="search-input" type="text" value=keyword key-up=(action "search")}}
+    {{input class="search-input" type="text" placeholder="Search" value=keyword key-up=(action "search")}}
     <div class="search-results {{displayClass}}">
       {{#each searchResults as |result|}}
-        <LinkTo @route="contents.equation" @model={{result.id}}>
-          <span class="result-name">{{result.name}}</span>
-          <span class="result-number">{{result.number}}</span>
-        </LinkTo>
+        <div class="search-result">
+          <LinkTo @route="contents.equation" @model={{result.id}}>
+            <span class="number">{{result.number}}</span> - <span class="name">{{result.name}}</span>
+          </LinkTo>
+        </div>
       {{/each}}
     </div>
   </div>

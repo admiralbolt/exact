@@ -91,6 +91,6 @@ def run_search(keyword):
   data = [{"equation": equation, "score": score(equation, keyword_lower)}
     for equation in models.Equation.objects.all()]
 
-  # data = filter(lambda item: item["score"] > SCORE_THRESHOLD, data)
+  data = filter(lambda item: item["score"] > SCORE_THRESHOLD, data)
   data = sorted(data, key=lambda item: item["score"], reverse=True)
   return [eq_to_json(item["equation"], item["score"]) for item in data]

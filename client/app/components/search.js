@@ -52,9 +52,6 @@ export default Component.extend({
   },
 
   search: function() {
-    console.log(this.get('keyword'));
-
-    console.log('fetching...');
     return fetch(`${config.host}/search/?keyword=${this.get('keyword')}`)
       .then(function(result) {
         return result.json().then(function(data) {
