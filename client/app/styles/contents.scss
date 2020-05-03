@@ -90,3 +90,11 @@
     }
   }
 }
+
+.form-error {
+  color: $unl-red !important;
+}
+
+.input-error {
+  border: 1px solid red !important;
+}

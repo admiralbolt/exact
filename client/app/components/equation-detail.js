@@ -11,6 +11,8 @@ let BASIC_FIELDS = ['name', 'author', 'is_live', 'date'];
 let MODEL_FIELDS = ['equation_type', 'geometry', 'user'];
 let FILE_FIELDS = ['source_file', 'content_file'];
 
+let DATE_REGEX = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|(1|2)[1-9]|3[01])$/;
+
 export default Component.extend({
   session: service(),
   currentUser: service(),
@@ -45,9 +47,12 @@ export default Component.extend({
   // when data gets updated. Children will be an object mapping name -> component.
   children: null,
 
+  errors: null,
+
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('children', {});
+    this.set('errors', {});
     this.set('modelCopy', {});
     let equation = this.get('equation');
     if (equation == null) {
@@ -88,6 +93,10 @@ export default Component.extend({
 
   contentFileName: computed('equation.content_file', function() {
     return isNone(this.get('equation.content_file')) ? 'No file selected' : this.get('equation.content_file').split(/(\\|\/)/g).pop();
+  }),
+
+  dateErrorClass: computed('errors.date', function() {
+    return isNone(this.get('errors.date')) ? '' : 'input-error';
   }),
 
   // Fetches all model relation fields from the db. A single promise is resolved
@@ -138,6 +147,19 @@ export default Component.extend({
         }));
     }.bind(this));
     return Promise.all(uploadPromises);
+  },
+
+  validate() {
+    let data = this.get('modelCopy');
+    let errors = {};
+
+    // Basic date check:
+    if (!DATE_REGEX.test(data.date)) {
+      errors.date = 'Date is not valid.';
+    }
+
+    this.set('errors', errors);
+    return Object.keys(errors).length == 0;
   },
 
 
@@ -195,6 +217,8 @@ export default Component.extend({
     },
 
     save() {
+      if (!this.validate()) return;
+
       let equation = this.get('equation');
       if (equation == null) {
         equation = this.get('api_data.store').createRecord('equation');

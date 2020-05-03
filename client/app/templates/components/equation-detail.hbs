@@ -21,7 +21,6 @@
         <div class="dcf-form-group">
           <label for="is_live">
             Page is Live
-            <small class="dcf-required">Required</small>
           </label>
           <ToggleButton @value={{modelCopy.is_live}} />
         </div>
@@ -29,9 +28,12 @@
           <label for="date">
             Date
             <small class="dcf-required">Required</small>
+            <small>Date should be in YYYY-MM-DD format.</small>
           </label>
-          {{input type="text" value=modelCopy.date}}
-          <p class="dcf-form-help">Date should be in YYYY-MM-DD format.</p>
+          {{input type="text" class=dateErrorClass value=modelCopy.date}}
+          {{#if errors.date}}
+            <p class="dcf-form-help form-error">{{errors.date}}</p>
+          {{/if}}
         </div>
         <div class="dcf-form-group">
           <label for="equation_type">
@@ -53,7 +55,7 @@
             <small class="file-help">Accepts docx, pdf</small>
           </label>
           <br>
-          <FileUpload @name="source_file" @for="source_file" @accept="*" @onfileadd={{action "addSourceFile"}} as |queue|>
+          <FileUpload @name="source_file" @for="source_file" @accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" @onfileadd={{action "addSourceFile"}} as |queue|>
             <a class="upload-button">
               {{#if queue.files.length}}
                 {{queue.files.0.name}}
@@ -66,10 +68,11 @@
         <div class="dcf-form-group">
           <label for="content_file">
             Content File
+            <small class="dcf-required">Required</small>
             <small class="file-help">pdf only</small>
           </label>
           <br>
-          <FileUpload @name="content_file" @for="content_file" @accept="*" @onfileadd={{action "addContentFile"}} as |queue|>
+          <FileUpload @name="content_file" @for="content_file" @accept="application/pdf" @onfileadd={{action "addContentFile"}} as |queue|>
             <a class="upload-button">
               {{#if queue.files.length}}
                 {{queue.files.0.name}}
