@@ -44,6 +44,9 @@ export default Controller.extend({
     this.set('newPassword', '');
     this.set('newPasswordRetype', '');
     this.set('accountInfo', info);
+    console.log('initialinzg acount info');
+    console.log(this.get('currentUser'));
+    console.log(this.get('currentUser.user'));
   },
 
   validate(infoKey, errorKey) {
@@ -68,7 +71,10 @@ export default Controller.extend({
       let credentials = this.getProperties('username', 'password');
       let authenticator = 'authenticator:token';
 
+      console.log('authenticating....');
       this.get('session').authenticate(authenticator, credentials).then(() => {
+        console.log('HIIIJIII');
+        console.log(this.get('session'));
         this.get('currentUser').load().then(function() {
           this.initializeAccountInfo();
         }.bind(this));
