@@ -28,7 +28,7 @@ ALLOWED_HOSTS = [
   '*'
 ]
 
-MEDIA_ROOT = 'uploads'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
 
 # Static files (CSS, JavaScript, Images)
