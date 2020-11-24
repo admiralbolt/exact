@@ -1,4 +1,7 @@
+*.swp
+
 __pycache__/
 server/static/
 server/uploads/
 server/db.sqlite3
+server/scripts/db_data/
