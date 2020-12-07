@@ -27,8 +27,6 @@ export default Component.extend({
 
   didRender() {
     this.renderMath();
-    console.log(this.get('session.isAuthenticated'));
-    console.log(this.get('currentUser.user'));
   },
 
   init() {
