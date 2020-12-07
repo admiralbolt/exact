@@ -27,7 +27,6 @@ Router.map(function() {
     this.route('geometries');
   });
   this.route('contribute', function() {
-    this.route('how-to-submit');
     this.route('template');
   });
   this.route('admin', function() {
