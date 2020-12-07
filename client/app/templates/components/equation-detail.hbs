@@ -58,10 +58,10 @@
         <div class="dcf-form-group">
           <label for="source_file">
             Source File
-            <small class="file-help">Accepts docx, pdf</small>
+            <small class="file-help">Accepts docx, tex</small>
           </label>
           <br>
-          <FileUpload @name="source_file" @for="source_file" @accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" @onfileadd={{action "addSourceFile"}} as |queue|>
+          <FileUpload @name="source_file" @for="source_file" @accept="application/x-tex, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" @onfileadd={{action "addSourceFile"}} as |queue|>
             <a class="upload-button">
               {{#if queue.files.length}}
                 {{queue.files.0.name}}
