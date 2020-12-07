@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { isNone } from '@ember/utils';
-import { filter } from '@ember/object/computed';
+import { filter, sort } from '@ember/object/computed';
 
 export default Controller.extend({
   // Url params.
@@ -16,6 +16,9 @@ export default Controller.extend({
   equations: null,
 
   creatingNew: false,
+
+  _sortProperties: ['geometry.number'],
+  sortedEquations: sort('model.equations', '_sortProperties'),
 
   // Two levels of navigation, coordinate system and category.
   coordinateSystems: computed('model.equation_types', function() {
@@ -60,7 +63,7 @@ export default Controller.extend({
     return this.get('categories')[this.get('coord')];
   }),
   // The equations that match the coord and category.
-  activeEquations: filter('model.equations', ['coord', 'category'], function(equation) {
+  activeEquations: filter('sortedEquations', ['coord', 'category'], function(equation) {
     let coord = equation.get('equation_type.coordinate_system');
     let category = equation.get('equation_type.category');
 
