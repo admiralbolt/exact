@@ -121,13 +121,7 @@
 
       <h3 class="equation-title">{{equation.name}}</h3>
       <h4 class="equation-author">{{equation.author}}</h4>
-      <h5 class="equation-sub-title">{{equation.date}}, {{equation.equation_type.category}}, {{equation.geometry.number}}</h5>
-
-      {{#if equation.geometry.geometry_file}}
-        <div class="image-container">
-          <img alt="{{equation.geometry.number}} Geometry" src={{equation.geometry.geometry_file}}>
-        </div>
-      {{/if}}
+      <h5 class="equation-sub-title">{{equation.date}}, {{equation.equation_type.coordinate_system}} - {{equation.equation_type.category}}, {{equation.geometry.number}}</h5>
 
       {{#if showSource}}
         Download source file:
