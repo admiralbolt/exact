@@ -27,6 +27,13 @@ export default Controller.extend({
       systems.push(eq_type.coordinate_system);
     });
     systems.sort();
+
+    // If 'Other' is defined, we want to push that to the end.
+    let otherIndex = systems.indexOf('Other');
+    if (otherIndex != -1) {
+      systems.push(systems.splice(otherIndex, 1)[0]);
+    }
+
     return systems;
   }),
 
