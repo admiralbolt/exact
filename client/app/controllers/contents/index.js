@@ -49,7 +49,7 @@ export default Controller.extend({
         categories[eq_type.coordinate_system] = [];
       }
 
-      categories[eq_type.coordinate_system].push(eq_type.category.toLowerCase());
+      categories[eq_type.coordinate_system].push(eq_type.category);
     });
     Object.keys(categories).forEach(function(key) {
       categories[key].sort();

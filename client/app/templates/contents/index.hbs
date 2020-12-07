@@ -21,7 +21,7 @@
   <div class="tab-set">
     {{#each activeCategories as |name|}}
       <div class="tab {{is-active name category}}" {{action "setSelectedCategory" name}} role="button">
-        {{titleize name}}
+        {{name}}
       </div>
     {{/each}}
   </div>
