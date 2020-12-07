@@ -12,7 +12,7 @@
 {{#if (not creatingNew)}}
   <div class="tab-set">
     {{#each coordinateSystems as |name|}}
-      <div class="tab {{is-active name coord}}" {{action "setSelectedCoord" name}} role="button">
+      <div class="top-tab tab {{is-active name coord}}" {{action "setSelectedCoord" name}} role="button">
         {{name}}
       </div>
     {{/each}}
