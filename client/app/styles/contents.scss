@@ -108,3 +108,14 @@
 .site-logo {
   margin-left: 20px;
 }
+
+.history-row {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+
+  .history-date {
+    width: 20%;
+  }
+}

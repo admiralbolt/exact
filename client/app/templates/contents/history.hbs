@@ -1,1 +1,10 @@
-<EditablePage @name="contents.history" />
+{{#each sortedEquations as |equation|}}
+  <div class="row history-row">
+    <div class="history-date">
+      {{pretty-date equation.date}}
+    </div>
+    <div class="history-equation">
+      <LinkTo @route="contents.equation" @model={{equation.id}} class="equation-link">{{equation.geometry.number}} - {{equation.name}}</LinkTo>
+    </div>
+  </div>
+{{/each}}
