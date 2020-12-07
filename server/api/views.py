@@ -90,7 +90,7 @@ def search(request):
       "message": "No keyword supplied"
     })
   results = run_search(keyword)
-  return JsonResponse(results[:5], safe=False)
+  return JsonResponse(results[:10], safe=False)
 
 @api_view(["GET"])
 @authentication_classes([TokenAuthentication])
