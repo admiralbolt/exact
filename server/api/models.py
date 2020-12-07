@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class EquationType(models.Model):
-  coordinate_system = models.CharField(max_length=32, default="Cartesian")
+  coordinate_system = models.CharField(max_length=64)
   category = models.CharField(max_length=128)
 
   def __str__(self):
@@ -43,7 +43,7 @@ class ExactUser(User):
 
 
 class Equation(models.Model):
-  name = models.CharField(max_length=128, unique=True)
+  name = models.CharField(max_length=256, unique=True)
   author = models.CharField(max_length=256)
   date = models.DateField()
   equation_type = models.ForeignKey(EquationType, on_delete=models.PROTECT)

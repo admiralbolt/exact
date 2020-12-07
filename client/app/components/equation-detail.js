@@ -174,7 +174,7 @@ export default Component.extend({
       errors.date = 'Date is not valid.';
     }
 
-    if (isNone(this.get('content_file'))) {
+    if (isNone(this.get('content_file')) && isNone(this.get('contentFileName'))) {
       errors.contentFile = 'Please choose a content file for upload.';
     }
 
