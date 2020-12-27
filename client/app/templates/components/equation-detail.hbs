@@ -46,14 +46,14 @@
             Equation Type
             <small {{action "toggleModal" "EquationType"}} role="button" class="define-new">Define New Equation Type</small>
           </label>
-          <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="equation_type" @displayKey="display" @value={{modelCopy.equation_type}} />
+          <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="equation_type" @displayKey="display" @value={{modelCopy.equation_type}} @firstReload="true" />
         </div>
         <div class="dcf-form-group">
           <label for="geometry">
             Geometry
             <small {{action "toggleModal" "Geometry"}} role="button" class="define-new">Define New Geometry</small>
           </label>
-          <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="geometry" @displayKey="number" @value={{modelCopy.geometry}} />
+          <RelationshipSelect @registerCallback={{action "registerChild"}} @modelName="geometry" @displayKey="number" @value={{modelCopy.geometry}} @firstReload="true" />
         </div>
         <div class="dcf-form-group">
           <label for="source_file">

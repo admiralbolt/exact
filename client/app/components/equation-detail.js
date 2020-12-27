@@ -57,10 +57,10 @@ export default Component.extend({
     let equation = this.get('equation');
     if (equation == null) {
       let modelCopy = this.get('modelCopy');
-      this.api_data.getAllRecords('equation_type', function(equation_types) {
+      this.api_data.getAllRecords('equation_type', /*forceReload=*/true, function(equation_types) {
         set(modelCopy, 'equation_type', equation_types.get('firstObject'));
       }.bind(this));
-      this.api_data.getAllRecords('geometry', function(geometrys) {
+      this.api_data.getAllRecords('geometry', /*forceReload=*/true, function(geometrys) {
         set(modelCopy, 'geometry', geometrys.get('firstObject'));
       }.bind(this));
 

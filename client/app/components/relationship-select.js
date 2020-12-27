@@ -8,6 +8,8 @@ export default Component.extend({
   doneLoading: false,
   value: '',
   choices: null,
+  // Gets passed to the initialize call  
+  firstReload: false,
 
   // A callback function for registering component in a parent.
   registerCallback: null,
@@ -21,7 +23,7 @@ export default Component.extend({
     if (!isEmpty(this.get('registerCallback')))
       this.get('registerCallback')(this.get('modelName'), this);
 
-    this.loadChoices();
+    this.loadChoices(this.get('firstReload'));
   },
 
   loadChoices(forceReload) {
