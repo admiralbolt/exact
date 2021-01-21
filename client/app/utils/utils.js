@@ -12,6 +12,14 @@ export function closeNavMenu() {
 // {'description': ['This field is required', ...]}
 export function formatErrors(errors) {
   let errorString = "";
+  // If errors is an array, an internal server error happened.
+  if (Array.isArray(errors)) {
+    errors.forEach(error => {
+      errorString += `Server Error: ${error.status}. Does the resource already exist?`;
+    });
+    return errorString;
+  }
+
   for (let property in errors) {
     if (Array.isArray(errors[property])) {
       errors[property].forEach(error => {
