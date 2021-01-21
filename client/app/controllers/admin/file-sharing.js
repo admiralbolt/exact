@@ -83,11 +83,11 @@ export default Controller.extend({
         method: 'post'
       }).then(handleFetchErrors).then(function() {
         this.toast.success('File deleted successfully');
-        this.toggleConfirmation();
+        this.set('showConfirmation', false);
         this.loadData();
       }.bind(this), function(reason) {
         this.toast.error(`Error deleting file: ${reason}`);
-        this.toggleConfirmation();
+        this.set('showConfirmation', false);
       }.bind(this));
     },
 
