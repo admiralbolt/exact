@@ -22,11 +22,6 @@ export default Controller.extend({
     return isNone(this.get('file')) ? 'No file selected' : this.get('file').split(/(\\|\/)/g).pop();
   }),
 
-  init() {
-    this._super(...arguments);
-    this.loadData();
-  },
-
   uploadFile() {
     let headers = {
       // Apparently authorization has to be lower case, wtf?

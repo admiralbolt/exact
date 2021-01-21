@@ -48,7 +48,9 @@
         <LinkTo @route="admin.account">Admin</LinkTo>
         <ul>
           <li><LinkTo @route="admin.account-recovery">Account Recovery</LinkTo></li>
-          <li><LinkTo @route="admin.file-sharing">File Sharing</LinkTo></li>
+          {{#if session.isAuthenticated}}
+            <li><LinkTo @route="admin.file-sharing">File Sharing</LinkTo></li>
+          {{/if}}
         </ul>
       </li>
     </ul>
