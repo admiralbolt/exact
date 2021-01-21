@@ -9,6 +9,7 @@ export default Controller.extend({
   queryParams: ['coord', 'category'],
   coord: 'Cartesian',
   category: '1d infinite body',
+  draftOnly: false,
 
   api_data: service(),
   session: service(),
@@ -63,13 +64,14 @@ export default Controller.extend({
     return this.get('categories')[this.get('coord')];
   }),
   // The equations that match the coord and category.
-  activeEquations: filter('sortedEquations', ['coord', 'category'], function(equation) {
+  activeEquations: filter('sortedEquations', ['coord', 'category', 'draftOnly'], function(equation) {
     let coord = equation.get('equation_type.coordinate_system');
     let category = equation.get('equation_type.category');
 
     return !isNone(coord) && !isNone(category) && !isNone(this.coord) && !isNone(this.category)
       && coord.toLowerCase() == this.coord.toLowerCase()
-      && category.toLowerCase() == this.category.toLowerCase();
+      && category.toLowerCase() == this.category.toLowerCase()
+      && !(this.draftOnly && equation.is_live);
   }),
 
   actions: {
