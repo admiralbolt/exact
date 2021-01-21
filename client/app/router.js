@@ -33,6 +33,7 @@ Router.map(function() {
     this.route('account');
     this.route('account-recovery');
     this.route('password-reset');
+    this.route('file-sharing');
   });
 });
 

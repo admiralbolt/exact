@@ -4,8 +4,11 @@ Viewsets are defined here for each of the item types. These viewsets create a
 number of standard endpoints for each item i.e. viewing as a list, individual
 detail, edit, and delete views.
 """
+import os
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
+from django.core.files.storage import default_storage
 from rest_framework import mixins, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -181,3 +184,31 @@ def upload_froala_image(request):
   image = models.FroalaImage(image_file=f)
   image.save()
   return JsonResponse({"link": f"http://{request.get_host()}/uploads/{image.image_file.name}"})
+
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAdminUser])
+def upload_misc_file(request):
+  f = request.data["file"]
+  default_storage.save(os.path.join("misc", f.name), f)
+  return JsonResponse({"status": "success", "message": ""})
+
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAdminUser])
+def delete_misc_file(request):
+  file_name = request.GET.get("file_name")
+  if not file_name:
+    return JsonResponse({"status": "failure", "message": "Cannot delete non-existant file."})
+
+  default_storage.delete(os.path.join("misc", file_name))
+  return JsonResponse({"status": "success", "message": "File deleted successfully."})
+
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([AllowAny])
+def list_misc_files(request):
+  dirs, files = default_storage.listdir("misc")
+  return JsonResponse({
+    "files": files
+  })
