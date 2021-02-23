@@ -67,6 +67,8 @@ export default Component.extend({
         if (this.get('geometry_file') == null) {
           this.get('createCallback')();
           this.set('isEditing', false);
+          let action = this.get('isNew') ? 'created' : 'updated';
+          this.toast.success(`Geometry ${action} successfully!`);
           return;
         }
 
