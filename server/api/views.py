@@ -35,6 +35,7 @@ class EquationTypeViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
   resource_name = "equation-types"
   queryset = models.EquationType.objects.all()
+  permission_classes = (IsAuthenticated,)
   serializer_class = serializers.EquationTypeSerializer
 
   def get_queryset(self):
@@ -46,6 +47,7 @@ class GeometryViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
   resource_name = "geometries"
   queryset = models.Geometry.objects.all()
+  permission_classes = (IsAuthenticated,)
   serializer_class = serializers.GeometrySerializer
 
   def get_queryset(self):
