@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework_expiring_authtoken.views import obtain_expiring_auth_token
 
 from api import views
 
@@ -17,7 +18,7 @@ router.register(r"pages", views.PageViewSet)
 router.register(r"users", views.UserViewSet)
 
 urlpatterns = [
-  path("api-auth-token/", obtain_auth_token),
+  path("api-auth-token/", obtain_expiring_auth_token),
   path("geometries/upload/", views.upload_geometry_file),
   path("equations/upload/source/", views.upload_source_file),
   path("equations/upload/content/", views.upload_content_file),

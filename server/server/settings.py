@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import datetime
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
   'api',
   'rest_framework',
   'rest_framework.authtoken',
+  'rest_framework_expiring_authtoken',
   'corsheaders',
   'django_rest_passwordreset',
   'django_extensions'
@@ -82,6 +84,8 @@ CORS_ALLOW_HEADERS = [
   'content-disposition',
   'content-type'
 ]
+
+EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(days=1)
 
 ROOT_URLCONF = 'server.urls'
 

@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.core.files.storage import default_storage
 from rest_framework import mixins, viewsets
-from rest_framework.authentication import TokenAuthentication
+from rest_framework_expiring_authtoken.authentication import ExpiringTokenAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.renderers import JSONRenderer
@@ -83,7 +83,7 @@ class PageViewSet(viewsets.ModelViewSet):
 
 
 @api_view(["GET"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([AllowAny])
 def search(request):
   keyword = request.GET.get("keyword")
@@ -96,7 +96,7 @@ def search(request):
   return JsonResponse(results[:10], safe=False)
 
 @api_view(["GET"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_current_user(request):
   s = serializers.UserSerializer(request.user, context={"request": request})
@@ -109,7 +109,7 @@ def get_current_user(request):
   })
 
 @api_view(["POST"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def new_password(request):
   if request.GET.get("user_id"):
@@ -129,7 +129,7 @@ def new_password(request):
   return JsonResponse({"status": "success", "message": ""})
 
 @api_view(["POST"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def upload_geometry_file(request):
   """Save a geometry schematic file to a geometry."""
@@ -145,7 +145,7 @@ def upload_geometry_file(request):
   return JsonResponse({"status": "success", "message": ""})
 
 @api_view(["POST"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def upload_source_file(request):
   """Save a source file to an equation."""
@@ -161,7 +161,7 @@ def upload_source_file(request):
   return JsonResponse({"status": "success", "message": ""})
 
 @api_view(["POST"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def upload_content_file(request):
   """Save a content file to an equation."""
@@ -177,7 +177,7 @@ def upload_content_file(request):
   return JsonResponse({"status": "success", "message": ""})
 
 @api_view(["POST"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([IsAdminUser])
 def upload_froala_image(request):
   f = request.data["file"]
@@ -186,7 +186,7 @@ def upload_froala_image(request):
   return JsonResponse({"link": f"http://{request.get_host()}/uploads/{image.image_file.name}"})
 
 @api_view(["POST"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([IsAdminUser])
 def upload_misc_file(request):
   f = request.data["file"]
@@ -194,7 +194,7 @@ def upload_misc_file(request):
   return JsonResponse({"status": "success", "message": ""})
 
 @api_view(["POST"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([IsAdminUser])
 def delete_misc_file(request):
   file_name = request.GET.get("file_name")
@@ -205,7 +205,7 @@ def delete_misc_file(request):
   return JsonResponse({"status": "success", "message": "File deleted successfully."})
 
 @api_view(["GET"])
-@authentication_classes([TokenAuthentication])
+@authentication_classes([ExpiringTokenAuthentication])
 @permission_classes([AllowAny])
 def list_misc_files(request):
   dirs, files = default_storage.listdir("misc")
