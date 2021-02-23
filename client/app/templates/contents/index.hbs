@@ -3,7 +3,7 @@
     <EquationDetail @isNew="true" @createCallback={{action "createCallback"}} @cancelCallback={{action "createCallback"}} />
   {{else}}
     <button class="btn" {{action "createNew"}}>Create New Case</button><br><br>
-    <label for="test-only">Only Show Draft Cases</label>
+    <label for="test-only">Only Show Hidden Cases</label>
     {{input id="test-only" class="big-checkbox" type="checkbox" checked=draftOnly}}
   {{/if}}
 {{/if}}
