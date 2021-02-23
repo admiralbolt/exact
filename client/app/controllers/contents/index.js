@@ -18,6 +18,7 @@ export default Controller.extend({
 
   creatingNew: false,
 
+  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
   _sortProperties: ['geometry.number'],
   sortedEquations: sort('model.equations', '_sortProperties'),
 

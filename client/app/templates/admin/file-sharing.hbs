@@ -27,27 +27,27 @@
   <br> <br>
 
   {{#each fileList as |file|}}
-  <div class="flex-row">
-    <div class="file-link">
-      <div class="flex-row">
-        <a target="_blank" href="{{baseUrl}}/{{file}}">{{file}}</a>
+    <div class="flex-row">
+      <div class="file-link">
+        <div class="flex-row">
+          <a target="_blank" href="{{baseUrl}}/{{file}}" rel="noopener">{{file}}</a>
+        </div>
       </div>
+      <button class="btn" {{action "deleteModal" file}}>Delete</button>
     </div>
-    <button class="btn" {{action "deleteModal" file}}>Delete</button>
-  </div>
-  <div class="link-spacer"></div>
+    <div class="link-spacer"></div>
   {{/each}}
 
   {{#if showConfirmation}}
-  <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
-    <div class="row">
-      <p class="overlay-title">Are you sure you want to delete {{fileForDelete}}?</p>
-    </div>
-    <div class="row text-align-center">
-      <button class="btn" {{action "toggleConfirmation"}}>Cancel</button>
-      <button class="btn" {{action "delete" fileForDelete}}>I'm sure</button>
-    </div>
-  </ModalDialog>
+    <ModalDialog @onClose={{action "toggleConfirmation"}} @targetAttachment="center" @translucentOverlay="true" @containerClass="delete-overlay-container" @overlayClass="delete-overlay">
+      <div class="row">
+        <p class="overlay-title">Are you sure you want to delete {{fileForDelete}}?</p>
+      </div>
+      <div class="row text-align-center">
+        <button class="btn" {{action "toggleConfirmation"}}>Cancel</button>
+        <button class="btn" {{action "delete" fileForDelete}}>I'm sure</button>
+      </div>
+    </ModalDialog>
   {{/if}}
 
 </div>

@@ -6,6 +6,7 @@ export default Controller.extend({
   session: service(),
   creatingNew: false,
 
+  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
   _sortProperties: ['coordinate_system', 'category'],
   equationTypes: sort('model', '_sortProperties'),
 

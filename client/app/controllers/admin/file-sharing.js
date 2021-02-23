@@ -28,7 +28,7 @@ export default Controller.extend({
       authorization: `Token ${this.session.data.authenticated.token}`,
       Accept: 'application/vnd.api+json'
     };
-    headers['Content-Disposition'] = `attachment; filename=${file.name}`;
+    headers['Content-Disposition'] = `attachment; filename=${this.file.name}`;
     return this.file.upload(`${config.host}/misc_files/upload/`, {
       headers: headers
     });

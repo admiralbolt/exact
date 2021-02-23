@@ -22,6 +22,7 @@ export default Component.extend({
     let froalaViews = this.element.getElementsByClassName('fr-view');
     if (froalaViews.length == 0) return;
 
+    // eslint-disable-next-line no-undef
     renderMathInElement(froalaViews[0]);
   },
 
