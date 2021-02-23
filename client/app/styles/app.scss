@@ -34,6 +34,16 @@ main {
   justify-content: center;
 }
 
+.footer-link {
+  display: inline-block !important;
+  margin-bottom: 2px;
+
+  svg {
+    vertical-align: bottom;
+    margin-bottom: 2px;
+  }
+}
+
 .width-100 {
   width: 100%;
 }
