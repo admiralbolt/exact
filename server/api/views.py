@@ -12,7 +12,7 @@ from django.core.files.storage import default_storage
 from rest_framework import mixins, viewsets
 from rest_framework_expiring_authtoken.authentication import ExpiringTokenAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.renderers import JSONRenderer
 
 from api import models
@@ -35,7 +35,7 @@ class EquationTypeViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
   resource_name = "equation-types"
   queryset = models.EquationType.objects.all()
-  permission_classes = (IsAuthenticated,)
+  permission_classes = (IsAuthenticatedOrReadOnly,)
   serializer_class = serializers.EquationTypeSerializer
 
   def get_queryset(self):
@@ -47,7 +47,7 @@ class GeometryViewSet(viewsets.ModelViewSet):
   """View set for equation types."""
   resource_name = "geometries"
   queryset = models.Geometry.objects.all()
-  permission_classes = (IsAuthenticated,)
+  permission_classes = (IsAuthenticatedOrReadOnly,)
   serializer_class = serializers.GeometrySerializer
 
   def get_queryset(self):
